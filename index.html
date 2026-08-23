@@ -1,0 +1,1567 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shree Mahakal Building Associates | Civil Engineer, Architect & Vastu Specialist</title>
+  <meta name="description" content="Civil Engineer | Architect | Vastu Specialist — Shree Mahakal Building Associates. Premium construction, architectural design, and project management services." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Security: Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;">
+  <!-- Firebase App Check (optional) -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check.js"></script> -->
+  <!-- Preload only first hero frame for LCP -->
+  <link rel="preload" as="image" href="assets/banner.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="plans pics/structured plan.jpg" fetchpriority="high">
+</head>
+<body>
+  <!-- Skip to main content for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <!-- ====== Header / Navigation ====== -->
+  <header class="site-header" id="site-header">
+    <div class="header-container">
+      <!-- LEFT: Logo + Brand -->
+      <div class="header-left">
+        <div class="brand">
+          <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.jpg" alt="Shree Mahakal Building Associates Logo" class="logo-img" />
+          <div class="brand-text">
+            <div class="company-name">Shree Mahakal Building Associates</div>
+            <div class="company-sub">Civil Engineer | Architect | Vastu Specialist</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER: Navigation -->
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="#about" class="nav-link">About Us</a></li>
+          <li class="nav-dropdown">
+            <a href="#specialized-services" class="nav-link">Services</a>
+            <div class="nav-dropdown-menu" role="menu">
+              <a href="#packages" class="dropdown-item" role="menuitem">Construction Plans & Pricing</a>
+              <a href="#specialized-services" class="dropdown-item" role="menuitem">Specialized Design Services</a>
+              <a href="#calculator" class="dropdown-item" role="menuitem">Cost Calculator</a>
+              <a href="#contact" class="dropdown-item" role="menuitem">Request a Quote</a>
+            </div>
+          </li>
+          <li><a href="#packages" class="nav-link">Pricing</a></li>
+          <li><a href="#why-us" class="nav-link">Why Us</a></li>
+          <li><a href="#contact" class="nav-link">Contact Us</a></li>
+        </ul>
+      </nav>
+
+      <!-- RIGHT: Login -->
+      <div class="header-right">
+        <button class="btn glass-btn" id="login-btn" style="background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);">Login</button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-btn glass-btn" id="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+      <div class="mobile-drawer-header">
+        <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.jpg" alt="Shree Mahakal Building Associates Logo" class="mobile-drawer-logo" />
+        <div class="mobile-drawer-brand">
+          <div class="mobile-drawer-title">Shree Mahakal Building Associates</div>
+          <div class="mobile-drawer-sub">Civil Engineer • Architect • Vastu Specialist</div>
+        </div>
+      </div>
+      <div class="mobile-drawer-divider"></div>
+      <nav class="mobile-drawer-nav">
+        <ul class="mobile-nav-list">
+          <li><a href="#about" class="mobile-nav-link">About Us</a></li>
+          <li class="mobile-nav-dropdown">
+            <button class="mobile-nav-link mobile-dropdown-toggle" aria-expanded="false" aria-controls="mobile-services-dropdown">Services</button>
+            <ul class="mobile-dropdown-menu" id="mobile-services-dropdown" role="menu" hidden>
+              <li><a href="#packages" class="mobile-dropdown-item" role="menuitem">Construction Plans & Pricing</a></li>
+              <li><a href="#specialized-services" class="mobile-dropdown-item" role="menuitem">Specialized Design Services</a></li>
+              <li><a href="#calculator" class="mobile-dropdown-item" role="menuitem">Cost Calculator</a></li>
+              <li><a href="#contact" class="mobile-dropdown-item" role="menuitem">Request a Quote</a></li>
+            </ul>
+          </li>
+          <li><a href="#packages" class="mobile-nav-link">Pricing</a></li>
+          <li><a href="#why-us" class="mobile-nav-link">Why Us</a></li>
+          <li><a href="#contact" class="mobile-nav-link">Contact Us</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-drawer-divider"></div>
+      <div class="mobile-drawer-auth">
+        <button class="btn mobile-auth-btn" id="mobile-login-btn" style="background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); width: 100%;">Login</button>
+      </div>
+    </div>
+    <div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
+  </header>
+
+  <main id="main-content">
+    <!-- ====== HERO SECTION - SCROLL-DRIVEN ANIMATION ====== -->
+    <section id="home" class="hero-section">
+      <div id="hero-animation" class="hero-animation-container">
+        <!-- Animation will be injected here by HeroAnimationController -->
+      </div>
+      
+      <div class="hero-content">
+        <div class="hero-badge glass glass-subtle">
+          <span class="badge-pulse"></span>
+          <span>Premium Construction & Architectural Excellence</span>
+        </div>
+        <h1 class="hero-title">Building Dreams, <br><span class="hero-highlight">Crafting Legacies</span></h1>
+        <p class="hero-subtitle">
+          Shree Mahakal Building Associates delivers world-class civil engineering, 
+          bespoke architectural design, and end-to-end project management. 
+          From luxury residences to commercial landmarks — we build with precision, passion, and Vastu wisdom.
+        </p>
+        <div class="hero-actions">
+          <a href="#packages" id="explore-plans-btn" class="btn primary glass-btn btn-lg">
+            Explore Our Plans
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/919399330188?text=Hello%20Shree%20Mahakal%20Associates%2C%20I%20would%20like%20to%20discuss%20a%20project" 
+             class="btn secondary glass-btn btn-lg" target="_blank">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.472.099-.174.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347-.297-.149-1.008-.486-2.389-1.475z"/>
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5.011L2 22l5.011-1.338A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.476 0-2.886-.313-4.156-.878l-3.156.873.873-3.156A7.976 7.976 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/>
+            </svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+
+        <!-- ====== HERO STATS ====== -->
+        <div class="hero-stats glass glass-subtle">
+          <div class="stat-item">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Happy Clients</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Premium Plans</div>
+          </div>
+        </div>
+
+        <!-- ====== FOUNDER/OWNER CARDS - SIDE ANIMATIONS ====== -->
+        <div class="hero-founders">
+          
+          <!-- Left Founder: Chayan Bagde -->
+          <div class="founder-card founder-left glass">
+            <div class="founder-avatar">
+              <img src="assets/chayan.jpg" alt="Chayan Bagde, Founder & Civil Engineer, smiling in professional attire" class="founder-img" loading="lazy" />
+              <div class="founder-ring">< 
+            <div class="founder-info">
+              <div class="founder-role">Founder & Civil Engineer</div>
+              <h3 class="founder-name">Chayan Bagde</h3>
+              <div class="founder-credentials">
+                <span class="cred-badge">B.Tech Civil</span>
+                <span class="cred-badge">AutoCAD Master</span>
+                <span class="cred-badge">BBA Degree</span>
+                <span class="cred-badge">3D Architecture</span>
+              </div>
+              <div class="founder-actions">
+                <a href="tel:9399330188" class="founder-btn glass-btn" aria-label="Call Chayan Bagde">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </a>
+                <a href="https://wa.me/919399330188" target="_blank" class="founder-btn glass-btn" aria-label="WhatsApp Chayan Bagde">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.472.099-.174.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347-.297-.149-1.008-.486-2.389-1.475z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Founder: Krishnakant D. -->
+          <div class="founder-card founder-right glass">
+            <div class="founder-avatar">
+              <img src="assets/krishnakant.jpg" alt="Krishnakant D., Co-Founder & Project Manager, in professional attire" class="founder-img" loading="lazy" />
+              <div class="founder-ring"></div>
+            </div>
+            <div class="founder-info">
+              <div class="founder-role">Co-Founder & Project Manager</div>
+              <h3 class="founder-name">Krishnakant D.</h3>
+              <div class="founder-credentials">
+                <span class="cred-badge">8+ Years Exp</span>
+                <span class="cred-badge">Site Operations</span>
+                <span class="cred-badge">Quality Assurance</span>
+                <span class="cred-badge">Labour Mgmt</span>
+              </div>
+              <div class="founder-actions">
+                <a href="tel:7725037456" class="founder-btn glass-btn" aria-label="Call Krishnakant D.">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </a>
+                <a href="https://wa.me/917725037456" target="_blank" class="founder-btn glass-btn" aria-label="WhatsApp Krishnakant D.">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.472.099-.174.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347-.297-.149-1.008-.486-2.389-1.475z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section about-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">About Us</span>
+          <h2 class="section-title">BUILT ON EXPERIENCE, CRAFTED FOR LIFE</h2>
+          <p class="section-subtitle">One trusted team for thoughtful design, dependable construction, and lasting spaces across Rajnandgaon and beyond.</p>
+        </div>
+
+        <div class="about-content-grid">
+          <div class="about-story glass">
+            <span class="about-kicker">Our Story</span>
+            <h3>From first sketch to final handover</h3>
+            <p>Shree Mahakal Building Associates was created to make construction more transparent, personal, and reliable. We bring civil engineering, architectural design, Vastu planning, and on-site execution together so every decision is coordinated from the beginning.</p>
+            <p>Whether you are building a family home, planning a commercial space, or upgrading an existing property, our team works around your goals, land, budget, and lifestyle. The result is a space that looks considered, performs well, and is built to last.</p>
+            <div class="about-signature">
+              <strong>Chayan Bagde</strong>
+              <span>Founder & Civil Engineer</span>
+            </div>
+          </div>
+
+          <div class="about-points">
+            <article class="about-point glass">
+              <span class="about-point-number">01</span>
+              <div><h3>Engineering First</h3><p>Strong foundations, practical planning, and quality-controlled RCC work designed for long-term performance.</p></div>
+            </article>
+            <article class="about-point glass">
+              <span class="about-point-number">02</span>
+              <div><h3>Design With Purpose</h3><p>Functional floor plans, 3D visualizations, interiors, and elevations shaped around how you live or operate.</p></div>
+            </article>
+            <article class="about-point glass">
+              <span class="about-point-number">03</span>
+              <div><h3>One Accountable Team</h3><p>Clear communication, organized site operations, and coordinated execution from estimate to handover.</p></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="about-stats" aria-label="Company highlights">
+          <div><strong>100+</strong><span>Projects completed</span></div>
+          <div><strong>10+</strong><span>Years of experience</span></div>
+          <div><strong>4</strong><span>Construction plans</span></div>
+          <div><strong>100%</strong><span>Personal attention</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== PACKAGES & PRICING SECTION ====== -->
+    <section id="packages" class="section packages-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">OUR PREMIUM CONSTRUCTION PLANS</h2>
+          <p class="section-subtitle">Click on any plan to view detailed scope of work, material specs, and timelines</p>
+        </div>
+
+        <div class="packages-grid">
+          <!-- Structure Plan -->
+          <article class="plan-card glass">
+            <div class="plan-image-wrapper">
+              <img src="plans pics/structured plan.jpg" alt="Structure Plan" class="plan-img" loading="lazy" />
+              <div class="plan-badge red">Essential</div>
+            </div>
+            <div class="plan-body">
+              <h3 class="plan-title red-text">STRUCTURE PLAN</h3>
+              <div class="price red-text">₹849 <span class="unit">/ sq. ft.</span></div>
+              <ul class="features">
+                <li>Strong Footing & Foundation</li>
+                <li>RCC Frame Structure</li>
+                <li>Brick Masonry & Plastering</li>
+              </ul>
+              <button class="btn quote-btn red-btn view-details-btn" data-plan="structure">View Details & Scope of Work</button>
+            </div>
+          </article>
+
+          <!-- Premium Plan -->
+          <article class="plan-card glass">
+            <div class="plan-image-wrapper">
+              <img src="plans pics/premium plan.jpg" alt="Premium Plan" class="plan-img" loading="lazy" />
+              <div class="plan-badge blue">Popular</div>
+            </div>
+            <div class="plan-body">
+              <h3 class="plan-title blue-text">PREMIUM PLAN</h3>
+              <div class="price blue-text">₹1,399 <span class="unit">/ sq. ft.</span></div>
+              <ul class="features">
+                <li>Complete Structure + Flooring</li>
+                <li>Standard Electrical & Plumbing</li>
+                <li>Modern Exterior Elevation</li>
+              </ul>
+              <button class="btn quote-btn blue-btn view-details-btn" data-plan="premium">View Details & Scope of Work</button>
+            </div>
+          </article>
+
+          <!-- Royal Plan -->
+          <article class="plan-card glass">
+            <div class="plan-image-wrapper">
+              <img src="plans pics/royal plan.png" alt="Royal Plan" class="plan-img" loading="lazy" />
+              <div class="plan-badge gold">Featured</div>
+            </div>
+            <div class="plan-body">
+              <h3 class="plan-title gold-text">ROYAL PLAN</h3>
+              <div class="price gold-text">₹1,500 <span class="unit">/ sq. ft.</span></div>
+              <ul class="features">
+                <li>Premium Vitrified Tiles</li>
+                <li>Branded Sanitary & CP Fittings</li>
+                <li>Vastu-Compliant 3D Layout</li>
+              </ul>
+              <button class="btn quote-btn gold-btn view-details-btn" data-plan="royal">View Details & Scope of Work</button>
+            </div>
+          </article>
+
+          <!-- Luxury Plan -->
+          <article class="plan-card glass">
+            <div class="plan-image-wrapper">
+              <img src="plans pics/luxury  plan.jpg" alt="Luxury Plan" class="plan-img" loading="lazy" />
+              <div class="plan-badge purple">Ultra Premium</div>
+            </div>
+            <div class="plan-body">
+              <h3 class="plan-title purple-text">LUXURY PLAN</h3>
+              <div class="price purple-text">₹1,599 <span class="unit">/ sq. ft.</span></div>
+              <ul class="features">
+                <li>Imported Marble & Tile Options</li>
+                <li>Smart Home Automation Wiring</li>
+                <li>Architectural Lighting Design</li>
+              </ul>
+              <button class="btn quote-btn purple-btn view-details-btn" data-plan="luxury">View Details & Scope of Work</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== PLAN DETAILS MODAL ====== -->
+    <div id="plan-details-modal" class="modal" aria-hidden="true">
+      <div class="modal-panel glass large-modal">
+        <button class="modal-close" id="plan-modal-close">✕</button>
+        <div id="plan-modal-content"></div>
+      </div>
+    </div>
+
+    <!-- ====== SPECIALIZED DESIGN SERVICES ====== -->
+    <section id="specialized-services" class="section services-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Services</span>
+          <h2 class="section-title">COMMERCIAL & SPECIALIZED DESIGN SERVICES</h2>
+          <p class="section-subtitle">Turnkey concepts, architectural planning, and execution for commercial spaces</p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card glass" id="cafe-design" onclick="document.getElementById('cafe-gallery-modal')?.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; console.log('Cafe card clicked via onclick')">
+            <div class="service-icon">☕</div>
+            <h3>Café Design & Planning</h3>
+            <div class="service-preview">
+              <img src="cafe plans/images.jpg" alt="Cafe Design Preview" class="preview-img" loading="lazy" />
+              <div class="preview-overlay">
+                <span>Click to View All Projects →</span>
+              </div>
+            </div>
+            <p>Aesthetic interior themes, optimal seating layout, coffee bar placement, and ambient lighting designed to maximize customer experience and profitability.</p>
+          </div>
+
+          <div class="service-card glass" id="hotel-resort" onclick="document.getElementById('hotel-gallery-modal')?.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; console.log('Hotel card clicked via onclick')">
+            <div class="service-icon">🏨</div>
+            <h3>Hotel & Resort Architecture</h3>
+            <div class="service-preview">
+              <img src="hotel and resort/images.jpg" alt="Hotel Design Preview" class="preview-img" loading="lazy" />
+              <div class="preview-overlay">
+                <span>Click to View All Projects →</span>
+              </div>
+            </div>
+            <p>Comprehensive master planning for hotels, lobby lounges, guest suites, and outdoor dining spaces tailored to modern luxury standards.</p>
+          </div>
+
+          <div class="service-card glass" id="residential-interiors" onclick="document.getElementById('residential-gallery-modal')?.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; console.log('Residential card clicked via onclick')">
+            <div class="service-icon">🏠</div>
+            <h3>Custom Residential Interiors</h3>
+            <div class="service-preview">
+              <img src="kitchen plan/images.jpg" alt="Residential Interior Design Preview" class="preview-img" loading="lazy" />
+              <div class="preview-overlay">
+                <span>Click to View All Projects →</span>
+              </div>
+            </div>
+            <p>Modular kitchens, false ceilings, custom wardrobes, wall paneling, and curated color palettes designed for modern lifestyle needs.</p>
+          </div>
+
+          <div class="service-card glass" id="3d-exterior" onclick="document.getElementById('exterior-gallery-modal')?.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; console.log('Exterior card clicked via onclick')">
+            <div class="service-icon">🏛️</div>
+            <h3>3D Exterior Elevation</h3>
+            <div class="service-preview">
+              <img src="3d designs/images (1).jpg" alt="3D Exterior Design Preview" class="preview-img" loading="lazy" />
+              <div class="preview-overlay">
+                <span>Click to View All Projects →</span>
+              </div>
+            </div>
+            <p>Ultra-modern glass facade, natural stone, composite paneling, and exterior lighting concepts crafted with AutoCAD and 3D rendering.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== COOL FEATURE: INTERACTIVE 3D PLAN PREVIEWER ====== -->
+    <section class="section previewer-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">✨ INTERACTIVE DESIGN PREVIEWER</h2>
+          <p class="section-subtitle">Explore how our civil engineers structure your space before starting construction</p>
+        </div>
+
+        <div class="previewer-box glass">
+          <div class="previewer-tabs">
+            <button class="tab-btn active" data-tab="floor">2D Floor Planning</button>
+            <button class="tab-btn" data-tab="elevation">3D Elevation Render</button>
+            <button class="tab-btn" data-tab="vastu">Vastu Directional Check</button>
+          </div>
+
+          <div class="tab-content active" id="tab-floor">
+            <h4>Precision AutoCAD Layouts</h4>
+            <p>Every inch counts. Our B.Tech qualified civil team optimizes room sizes, ventilation shafts, and natural sunlight flow.</p>
+            <img src="plans pics/2d house plan.webp" alt="Floorplan concept" class="preview-img clickable-preview" loading="lazy" />
+          </div>
+
+          <div class="tab-content" id="tab-elevation">
+            <h4>Photorealistic 3D Renders</h4>
+            <p>Visualize exterior finishes, color themes, and LED boundary lighting prior to brickwork completion.</p>
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+              <img src="3d designs/images (1).jpg" alt="3D Exterior Elevation" style="width: 100%; height: auto; max-height: 500px; object-fit: contain; border-radius: var(--radius-lg); cursor: pointer;" loading="lazy" onclick="openExteriorGallery(0)" />
+              <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">Click to explore all 3D exterior renders →</p>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-vastu">
+            <h4>Scientific Vastu Compliance</h4>
+            <p>We ensure master bedrooms, entrance doors, and kitchens match Vastu orientations for balanced energy.</p>
+            <img src="plans pics/vastu plan.jpg" alt="Vastu Plan" class="preview-img clickable-preview" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== CONSTRUCTION COST CALCULATOR ====== -->
+    <section id="calculator" class="section calculator-section">
+      <div class="container small">
+        <div class="section-header">
+          <h2 class="section-title">Interactive Cost Calculator</h2>
+          <p class="section-subtitle">Estimate your home construction cost instantly</p>
+        </div>
+        
+        <div class="calculator glass">
+          <label>Built-up Area (sq. ft.)
+            <input type="number" id="calc-area" min="100" value="1200" />
+          </label>
+
+          <label>Construction Package
+            <select id="calc-plan">
+              <option value="849">STRUCTURE PLAN — ₹849 / sq. ft.</option>
+              <option value="1399">PREMIUM PLAN — ₹1,399 / sq. ft.</option>
+              <option value="1500">ROYAL PLAN — ₹1,500 / sq. ft.</option>
+              <option value="1599">LUXURY PLAN — ₹1,599 / sq. ft.</option>
+            </select>
+          </label>
+
+          <label class="checkbox-label">
+            <input type="checkbox" id="calc-discount" checked /> Apply 2.5% Discount
+          </label>
+
+          <div class="calc-breakdown glass-subtle">
+            <div class="calc-row">
+              <span class="calc-label">Base Cost (<span id="calc-rate-display">₹0</span> × <span id="calc-area-display">0</span> sq. ft.)</span>
+              <span id="calc-base-cost" class="calc-value">₹0</span>
+            </div>
+            <div class="calc-row">
+              <span class="calc-label">Discount (2.5%)</span>
+              <span id="calc-discount-amount" class="calc-value calc-discount">₹0</span>
+            </div>
+            <div class="calc-row calc-total" style="font-size: 1.25rem; font-weight: 700; border-top: 2px solid var(--color-primary); padding-top: 0.75rem; margin-top: 0.5rem;">
+              <span class="calc-label">Total Cost</span>
+              <span id="calc-output" class="calc-value calc-total-value" style="color: var(--color-primary); font-size: 1.5rem;">₹0</span>
+            </div>
+          </div>
+
+          <div class="calc-actions">
+            <a class="btn primary" href="https://wa.me/919399330188?text=Hello%20Shree%20Mahakal%20Associates,%20I%20calculated%20a%20quote%20on%20your%20website" target="_blank">Book Free Site Visit</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="why-us" class="section why-us-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Why Us</span>
+          <h2 class="section-title">PRECISION AT EVERY STAGE</h2>
+          <p class="section-subtitle">Clear planning, quality materials, Vastu-aware design, and experienced project management from foundation to finishing.</p>
+        </div>
+
+        <div class="why-us-grid">
+          <article class="why-us-card glass"><span>01</span><h3>Transparent Estimates</h3><p>Receive a clear plan-wise estimate with material specifications, scope of work, and expected timelines before work begins.</p></article>
+          <article class="why-us-card glass"><span>02</span><h3>Quality Materials</h3><p>We recommend dependable brands and maintain construction standards across steel, cement, wiring, plumbing, tiles, and finishes.</p></article>
+          <article class="why-us-card glass"><span>03</span><h3>Vastu-Aware Planning</h3><p>Floor plans and room positions can be aligned with Vastu principles while keeping comfort, ventilation, and daily use practical.</p></article>
+          <article class="why-us-card glass"><span>04</span><h3>Experienced Supervision</h3><p>Our project team coordinates labour, site operations, quality checks, and progress so decisions do not get lost between teams.</p></article>
+          <article class="why-us-card glass"><span>05</span><h3>Design Before Build</h3><p>Explore layouts, elevations, interiors, and material directions early with 2D planning and 3D visualization support.</p></article>
+          <article class="why-us-card glass"><span>06</span><h3>Support After Handover</h3><p>We stay available for handover guidance, finishing questions, and practical support as you begin using your new space.</p></article>
+        </div>
+
+        <div class="why-us-process">
+          <div><strong>01</strong><span>Discuss your goals</span></div>
+          <div><strong>02</strong><span>Plan and estimate</span></div>
+          <div><strong>03</strong><span>Build with supervision</span></div>
+          <div><strong>04</strong><span>Inspect and hand over</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== IMAGE POPUP MODAL ====== -->
+    <div id="image-modal" class="modal" aria-hidden="true">
+      <div class="modal-panel image-modal">
+        <button class="modal-close" id="image-modal-close">✕</button>
+        <img id="modal-image" src="" alt="Preview" />
+      </div>
+    </div>
+
+    <!-- ====== FOOTER & CONTACT ====== -->
+    <footer id="contact" class="site-footer section">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.jpg" alt="Shree Mahakal Logo" class="footer-logo" loading="lazy" />
+          <p>Shree Mahakal Building Associates provides high-end civil engineering, custom 3D architectural layout, café & hotel design, and vastu consulting.</p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Direct Contact</h3>
+          <p><strong>Chayan Bagde:</strong> <a href="tel:9399330188">9399330188</a></p>
+          <p><strong>Krishnakant D.:</strong> <a href="tel:7725037456">7725037456</a></p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Our Offices</h3>
+          <p>📍 Nandai Chowk, Rajnandgaon</p>
+          <p>📍 Pendri Chowk, Rajnandgaon</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © <span id="year"></span> Shree Mahakal Building Associates — All rights reserved.
+      </div>
+    </footer>
+  </main>
+
+  <!-- ====== LOGIN MODAL ====== -->
+  <div id="login-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel glass large-modal">
+      <button class="modal-close" id="login-modal-close">✕</button>
+      <div class="login-tabs">
+        <button class="login-tab active" data-tab="user-login">User Login</button>
+        <button class="login-tab" data-tab="admin-login">Admin Login</button>
+      </div>
+      
+      <!-- User Login Form -->
+      <div class="login-tab-content active" id="user-login">
+        <h3 style="margin-bottom: 1.5rem; text-align: center; color: var(--accent-gold);">Login to Continue</h3>
+        <form id="user-login-form">
+          <div class="form-group">
+            <label for="user-email">Email Address</label>
+            <input type="email" id="user-email" name="email" required placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="user-password">Password</label>
+            <input type="password" id="user-password" name="password" required placeholder="Enter password" />
+          </div>
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="remember-me" name="remember" />
+            <label for="remember-me">Remember me</label>
+          </div>
+          <button type="submit" class="btn primary" style="width: 100%; margin-top: 1rem;">Login</button>
+        </form>
+        <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+          Don't have an account? <a href="#" id="show-signup" style="color: var(--accent-gold);">Sign up</a>
+        </p>
+      </div>
+
+      <!-- Admin Login Form -->
+      <div class="login-tab-content" id="admin-login">
+        <h3 style="margin-bottom: 1.5rem; text-align: center; color: var(--accent-gold);">Admin Login</h3>
+        <form id="admin-login-form">
+          <div class="form-group">
+            <label for="admin-email">Admin Email</label>
+            <input type="email" id="admin-email" name="email" required placeholder="admin@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="admin-password">Password</label>
+            <input type="password" id="admin-password" name="password" required placeholder="Enter admin password" />
+          </div>
+          <button type="submit" class="btn primary" style="width: 100%; margin-top: 1rem;">Access Admin Panel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== USER REQUIREMENTS FORM MODAL ====== -->
+  <div id="requirements-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel glass large-modal" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
+      <button class="modal-close" id="requirements-modal-close">✕</button>
+      <h3 style="margin-bottom: 1.5rem; text-align: center; color: var(--accent-gold);">Your Project Requirements</h3>
+      <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">Fill in your design, pricing, and service preferences</p>
+      
+      <form id="requirements-form">
+        <!-- Section 1: Personal Details -->
+        <fieldset class="form-section">
+          <legend>👤 Personal Details</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="full-name">Full Name *</label>
+              <input type="text" id="full-name" name="fullName" required placeholder="Your full name" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required placeholder="your@email.com" />
+            </div>
+            <div class="form-group">
+              <label for="location">Project Location *</label>
+              <input type="text" id="location" name="location" required placeholder="City, Area, Landmark" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 2: Project Type & Plan Selection -->
+        <fieldset class="form-section">
+          <legend>🏗️ Project Type & Construction Plan</legend>
+          <div class="form-group">
+            <label>Project Type *</label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="projectType" value="residential" required /> Residential Home</label>
+              <label class="radio-label"><input type="radio" name="projectType" value="commercial" /> Commercial Building</label>
+              <label class="radio-label"><input type="radio" name="projectType" value="renovation" /> Renovation/Extension</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="plan-choice">Preferred Construction Plan *</label>
+              <select id="plan-choice" name="planChoice" required>
+                <option value="">Select a plan</option>
+                <option value="structure">Structure Plan — ₹849/sq.ft (Essential Foundation & RCC)</option>
+                <option value="premium">Premium Plan — ₹1,399/sq.ft (Complete Move-In Home)</option>
+                <option value="royal">Royal Plan — ₹1,500/sq.ft (Luxury Architecture & Vastu)</option>
+                <option value="luxury">Luxury Plan — ₹1,599/sq.ft (Smart Mansion & Ultra Finish)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="plot-size">Plot Size (sq. ft.) *</label>
+              <input type="number" id="plot-size" name="plotSize" min="500" required placeholder="e.g., 1200" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="floors">Number of Floors</label>
+            <select id="floors" name="floors">
+              <option value="1">Ground Floor Only</option>
+              <option value="2" selected>G+1 (Ground + 1 Floor)</option>
+              <option value="3">G+2</option>
+              <option value="4">G+3</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <!-- Section 3: Design Preferences -->
+        <fieldset class="form-section">
+          <legend>🎨 Design & Architecture Preferences</legend>
+          <div class="form-group">
+            <label>Architectural Style</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label"><input type="checkbox" name="style" value="modern" /> Modern Contemporary</label>
+              <label class="checkbox-label"><input type="checkbox" name="style" value="traditional" /> Traditional Indian</label>
+              <label class="checkbox-label"><input type="checkbox" name="style" value="minimalist" /> Minimalist</label>
+              <label class="checkbox-label"><input type="checkbox" name="style" value="luxury" /> Luxury/Ultra-Modern</label>
+              <label class="checkbox-label"><input type="checkbox" name="style" value="fusion" /> Fusion (Modern + Traditional)</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Vastu Compliance</label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="vastu" value="strict" /> Strict Vastu Compliance</label>
+              <label class="radio-label"><input type="radio" name="vastu" value="basic" /> Basic Vastu Principles</label>
+              <label class="radio-label"><input type="radio" name="vastu" value="none" checked /> Not Required</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="special-requirements">Special Design Requirements</label>
+            <textarea id="special-requirements" name="specialRequirements" rows="3" placeholder="Any specific design elements, room requirements, or preferences..."></textarea>
+          </div>
+        </fieldset>
+
+        <!-- Section 4: Services Selection -->
+        <fieldset class="form-section">
+          <legend>🛠️ Additional Services Required</legend>
+          <div class="checkbox-group grid">
+            <label class="checkbox-label"><input type="checkbox" name="services" value="interior" /> Interior Design</label>
+            <label class="checkbox-label"><input type="checkbox" name="services" value="modular-kitchen" /> Modular Kitchen</label>
+            <label class="checkbox-label"><input type="checkbox" name="services" value="false-ceiling" /> False Ceiling</label>
+            <label class="checkbox-label"><input type="checkbox" name="services" value="wardrobes" /> Custom Wardrobes</label>
+            <label class="checkbox-label"><input type="checkbox" name="services" value="wall-paneling" /> Wall Paneling</label>
+            <label class="checkbox-label"><input type="checkbox" name="services" value="landscape" /> Landscape Design</label>
+            <label class="checkbox-label"><input type="checkbox" name="services" value="smart-home" /> Smart Home Automation</label>
+            <label class="checkbox-label"><input type="checkbox" name="services" value="solar" /> Solar Panel Installation</label>
+            <label class="checkbox-label"><input type="checkbox" name="services" value="security" /> Security System (CCTV/Access)</label>
+            <label class="checkbox-label"><input type="checkbox" name="services" value="elevation" /> 3D Exterior Elevation</label>
+            <label class="checkbox-label"><input type="checkbox" name="services" value="vaastu-consult" /> Vastu Consultation</label>
+          </div>
+        </fieldset>
+
+        <!-- Section 5: Material Preferences -->
+        <fieldset class="form-section">
+          <legend>🏗️ Material & Finish Preferences</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="flooring">Flooring Preference</label>
+              <select id="flooring" name="flooring">
+                <option value="">No Preference</option>
+                <option value="vitrified">Vitrified Tiles (2x2 / 2x4)</option>
+                <option value="marble">Italian/Imported Marble</option>
+                <option value="wooden">Engineered Wooden</option>
+                <option value="stone">Natural Stone</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="kitchen-countertop">Kitchen Countertop</label>
+              <select id="kitchen-countertop" name="kitchenCountertop">
+                <option value="">No Preference</option>
+                <option value="granite">Granite</option>
+                <option value="quartz">Quartz/Nano White</option>
+                <option value="marble">Marble</option>
+                <option value="solid-surface">Solid Surface</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bathroom-tiles">Bathroom Tiles</label>
+              <select id="bathroom-tiles" name="bathroomTiles">
+                <option value="">No Preference</option>
+                <option value="ceramic">Ceramic (Standard)</option>
+                <option value="vitrified">Vitrified/Porcelain</option>
+                <option value="designer">Designer/Mosaic</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="windows">Windows & Doors</label>
+              <select id="windows" name="windows">
+                <option value="">No Preference</option>
+                <option value="upvc">UPVC</option>
+                <option value="aluminum">Aluminum (Anodized)</option>
+                <option value="wooden">Teak/Wooden</option>
+                <option value="steel">Steel</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 6: Budget & Timeline -->
+        <fieldset class="form-section">
+          <legend>💰 Budget & Timeline</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="budget-range">Estimated Budget Range</label>
+              <select id="budget-range" name="budgetRange">
+                <option value="">Not Decided</option>
+                <option value="25-40">₹25-40 Lakhs</option>
+                <option value="40-60">₹40-60 Lakhs</option>
+                <option value="60-80">₹60-80 Lakhs</option>
+                <option value="80-100">₹80-100 Lakhs</option>
+                <option value="100+">₹1 Crore+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="timeline">Preferred Start Timeline</label>
+              <select id="timeline" name="timeline">
+                <option value="">Flexible</option>
+                <option value="immediate">Immediate (Within 1 Month)</option>
+                <option value="3-months">Within 3 Months</option>
+                <option value="6-months">Within 6 Months</option>
+                <option value="year">Within a Year</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 7: Reference Images/Files -->
+        <fieldset class="form-section">
+          <legend>📎 Reference Images / Inspiration (Optional)</legend>
+          <div class="form-group">
+            <label for="reference-files">Upload Reference Images</label>
+            <input type="file" id="reference-files" name="referenceFiles" accept="image/*" multiple />
+            <small style="color: var(--text-muted);">Max 5 files, 5MB each. JPG, PNG, WebP supported.</small>
+          </div>
+        </fieldset>
+
+        <!-- Submit Button -->
+        <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+          <button type="submit" class="btn primary" style="flex: 1; min-width: 200px;">Submit Requirements</button>
+          <button type="button" class="btn secondary" id="save-draft-btn" style="flex: 1; min-width: 200px;">Save as Draft</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====== USER INQUIRY FORM MODAL (for Discuss on WhatsApp) ====== -->
+  <div id="inquiry-form-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel glass large-modal" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
+      <button class="modal-close" id="inquiry-form-modal-close">✕</button>
+      <h3 style="margin-bottom: 1.5rem; text-align: center; color: var(--accent-gold);">Get Your Free Quote</h3>
+      <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">Fill in your project details and we'll send you a personalized quote</p>
+      
+      <form id="inquiry-form">
+        <input type="hidden" id="inquiry-plan" name="plan" value="" />
+        
+        <!-- Section 1: Personal Details -->
+        <fieldset class="form-section">
+          <legend>👤 Personal Details</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inquiry-full-name">Full Name *</label>
+              <input type="text" id="inquiry-full-name" name="fullName" required placeholder="Your full name" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="inquiry-phone">Phone Number *</label>
+              <input type="tel" id="inquiry-phone" name="phone" required placeholder="+91 98765 43210" class="form-input" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inquiry-email">Email *</label>
+              <input type="email" id="inquiry-email" name="email" required placeholder="your@email.com" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="inquiry-location">Project Location *</label>
+              <input type="text" id="inquiry-location" name="location" required placeholder="City, Area, Landmark" class="form-input" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inquiry-address">Full Site Address *</label>
+            <textarea id="inquiry-address" name="address" required rows="2" placeholder="House/plot number, street, area, city" class="form-textarea"></textarea>
+          </div>
+        </fieldset>
+
+        <!-- Section 2: Project Details -->
+        <fieldset class="form-section">
+          <legend>🏗️ Project Details</legend>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inquiry-project-type">Project Type *</label>
+              <select id="inquiry-project-type" name="projectType" required class="form-select">
+                <option value="">Select type</option>
+                <option value="residential">Residential Home</option>
+                <option value="commercial">Commercial Building</option>
+                <option value="renovation">Renovation/Extension</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="inquiry-floors">Number of Floors</label>
+              <select id="inquiry-floors" name="floors" class="form-select">
+                <option value="1">Ground Floor Only</option>
+                <option value="2" selected>G+1 (Ground + 1 Floor)</option>
+                <option value="3">G+2</option>
+                <option value="4">G+3</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inquiry-plot-size">Land Size (sq. ft.) *</label>
+              <input type="number" id="inquiry-plot-size" name="plotSize" min="500" required placeholder="e.g., 1200" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label for="inquiry-budget">Estimated Budget *</label>
+              <select id="inquiry-budget" name="budgetRange" required class="form-select">
+                <option value="">Select budget</option>
+                <option value="5-10">₹5-10 Lakhs</option>
+                <option value="10-15">₹10-15 Lakhs</option>
+                <option value="15-20">₹15-20 Lakhs</option>
+                <option value="20-25">₹20-25 Lakhs</option>
+                <option value="25-30">₹25-30 Lakhs</option>
+                <option value="30-40">₹30-40 Lakhs</option>
+                <option value="40-50">₹40-50 Lakhs</option>
+                <option value="50-60">₹50-60 Lakhs</option>
+                <option value="60-80">₹60-80 Lakhs</option>
+                <option value="80-100">₹80-100 Lakhs</option>
+                <option value="100-150">₹1-1.5 Crore</option>
+                <option value="150+">₹1.5 Crore+</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 3: Additional Details -->
+        <fieldset class="form-section">
+          <legend>📝 Additional Details</legend>
+          <div class="form-group">
+            <label for="inquiry-special">Special Requirements / Notes</label>
+            <textarea id="inquiry-special" name="specialRequirements" rows="3" placeholder="Any specific requirements, design preferences, or notes..." class="form-textarea"></textarea>
+          </div>
+        </fieldset>
+
+        <!-- Submit Button -->
+        <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+          <button type="submit" class="btn primary glass-btn" style="flex: 1; min-width: 200px; padding: 1rem 2rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z"/></svg>
+            Submit & Send to WhatsApp
+          </button>
+          <button type="button" class="btn secondary glass-btn" id="inquiry-form-cancel" style="flex: 1; min-width: 200px; padding: 1rem 2rem;">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====== ADMIN PANEL MODAL ====== -->
+  <div id="admin-panel-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel glass large-modal" style="max-width: 1100px; max-height: 90vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <h3 style="color: var(--accent-gold);">Admin Dashboard</h3>
+        <button class="btn secondary" id="admin-panel-close">Close</button>
+      </div>
+      
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="bookings">📋 All Bookings</button>
+        <button class="admin-tab" data-tab="inquiries">📋 Inquiries & Requirements</button>
+        <button class="admin-tab" data-tab="plans">📐 Plan Selections</button>
+        <button class="admin-tab" data-tab="users">👥 Users</button>
+      </div>
+
+      <!-- Inquiries Tab -->
+      <div class="admin-tab-content active" id="bookings">
+        <div style="margin-bottom: 1rem;">
+          <input type="text" id="booking-search" placeholder="Search bookings..." style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-glass); background: var(--bg-card); color: var(--text-main); width: 100%; max-width: 300px;" />
+        </div>
+        <div class="table-container" style="overflow-x: auto;">
+          <table id="bookings-table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="background: var(--bg-card); border-bottom: 2px solid var(--border-glass);">
+                <th style="padding: 1rem; text-align: left;">Date</th>
+                <th style="padding: 1rem; text-align: left;">User</th>
+                <th style="padding: 1rem; text-align: left;">Plan</th>
+                <th style="padding: 1rem; text-align: left;">Location</th>
+                <th style="padding: 1rem; text-align: left;">Plot Size</th>
+                <th style="padding: 1rem; text-align: left;">Budget</th>
+                <th style="padding: 1rem; text-align: left;">Status</th>
+                <th style="padding: 1rem; text-align: left;">Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div id="bookings-pagination" style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;"></div>
+      </div>
+
+      <!-- Inquiries Tab -->
+        <div style="margin-bottom: 1rem;">
+          <input type="text" id="inquiry-search" placeholder="Search inquiries..." style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-glass); background: var(--bg-card); color: var(--text-main); width: 100%; max-width: 300px;" />
+        </div>
+        <div class="table-container" style="overflow-x: auto;">
+          <table id="inquiries-table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="background: var(--bg-card); border-bottom: 2px solid var(--border-glass);">
+                <th style="padding: 1rem; text-align: left;">Date</th>
+                <th style="padding: 1rem; text-align: left;">Name</th>
+                <th style="padding: 1rem; text-align: left;">Contact</th>
+                <th style="padding: 1rem; text-align: left;">Project Type</th>
+                <th style="padding: 1rem; text-align: left;">Plan</th>
+                <th style="padding: 1rem; text-align: left;">Budget</th>
+                <th style="padding: 1rem; text-align: left;">Status</th>
+                <th style="padding: 1rem; text-align: left;">Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div id="inquiry-pagination" style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;"></div>
+      </div>
+
+      <!-- Plan Selections Tab -->
+      <div class="admin-tab-content" id="plans">
+        <div style="margin-bottom: 1rem;">
+          <select id="plan-filter" style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-glass); background: var(--bg-card); color: var(--text-main);">
+            <option value="">All Plans</option>
+            <option value="structure">Structure Plan</option>
+            <option value="premium">Premium Plan</option>
+            <option value="royal">Royal Plan</option>
+            <option value="luxury">Luxury Plan</option>
+          </select>
+        </div>
+        <div class="table-container" style="overflow-x: auto;">
+          <table id="plans-table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="background: var(--bg-card); border-bottom: 2px solid var(--border-glass);">
+                <th style="padding: 1rem; text-align: left;">Date</th>
+                <th style="padding: 1rem; text-align: left;">User</th>
+                <th style="padding: 1rem; text-align: left;">Plan</th>
+                <th style="padding: 1rem; text-align: left;">Plot Size</th>
+                <th style="padding: 1rem; text-align: left;">Est. Cost</th>
+                <th style="padding: 1rem; text-align: left;">Status</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Users Tab -->
+      <div class="admin-tab-content" id="users">
+        <div class="table-container" style="overflow-x: auto;">
+          <table id="users-table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="background: var(--bg-card); border-bottom: 2px solid var(--border-glass);">
+                <th style="padding: 1rem; text-align: left;">Name</th>
+                <th style="padding: 1rem; text-align: left;">Email</th>
+                <th style="padding: 1rem; text-align: left;">Phone</th>
+                <th style="padding: 1rem; text-align: left;">Registered</th>
+                <th style="padding: 1rem; text-align: left;">Inquiries</th>
+                <th style="padding: 1rem; text-align: left;">Status</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== CAFE DESIGN GALLERY MODAL ====== -->
+  <div id="cafe-gallery-modal" class="modal modal-fullscreen" aria-hidden="true" onclick="if(event.target===this){this.setAttribute('aria-hidden','true');document.body.style.overflow=''}">
+    <div class="modal-backdrop" style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); z-index: 1;"></div>
+    <div class="modal-panel glass modal-panel-full" style="max-width: 100%; max-height: 100vh; border-radius: 0; padding: 0; overflow: hidden; position: relative; z-index: 2;">
+      <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2rem; background: rgba(10, 15, 20, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-glass); position: sticky; top: 0; z-index: 10;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="modal-close" id="cafe-gallery-close" onclick="document.getElementById('cafe-gallery-modal').setAttribute('aria-hidden','true');document.body.style.overflow=''" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); border-radius: var(--radius-full); color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: all var(--transition-fast);">✕</button>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">Café Design & Planning</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" id="cafe-gallery-counter">1 / 6 Projects</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-content" style="padding: 2rem; max-height: calc(100vh - 80px); overflow-y: auto; display: flex; flex-direction: column; align-items: center;">
+        <!-- Carousel Container -->
+        <div class="carousel-container" style="position: relative; width: 100%; max-width: 900px; margin: 0 auto;">
+          <div class="carousel-wrapper" style="overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-glass); position: relative; touch-action: pan-y;">
+            <button class="carousel-btn prev" id="cafe-carousel-prev" onclick="const t=document.getElementById('cafe-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
+            <div class="carousel-track" id="cafe-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(5,Math.round(p*5)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="cafe plans/360_F_1522187751_Mc0GzTPkSlHuzqa0BFGgYOeft7KJVYCD.jpg" alt="Modern Cafe Interior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern Cafe Interior</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="cafe plans/Cafe-Floor-Plans.jpg" alt="Cafe Floor Plans" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Floor Plans</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="cafe plans/images.jpg" alt="Cafe Design Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Design Concept</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="cafe plans/images (1).jpg" alt="Interior Layout Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Interior Layout Design</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="cafe plans/images (2).jpg" alt="Cafe Bar & Counter Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Bar & Counter Design</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="cafe plans/images" alt="Cafe Seating Area" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Seating Area</p>
+              </div>
+            </div>
+            <button class="carousel-btn next" id="cafe-carousel-next" onclick="const t=document.getElementById('cafe-carousel-track'); if(t){const s=Math.min(5,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
+          </div>
+        </div>
+        
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators" id="cafe-carousel-indicators" style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+          <button class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-gold); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+        </div>
+        
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); text-align: center; width: 100%; max-width: 900px;">
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Ready to design your dream cafe?</p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="btn glass-btn" style="padding: 1rem 2rem; background: linear-gradient(135deg, #ffeb3b, #fdd835); color: #000; box-shadow: 0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3); border: none; font-weight: 700; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);" onmouseover="this.style.boxShadow='0 6px 30px rgba(255, 235, 59, 0.7), 0 0 40px rgba(255, 235, 59, 0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3)'; this.style.transform='translateY(0)'" onclick="openInquiryFormModal('cafe')">Discuss on WhatsApp</button>
+            <a href="tel:+919399330188" class="btn secondary glass-btn" style="padding: 1rem 2rem;">Call Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== RESIDENTIAL INTERIORS GALLERY MODAL ====== -->
+  <div id="residential-gallery-modal" class="modal modal-fullscreen" aria-hidden="true" onclick="if(event.target===this){this.setAttribute('aria-hidden','true');document.body.style.overflow=''}">
+    <div class="modal-backdrop" style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); z-index: 1;"></div>
+    <div class="modal-panel glass modal-panel-full" style="max-width: 100%; max-height: 100vh; border-radius: 0; padding: 0; overflow: hidden; position: relative; z-index: 2;">
+      <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2rem; background: rgba(10, 15, 20, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-glass); position: sticky; top: 0; z-index: 10;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="modal-close" id="residential-gallery-close" onclick="document.getElementById('residential-gallery-modal').setAttribute('aria-hidden','true');document.body.style.overflow=''" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); border-radius: var(--radius-full); color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: all var(--transition-fast);">✕</button>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">Custom Residential Interiors</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" id="residential-gallery-counter">1 / 7 Projects</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-content" style="padding: 2rem; max-height: calc(100vh - 80px); overflow-y: auto; display: flex; flex-direction: column; align-items: center;">
+        <!-- Carousel Container -->
+        <div class="carousel-container" style="position: relative; width: 100%; max-width: 900px; margin: 0 auto;">
+          <div class="carousel-wrapper" style="overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-glass); position: relative; touch-action: pan-y;">
+            <button class="carousel-btn prev" id="residential-carousel-prev" onclick="const t=document.getElementById('residential-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#residential-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
+            <div class="carousel-track" id="residential-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(6,Math.round(p*6)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#residential-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="kitchen plan/images.jpg" alt="Modern Kitchen Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern Kitchen Design</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="kitchen plan/images (1).jpg" alt="Home Interior Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Home Interior Design</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="kitchen plan/G-Shape-Modular-Kitchen-Design.jpg" alt="G-Shape Modular Kitchen" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">G-Shape Modular Kitchen</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="kitchen plan/home-design.jpg" alt="Home Design Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Home Design Concept</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="kitchen plan/IMG_1779-1.jpg" alt="Interior Detail" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Interior Detail</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="kitchen plan/168-1777533654-ph241.avif" alt="Kitchen Layout" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Kitchen Layout</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="kitchen plan/17-1782107421-q1iCf.avif" alt="Residential Interior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Residential Interior</p>
+              </div>
+            </div>
+            <button class="carousel-btn next" id="residential-carousel-next" onclick="const t=document.getElementById('residential-carousel-track'); if(t){const s=Math.min(6,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#residential-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
+          </div>
+        </div>
+        
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators" id="residential-carousel-indicators" style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+          <button class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-gold); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="6" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+        </div>
+        
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); text-align: center; width: 100%; max-width: 900px;">
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Ready to design your dream home interior?</p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="btn glass-btn" style="padding: 1rem 2rem; background: linear-gradient(135deg, #ffeb3b, #fdd835); color: #000; box-shadow: 0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3); border: none; font-weight: 700; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);" onmouseover="this.style.boxShadow='0 6px 30px rgba(255, 235, 59, 0.7), 0 0 40px rgba(255, 235, 59, 0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3)'; this.style.transform='translateY(0)'" onclick="openInquiryFormModal('residential')">Discuss on WhatsApp</button>
+            <a href="tel:+919399330188" class="btn secondary glass-btn" style="padding: 1rem 2rem;">Call Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== HOTEL & RESORT GALLERY MODAL ====== -->
+  <div id="hotel-gallery-modal" class="modal modal-fullscreen" aria-hidden="true" onclick="if(event.target===this){this.setAttribute('aria-hidden','true');document.body.style.overflow=''}">
+    <div class="modal-backdrop" style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); z-index: 1;"></div>
+    <div class="modal-panel glass modal-panel-full" style="max-width: 100%; max-height: 100vh; border-radius: 0; padding: 0; overflow: hidden; position: relative; z-index: 2;">
+      <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2rem; background: rgba(10, 15, 20, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-glass); position: sticky; top: 0; z-index: 10;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="modal-close" id="hotel-gallery-close" onclick="document.getElementById('hotel-gallery-modal').setAttribute('aria-hidden','true');document.body.style.overflow=''" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); border-radius: var(--radius-full); color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: all var(--transition-fast);">✕</button>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">Hotel & Resort Architecture</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" id="hotel-gallery-counter">1 / 11 Projects</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-content" style="padding: 2rem; max-height: calc(100vh - 80px); overflow-y: auto; display: flex; flex-direction: column; align-items: center;">
+        <!-- Carousel Container -->
+        <div class="carousel-container" style="position: relative; width: 100%; max-width: 900px; margin: 0 auto;">
+          <div class="carousel-wrapper" style="overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-glass); position: relative; touch-action: pan-y;">
+            <button class="carousel-btn prev" id="hotel-carousel-prev" onclick="const t=document.getElementById('hotel-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
+            <div class="carousel-track" id="hotel-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(10,Math.round(p*10)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="hotel and resort/images.jpg" alt="Hotel Exterior Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Exterior Design</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="hotel and resort/images (1).jpg" alt="Lobby & Reception" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Lobby & Reception</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="hotel and resort/images (1)" alt="Resort Landscape" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Resort Landscape</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="hotel and resort/sunyata-eco-hotel-design-kacheri_4.jpg" alt="Eco Resort Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Eco Resort Design</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/images (1).jpg" alt="Modern House Exterior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern House Exterior</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/images.jpg" alt="Elevation Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Elevation Design</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/nadira-madhusanka-model-02-3d.jpg" alt="3D House Model" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">3D House Model</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/1a00d422c69710566b48f4ba268e7f12.jpg" alt="Architectural Visualization" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Architectural Visualization</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/mceclip22_1660084136.png" alt="Exterior Rendering" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Exterior Rendering</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/what-is-floor-plan-image-thumb-1172x660.avif" alt="Floor Plan Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Floor Plan Concept</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/3DmodelofhouseplanisavailableinthisAutocaddrawingfileDownloadnowSatOct2020055716.png" alt="AutoCAD House Plan" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">AutoCAD House Plan</p>
+              </div>
+            </div>
+            <button class="carousel-btn next" id="hotel-carousel-next" onclick="const t=document.getElementById('hotel-carousel-track'); if(t){const s=Math.min(10,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
+          </div>
+        </div>
+        
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators" id="hotel-carousel-indicators" style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+          <button class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-gold); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="6" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="7" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="8" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="9" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="10" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+        </div>
+        
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); text-align: center; width: 100%; max-width: 900px;">
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Ready to design your dream hotel or resort?</p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="btn glass-btn" style="padding: 1rem 2rem; background: linear-gradient(135deg, #ffeb3b, #fdd835); color: #000; box-shadow: 0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3); border: none; font-weight: 700; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);" onmouseover="this.style.boxShadow='0 6px 30px rgba(255, 235, 59, 0.7), 0 0 40px rgba(255, 235, 59, 0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3)'; this.style.transform='translateY(0)'" onclick="openInquiryFormModal('hotel')">Discuss on WhatsApp</button>
+            <a href="tel:+919399330188" class="btn secondary glass-btn" style="padding: 1rem 2rem;">Call Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 3D EXTERIOR ELEVATION GALLERY MODAL ====== -->
+  <div id="exterior-gallery-modal" class="modal modal-fullscreen" aria-hidden="true" onclick="if(event.target===this){this.setAttribute('aria-hidden','true');document.body.style.overflow=''}">
+    <div class="modal-backdrop" style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); z-index: 1;"></div>
+    <div class="modal-panel glass modal-panel-full" style="max-width: 100%; max-height: 100vh; border-radius: 0; padding: 0; overflow: hidden; position: relative; z-index: 2;">
+      <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2rem; background: rgba(10, 15, 20, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-glass); position: sticky; top: 0; z-index: 10;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="modal-close" id="exterior-gallery-close" onclick="document.getElementById('exterior-gallery-modal').setAttribute('aria-hidden','true');document.body.style.overflow=''" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); border-radius: var(--radius-full); color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: all var(--transition-fast);">✕</button>
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">3D Exterior Elevation</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" id="exterior-gallery-counter">1 / 6 Projects</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-content" style="padding: 2rem; max-height: calc(100vh - 80px); overflow-y: auto; display: flex; flex-direction: column; align-items: center;">
+        <!-- Carousel Container -->
+        <div class="carousel-container" style="position: relative; width: 100%; max-width: 900px; margin: 0 auto;">
+          <div class="carousel-wrapper" style="overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-glass); position: relative; touch-action: pan-y;">
+            <button class="carousel-btn prev" id="exterior-carousel-prev" onclick="const t=document.getElementById('exterior-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
+            <div class="carousel-track" id="exterior-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(6,Math.round(p*6)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/images (1).jpg" alt="Modern House Exterior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern House Exterior</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/images.jpg" alt="Elevation Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Elevation Design</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/nadira-madhusanka-model-02-3d.jpg" alt="3D House Model" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">3D House Model</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/1a00d422c69710566b48f4ba268e7f12.jpg" alt="Architectural Visualization" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Architectural Visualization</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/mceclip22_1660084136.png" alt="Exterior Rendering" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Exterior Rendering</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="3d designs/what-is-floor-plan-image-thumb-1172x660.avif" alt="Floor Plan Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Floor Plan Concept</p>
+              </div>
+            </div>
+            <button class="carousel-btn next" id="exterior-carousel-next" onclick="const t=document.getElementById('exterior-carousel-track'); if(t){const s=Math.min(5,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
+          </div>
+        </div>
+        
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators" id="exterior-carousel-indicators" style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+          <button class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-gold); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+        </div>
+        
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); text-align: center; width: 100%; max-width: 900px;">
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Ready to visualize your dream home exterior?</p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="btn glass-btn" style="padding: 1rem 2rem; background: linear-gradient(135deg, #ffeb3b, #fdd835); color: #000; box-shadow: 0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3); border: none; font-weight: 700; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);" onmouseover="this.style.boxShadow='0 6px 30px rgba(255, 235, 59, 0.7), 0 0 40px rgba(255, 235, 59, 0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3)'; this.style.transform='translateY(0)'" onclick="openInquiryFormModal('exterior')">Discuss on WhatsApp</button>
+            <a href="tel:+919399330188" class="btn secondary glass-btn" style="padding: 1rem 2rem;">Call Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== RESIDENTIAL INTERIORS GALLERY MODAL ====== -->
+  <div id="owner-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel glass">
+      <button class="modal-close" id="owner-modal-close">✕</button>
+      <div id="owner-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ====== IMAGE POPUP MODAL ====== -->
+  <div id="image-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel image-modal">
+      <button class="modal-close" id="image-modal-close">✕</button>
+      <img id="modal-image" src="" alt="Preview" style="max-width: 90%; max-height: 90vh; object-fit: contain;" />
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var planData = {
+        structure: {
+          title: 'STRUCTURE PLAN - Essential Foundation & RCC Frame',
+          price: '₹849 / sq. ft.',
+          scope: ['Excavation, soil compaction and footing concrete work', 'RCC columns, beams and slab casting', 'Fly-ash or red brick masonry walls', 'Internal and external plastering', 'Basic electrical conduit fitting'],
+          materials: 'TATA Tiscon or Jindal Panther TMT with Ultratech or ACC Cement',
+          timeline: '3 to 4 months for a 1200 sq. ft. G+1 home'
+        },
+        premium: {
+          title: 'PREMIUM PLAN - Complete Move-In Home',
+          price: '₹1,399 / sq. ft.',
+          scope: ['Complete foundation, RCC structure and brickwork', 'Vitrified tile flooring in living, bedrooms and dining', 'Bathroom ceramic tiles up to lintel height', 'Concealed plumbing and electrical wiring', 'Granite kitchen platform with stainless steel sink', 'Teakwood main door frame and flush doors', 'Double-coat exterior Asian Paints finish'],
+          materials: 'Vitrified tiles, Finolex wiring and Cera bathroom fittings',
+          timeline: '5 to 6 months'
+        },
+        royal: {
+          title: 'ROYAL PLAN - Luxury Architecture & Vastu Finish',
+          price: '₹1,500 / sq. ft.',
+          scope: ['3D elevation and Vastu-compliant layout', 'Large-format premium vitrified tiles', 'Modular false ceiling in living room and master bedroom', 'Branded wall-hung sanitary ware and diverter fittings', 'Modular kitchen trolley and overhead cabinets', 'UPVC or aluminium sliding windows with safety grills', 'Royale emulsion interior paint finish'],
+          materials: 'Kajaria or Somany tiles, Kohler or Jaquar fittings and Asian Royale paint',
+          timeline: '6 to 7 months'
+        },
+        luxury: {
+          title: 'LUXURY PLAN - Smart Mansion & Ultra Finish',
+          price: '₹1,599 / sq. ft.',
+          scope: ['Custom interior architecture and smart-home wiring', 'Italian marble or premium GVT flooring', 'Designer false ceiling with LED profiles', 'Full modular kitchen with quartz countertop', 'Glass shower partition and thermostatic shower panels', 'Heavy carved teakwood main door', 'Exterior texture paint with wood-composite facade'],
+          materials: 'Italian marble, Grohe or Kohler fittings and smart switches',
+          timeline: '7 to 9 months'
+        }
+      };
+      var modal = document.getElementById('plan-details-modal');
+      var content = document.getElementById('plan-modal-content');
+      var closeButton = document.getElementById('plan-modal-close');
+      if (!modal || !content) return;
+
+      function showPlan(planKey) {
+        var plan = planData[planKey];
+        if (!plan) return;
+        content.innerHTML = '<div class="plan-detail-box"><h3 style="color:var(--accent-gold)">' + plan.title + '</h3><div class="modal-price">' + plan.price + '</div><div class="detail-section-title">Detailed Scope of Construction Work</div><ul class="detail-list">' + plan.scope.map(function (item) { return '<li>' + item + '</li>'; }).join('') + '</ul><div class="detail-section-title">Key Brands & Materials Used</div><p class="plan-detail-copy">' + plan.materials + '</p><div class="detail-section-title">Estimated Project Timeline</div><p class="plan-detail-copy">' + plan.timeline + '</p><div class="plan-detail-actions"><a class="btn primary" target="_blank" style="background:linear-gradient(135deg,#f8fafc,#aeb8c4 48%,#ffffff);color:#101820;box-shadow:0 0 12px rgba(226,232,240,.95),0 0 28px rgba(148,163,184,.75);border:1px solid #ffffff;text-shadow:0 0 8px rgba(255,255,255,.9);" href="https://wa.me/919399330188?text=' + encodeURIComponent('Hello Shree Mahakal Associates, I want to enquire about the ' + plan.title + '. Please share complete quotation and availability.') + '">Request This Plan on WhatsApp</a><a class="btn secondary" href="tel:9399330188">Call Engineer</a></div></div>';
+        modal.setAttribute('aria-hidden', 'false');
+      }
+
+      document.querySelectorAll('.view-details-btn').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+          event.preventDefault();
+          showPlan(button.getAttribute('data-plan'));
+        });
+      });
+      closeButton && closeButton.addEventListener('click', function () { modal.setAttribute('aria-hidden', 'true'); });
+      modal.addEventListener('click', function (event) { if (event.target === modal) modal.setAttribute('aria-hidden', 'true'); });
+    });
+  </script>
+
+  <!-- Firebase Initialization -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // Firebase configuration - REPLACE WITH YOUR ACTUAL CONFIG
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    
+    // Initialize Auth and Firestore
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    
+    // Initialize App Check (optional - requires reCAPTCHA v3 key)
+    // Uncomment and add your reCAPTCHA v3 site key when ready
+    // try {
+    //   import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check.js";
+    //   const appCheck = initializeAppCheck(app, {
+    //     provider: new ReCaptchaV3Provider('YOUR_RECAPTCHA_V3_SITE_KEY'),
+    //     isTokenAutoRefreshEnabled: true
+    //   });
+    // } catch (e) {
+    //   console.log('App Check not initialized:', e.message);
+    // }
+
+    // Make Firebase services globally available
+    window.firebaseApp = app;
+    window.firebaseAuth = auth;
+    window.firebaseDb = db;
+
+    console.log('Firebase initialized successfully');
+  </script>
+
+  <!-- ====== CAFE GALLERY MODAL ====== -->
+  <div id="cafe-gallery-modal" class="modal" aria-hidden="true">
+    <div class="modal-panel glass large-modal" style="max-width: 95vw; max-height: 95vh; padding: 0; overflow: hidden;">
+      <button class="modal-close" id="cafe-gallery-close" style="z-index: 10;">✕</button>
+      <div class="carousel-container" style="position: relative; width: 100%; height: 80vh; max-height: 700px; overflow: hidden;">
+        <div id="cafe-carousel-track" class="carousel-track" style="display: flex; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);">
+          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <img src="/cafe-plans/Cafe-Floor-Plans.jpg" alt="Cafe Floor Plans" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+          </div>
+          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <img src="/cafe-plans/360_F_1522187751_Mc0GzTPkSlHuzqa0BFGgYOeft7KJVYCD.jpg" alt="Cafe Design 360" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+          </div>
+          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <img src="/cafe-plans/images.jpg" alt="Cafe Design 1" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+          </div>
+          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <img src="/cafe-plans/images (1).jpg" alt="Cafe Design 2" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+          </div>
+          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <img src="/cafe-plans/images (2).jpg" alt="Cafe Design 3" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+          </div>
+        </div>
+        <button id="cafe-carousel-prev" class="carousel-btn carousel-prev" aria-label="Previous" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: none; color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5;">‹</button>
+        <button id="cafe-carousel-next" class="carousel-btn carousel-next" aria-label="Next" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: none; color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5;">›</button>
+        <div id="cafe-carousel-indicators" class="carousel-indicators" style="position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 5;">
+          <button class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: var(--accent-gold); cursor: pointer;"></button>
+          <button class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
+          <button class="carousel-indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
+          <button class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
+          <button class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
+        </div>
+        <div id="cafe-gallery-counter" class="carousel-counter" style="position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); color: white; font-size: 0.9rem; font-weight: 600; z-index: 5;">1 / 5 Projects</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Animation Module - New 20-frame scroll-driven cinematic animation -->
+<script type="module" src="src/hero/hero-animation-new.js"></script>
+   
+  <script type="module" src="src/app/main.js"></script>
+
+  <script>
+    function openExteriorGallery(startIndex) {
+      const modal = document.getElementById('exterior-gallery-modal');
+      if (modal) {
+        // Set the carousel to the correct starting slide
+        const track = document.getElementById('exterior-carousel-track');
+        if (track) {
+          track.style.transform = 'translateX(-' + (startIndex * 100) + '%)';
+        }
+        // Update indicators
+        document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((btn, i) => {
+          btn.style.background = i === startIndex ? 'var(--accent-gold)' : 'rgba(255,255,255,0.3)';
+          btn.classList.toggle('active', i === startIndex);
+        });
+        // Update counter
+        const counter = document.getElementById('exterior-gallery-counter');
+        if (counter) counter.textContent = (startIndex + 1) + ' / 6 Projects';
+        // Show modal
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    // Previewer tabs
+    document.querySelectorAll('.previewer-tabs .tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.previewer-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        const tabId = btn.dataset.tab;
+        document.getElementById('tab-' + tabId).classList.add('active');
+      });
+    });
+    
+    // Keyboard support for modal
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('exterior-gallery-modal');
+      if (modal && modal.getAttribute('aria-hidden') === 'false') {
+        if (e.key === 'ArrowLeft') {
+          const track = document.getElementById('exterior-carousel-track');
+          const current = track ? Math.round(-parseFloat(track.style.transform.replace('translateX(','').replace('%)','')/100||0)) : 0;
+          if (current > 0) openExteriorGallery(current - 1);
+        }
+        if (e.key === 'ArrowRight') {
+          const track = document.getElementById('exterior-carousel-track');
+          const current = track ? Math.round(-parseFloat(track.style.transform.replace('translateX(','').replace('%)','')/100||0)) : 0;
+          if (current < 5) openExteriorGallery(current + 1);
+        }
+        if (e.key === 'Escape') {
+          modal.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+  </script>
+  <!-- Main application module -->
+  <script type="module" src="/src/app/main.js"></script>
+</body>
+</html>

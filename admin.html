@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Panel — Shree Mahakal Building Associates</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;">
+</head>
+<body>
+  <main class="container">
+    <section style="padding:3rem 0;max-width:900px;margin:4rem auto;">
+      <div class="modal-panel glass" style="padding:1.6rem;">
+        <h2>Admin Panel</h2>
+        <div id="admin-content" style="margin-top:1rem;">
+          <p>Loading admin data...</p>
+        </div>
+        <div style="margin-top:1rem;text-align:right;">
+          <button id="signout" class="btn secondary">Sign out</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // Owner UIDs - replace with actual Firebase UIDs after users sign up
+    // Get these from Firebase Console > Authentication > Users
+    const OWNER_UIDS = [
+      // "USER_UID_FROM_FIREBASE_CONSOLE"
+    ];
+
+    const firebaseConfig = {
+      apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+      storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+      appId: import.meta.env.VITE_FIREBASE_APP_ID
+    };
+
+    // Validate config
+    const requiredKeys = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
+    const missingKeys = requiredKeys.filter(key => !firebaseConfig[key] || firebaseConfig[key].includes('your_'));
+    if (missingKeys.length > 0) {
+      console.error('Firebase config incomplete. Missing:', missingKeys.join(', '));
+      document.getElementById('admin-content').innerHTML = `
+        <div style="color: var(--color-error); padding: 1rem;">
+          <h3>Configuration Error</h3>
+          <p>Firebase configuration is missing. Please:</p>
+          <ol style="text-align: left; margin-top: 1rem;">
+            <li>Copy <code>.env.example</code> to <code>.env</code></li>
+            <li>Fill in your Firebase project credentials</li>
+            <li>Restart the development server</li>
+          </ol>
+        </div>
+      `;
+      document.getElementById('signout').style.display = 'none';
+      throw new Error('Invalid Firebase config');
+    }
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const adminContent = document.getElementById('admin-content');
+    const signoutBtn = document.getElementById('signout');
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+      if (!OWNER_UIDS.includes(user.uid)) {
+        // Not an owner -> send back to site
+        window.location.href = 'index.html';
+        return;
+      }
+      adminContent.innerHTML = `
+        <p>Welcome, <strong>${user.displayName || user.email}</strong>.</p>
+        <p>This is a simple admin placeholder. Add Firestore management UI here (inquiries, plots, bookings).</p>
+        <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-muted);">
+          Your UID: <code>${user.uid}</code> — Add this to OWNER_UIDS array in admin.html to grant admin access to other accounts.
+        </p>
+      `;
+    });
+
+    signoutBtn.addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

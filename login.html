@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — Shree Mahakal Building Associates</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;">
+</head>
+<body>
+  <main class="container">
+    <section style="padding:3rem 0;max-width:560px;margin:4rem auto;">
+      <div class="modal-panel glass" style="padding:1.6rem;">
+        <h2 style="margin-top:0">Sign In / Sign Up</h2>
+        <div style="display:grid;gap:0.8rem;margin-top:0.6rem;">
+          <button id="google-signin" class="btn primary">Sign in with Google</button>
+          <form id="email-form" style="display:grid;gap:0.6rem;">
+            <label>Email<input id="email-input" type="email" required /></label>
+            <label>Password<input id="pw-input" type="password" required /></label>
+            <div style="display:flex;gap:0.6rem;justify-content:flex-end;">
+              <button id="email-signin" class="btn" type="submit">Sign In</button>
+              <button id="email-signup" class="btn" type="button">Sign Up</button>
+            </div>
+          </form>
+          <div style="text-align:center;color:var(--muted);font-size:0.9rem">After sign-in you'll be redirected to the site. Admin users are forwarded to the Admin Panel automatically.</div>
+          <div style="text-align:center;margin-top:0.6rem;"><a class="btn secondary" href="index.html">Back to site</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="login.js"></script>
+</body>
+</html>
