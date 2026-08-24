@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Admin Panel — Shree Mahakal Building Associates</title>
   <link rel="stylesheet" href="styles.css" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.gstatic.com;">
 </head>
 <body>
   <main class="container">
@@ -23,72 +23,132 @@
   </main>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { adminGetAllBookings, adminGetBookingsStats, adminGetAllUsers, adminGetMessages, adminMarkMessagesAsRead, adminSendReply } from './src/services/admin.js';
 
-    // Owner UIDs - replace with actual Firebase UIDs after users sign up
-    // Get these from Firebase Console > Authentication > Users
-    const OWNER_UIDS = [
-      // "USER_UID_FROM_FIREBASE_CONSOLE"
-    ];
-
-    const firebaseConfig = {
-      apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-      storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-      messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-      appId: import.meta.env.VITE_FIREBASE_APP_ID
-    };
-
-    // Validate config
-    const requiredKeys = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
-    const missingKeys = requiredKeys.filter(key => !firebaseConfig[key] || firebaseConfig[key].includes('your_'));
-    if (missingKeys.length > 0) {
-      console.error('Firebase config incomplete. Missing:', missingKeys.join(', '));
-      document.getElementById('admin-content').innerHTML = `
-        <div style="color: var(--color-error); padding: 1rem;">
-          <h3>Configuration Error</h3>
-          <p>Firebase configuration is missing. Please:</p>
-          <ol style="text-align: left; margin-top: 1rem;">
-            <li>Copy <code>.env.example</code> to <code>.env</code></li>
-            <li>Fill in your Firebase project credentials</li>
-            <li>Restart the development server</li>
-          </ol>
-        </div>
-      `;
-      document.getElementById('signout').style.display = 'none';
-      throw new Error('Invalid Firebase config');
+    function checkAdmin() {
+      const userData = localStorage.getItem('smba_current_user');
+      if (!userData) {
+        window.location.href = 'login.html';
+        return false;
+      }
+      const user = JSON.parse(userData);
+      const isAdmin = user.email === 'admin@shreemahakal.com' || user.uid === 'admin';
+      if (!isAdmin) {
+        window.location.href = 'index.html';
+        return false;
+      }
+      return user;
     }
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    const user = checkAdmin();
+    if (!user) {
+      throw new Error('Not authorized');
+    }
+
     const adminContent = document.getElementById('admin-content');
     const signoutBtn = document.getElementById('signout');
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.href = 'login.html';
-        return;
-      }
-      if (!OWNER_UIDS.includes(user.uid)) {
-        // Not an owner -> send back to site
-        window.location.href = 'index.html';
-        return;
-      }
-      adminContent.innerHTML = `
-        <p>Welcome, <strong>${user.displayName || user.email}</strong>.</p>
-        <p>This is a simple admin placeholder. Add Firestore management UI here (inquiries, plots, bookings).</p>
-        <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--color-text-muted);">
-          Your UID: <code>${user.uid}</code> — Add this to OWNER_UIDS array in admin.html to grant admin access to other accounts.
-        </p>
-      `;
-    });
+    async function loadAdminDashboard() {
+      try {
+        const [bookingsResult, stats, users] = await Promise.all([
+          adminGetAllBookings({ pageSize: 50 }),
+          adminGetBookingsStats(),
+          adminGetAllUsers()
+        ]);
+        
+        adminContent.innerHTML = `
+          <div style="display: grid; gap: 1.5rem;">
+            <div>
+              <h3>Welcome, <strong>${user.displayName || user.email}</strong></h3>
+              <p style="color: var(--color-text-muted);">Admin Dashboard - Local Storage Version</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+              <div class="stat-card glass" style="padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--color-primary);">${stats.total || 0}</div>
+                <div style="font-size: 0.875rem; color: var(--color-text-muted);">Total Bookings</div>
+              </div>
+              <div class="stat-card glass" style="padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--color-accent-blue);">${stats.new || 0}</div>
+                <div style="font-size: 0.875rem; color: var(--color-text-muted);">New</div>
+              </div>
+              <div class="stat-card glass" style="padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--color-accent-orange);">${stats.contacted || 0}</div>
+                <div style="font-size: 0.875rem; color: var(--color-text-muted);">Contacted</div>
+              </div>
+              <div class="stat-card glass" style="padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--color-success);">${users.length}</div>
+                <div style="font-size: 0.875rem; color: var(--color-text-muted);">Registered Users</div>
+              </div>
+            </div>
 
-    signoutBtn.addEventListener('click', async () => {
-      await signOut(auth);
+            <div>
+              <h4 style="margin-bottom: 1rem; color: var(--color-primary);">Recent Bookings</h4>
+              <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
+                  <thead>
+                    <tr style="border-bottom: 1px solid var(--color-border); text-align: left;">
+                      <th style="padding: 0.75rem;">Date</th>
+                      <th style="padding: 0.75rem;">Name</th>
+                      <th style="padding: 0.75rem;">Phone</th>
+                      <th style="padding: 0.75rem;">Plan</th>
+                      <th style="padding: 0.75rem;">Size</th>
+                      <th style="padding: 0.75rem;">Status</th>
+                      <th style="padding: 0.75rem;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${bookingsResult.bookings.map(b => `
+                      <tr style="border-bottom: 1px solid var(--color-border);">
+                        <td style="padding: 0.75rem;">${new Date(b.createdAt).toLocaleDateString()}</td>
+                        <td style="padding: 0.75rem;">${b.fullName}</td>
+                        <td style="padding: 0.75rem;">${b.phone}</td>
+                        <td style="padding: 0.75rem;">${b.planChoice}</td>
+                        <td style="padding: 0.75rem;">${b.plotSize} sq.ft</td>
+                        <td style="padding: 0.75rem;">
+                          <span class="status-badge status-${b.status}" style="padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: capitalize;">${b.status}</span>
+                        </td>
+                        <td style="padding: 0.75rem;">
+                          <button class="btn btn-sm secondary" onclick="viewBooking('${b.id}')" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">View</button>
+                        </td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
+      } catch (error) {
+        console.error('Admin dashboard load error:', error);
+        adminContent.innerHTML = `<p style="color: var(--color-error);">Error loading dashboard: ${error.message}</p>`;
+      }
+    }
+
+    window.viewBooking = async (id) => {
+      const bookingsResult = await adminGetAllBookings({ pageSize: 100 });
+      const booking = bookingsResult.bookings.find(b => b.id === id);
+      if (booking) {
+        alert(`Booking Details:
+Name: ${booking.fullName}
+Email: ${booking.email}
+Phone: ${booking.phone}
+Location: ${booking.location}
+Plan: ${booking.planChoice}
+Plot Size: ${booking.plotSize} sq.ft
+Status: ${booking.status}
+Created: ${new Date(booking.createdAt).toLocaleString()}
+
+Requirements: ${booking.specialRequirements || 'None'}`);
+      }
+    };
+
+    signoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('smba_current_user');
       window.location.href = 'index.html';
     });
+
+    loadAdminDashboard();
   </script>
 </body>
 </html>

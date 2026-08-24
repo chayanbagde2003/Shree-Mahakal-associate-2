@@ -10,12 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Security: Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com;">
   <!-- Firebase App Check (optional) -->
   <!-- <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check.js"></script> -->
   <!-- Preload only first hero frame for LCP -->
-  <link rel="preload" as="image" href="assets/banner.jpg" fetchpriority="high">
-  <link rel="preload" as="image" href="plans pics/structured plan.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/banner.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/plans/structured-plan.jpg" fetchpriority="high">
 </head>
 <body>
   <!-- Skip to main content for accessibility -->
@@ -27,7 +27,7 @@
       <!-- LEFT: Logo + Brand -->
       <div class="header-left">
         <div class="brand">
-          <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.jpg" alt="Shree Mahakal Building Associates Logo" class="logo-img" />
+          <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.webp" alt="Shree Mahakal Building Associates Logo" class="logo-img" />
           <div class="brand-text">
             <div class="company-name">Shree Mahakal Building Associates</div>
             <div class="company-sub">Civil Engineer | Architect | Vastu Specialist</div>
@@ -56,11 +56,11 @@
 
       <!-- RIGHT: Login -->
       <div class="header-right">
-        <button class="btn glass-btn" id="login-btn" style="background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);">Login</button>
+        <a class="btn btn-ghost" id="login-btn" href="login.html">Login</a>
       </div>
 
       <!-- Mobile Menu Button -->
-      <button class="mobile-menu-btn glass-btn" id="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
         <span class="hamburger"></span>
       </button>
     </div>
@@ -68,7 +68,7 @@
     <!-- Mobile Menu Drawer -->
     <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
       <div class="mobile-drawer-header">
-        <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.jpg" alt="Shree Mahakal Building Associates Logo" class="mobile-drawer-logo" />
+        <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.webp" alt="Shree Mahakal Building Associates Logo" class="mobile-drawer-logo" />
         <div class="mobile-drawer-brand">
           <div class="mobile-drawer-title">Shree Mahakal Building Associates</div>
           <div class="mobile-drawer-sub">Civil Engineer • Architect • Vastu Specialist</div>
@@ -80,7 +80,7 @@
           <li><a href="#about" class="mobile-nav-link">About Us</a></li>
           <li class="mobile-nav-dropdown">
             <button class="mobile-nav-link mobile-dropdown-toggle" aria-expanded="false" aria-controls="mobile-services-dropdown">Services</button>
-            <ul class="mobile-dropdown-menu" id="mobile-services-dropdown" role="menu" hidden>
+            <ul class="mobile-dropdown-menu" id="mobile-services-dropdown" role="menu" style="display: none;">
               <li><a href="#packages" class="mobile-dropdown-item" role="menuitem">Construction Plans & Pricing</a></li>
               <li><a href="#specialized-services" class="mobile-dropdown-item" role="menuitem">Specialized Design Services</a></li>
               <li><a href="#calculator" class="mobile-dropdown-item" role="menuitem">Cost Calculator</a></li>
@@ -94,7 +94,7 @@
       </nav>
       <div class="mobile-drawer-divider"></div>
       <div class="mobile-drawer-auth">
-        <button class="btn mobile-auth-btn" id="mobile-login-btn" style="background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); width: 100%;">Login</button>
+        <a class="btn btn-primary mobile-auth-btn" id="mobile-login-btn" href="login.html" style="width: 100%;">Login</a>
       </div>
     </div>
     <div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
@@ -119,14 +119,14 @@
           From luxury residences to commercial landmarks — we build with precision, passion, and Vastu wisdom.
         </p>
         <div class="hero-actions">
-          <a href="#packages" id="explore-plans-btn" class="btn primary glass-btn btn-lg">
+          <a href="#packages" id="explore-plans-btn" class="btn btn-primary btn-lg">
             Explore Our Plans
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
           <a href="https://wa.me/919399330188?text=Hello%20Shree%20Mahakal%20Associates%2C%20I%20would%20like%20to%20discuss%20a%20project" 
-             class="btn secondary glass-btn btn-lg" target="_blank">
+             class="btn btn-secondary btn-lg" target="_blank">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.472.099-.174.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347-.297-.149-1.008-.486-2.389-1.475z"/>
               <path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5.011L2 22l5.011-1.338A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.476 0-2.886-.313-4.156-.878l-3.156.873.873-3.156A7.976 7.976 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/>
@@ -164,8 +164,9 @@
           <!-- Left Founder: Chayan Bagde -->
           <div class="founder-card founder-left glass">
             <div class="founder-avatar">
-              <img src="assets/chayan.jpg" alt="Chayan Bagde, Founder & Civil Engineer, smiling in professional attire" class="founder-img" loading="lazy" />
-              <div class="founder-ring">< 
+              <img src="assets/chayan.webp" alt="Chayan Bagde, Founder & Civil Engineer, smiling in professional attire" class="founder-img" loading="lazy" />
+              <div class="founder-ring"></div>
+            </div>
             <div class="founder-info">
               <div class="founder-role">Founder & Civil Engineer</div>
               <h3 class="founder-name">Chayan Bagde</h3>
@@ -189,7 +190,7 @@
           <!-- Right Founder: Krishnakant D. -->
           <div class="founder-card founder-right glass">
             <div class="founder-avatar">
-              <img src="assets/krishnakant.jpg" alt="Krishnakant D., Co-Founder & Project Manager, in professional attire" class="founder-img" loading="lazy" />
+              <img src="assets/krishnakant.webp" alt="Krishnakant D., Co-Founder & Project Manager, in professional attire" class="founder-img" loading="lazy" />
               <div class="founder-ring"></div>
             </div>
             <div class="founder-info">
@@ -272,7 +273,7 @@
           <!-- Structure Plan -->
           <article class="plan-card glass">
             <div class="plan-image-wrapper">
-              <img src="plans pics/structured plan.jpg" alt="Structure Plan" class="plan-img" loading="lazy" />
+              <img src="assets/plans/structured-plan.jpg" alt="Structure Plan" class="plan-img" loading="lazy" />
               <div class="plan-badge red">Essential</div>
             </div>
             <div class="plan-body">
@@ -283,14 +284,14 @@
                 <li>RCC Frame Structure</li>
                 <li>Brick Masonry & Plastering</li>
               </ul>
-              <button class="btn quote-btn red-btn view-details-btn" data-plan="structure">View Details & Scope of Work</button>
+              <button class="btn btn-primary view-details-btn" data-plan="structure">View Details & Scope of Work</button>
             </div>
           </article>
 
           <!-- Premium Plan -->
           <article class="plan-card glass">
             <div class="plan-image-wrapper">
-              <img src="plans pics/premium plan.jpg" alt="Premium Plan" class="plan-img" loading="lazy" />
+              <img src="assets/plans/premium-plan.webp" alt="Premium Plan" class="plan-img" loading="lazy" />
               <div class="plan-badge blue">Popular</div>
             </div>
             <div class="plan-body">
@@ -301,14 +302,14 @@
                 <li>Standard Electrical & Plumbing</li>
                 <li>Modern Exterior Elevation</li>
               </ul>
-              <button class="btn quote-btn blue-btn view-details-btn" data-plan="premium">View Details & Scope of Work</button>
+              <button class="btn btn-primary view-details-btn" data-plan="premium">View Details & Scope of Work</button>
             </div>
           </article>
 
           <!-- Royal Plan -->
           <article class="plan-card glass">
             <div class="plan-image-wrapper">
-              <img src="plans pics/royal plan.png" alt="Royal Plan" class="plan-img" loading="lazy" />
+              <img src="assets/plans/royal-plan.webp" alt="Royal Plan" class="plan-img" loading="lazy" />
               <div class="plan-badge gold">Featured</div>
             </div>
             <div class="plan-body">
@@ -319,14 +320,14 @@
                 <li>Branded Sanitary & CP Fittings</li>
                 <li>Vastu-Compliant 3D Layout</li>
               </ul>
-              <button class="btn quote-btn gold-btn view-details-btn" data-plan="royal">View Details & Scope of Work</button>
+              <button class="btn btn-primary view-details-btn" data-plan="royal">View Details & Scope of Work</button>
             </div>
           </article>
 
           <!-- Luxury Plan -->
           <article class="plan-card glass">
             <div class="plan-image-wrapper">
-              <img src="plans pics/luxury  plan.jpg" alt="Luxury Plan" class="plan-img" loading="lazy" />
+              <img src="assets/plans/luxury-plan.webp" alt="Luxury Plan" class="plan-img" loading="lazy" />
               <div class="plan-badge purple">Ultra Premium</div>
             </div>
             <div class="plan-body">
@@ -337,7 +338,7 @@
                 <li>Smart Home Automation Wiring</li>
                 <li>Architectural Lighting Design</li>
               </ul>
-              <button class="btn quote-btn purple-btn view-details-btn" data-plan="luxury">View Details & Scope of Work</button>
+              <button class="btn btn-primary view-details-btn" data-plan="luxury">View Details & Scope of Work</button>
             </div>
           </article>
         </div>
@@ -366,7 +367,7 @@
             <div class="service-icon">☕</div>
             <h3>Café Design & Planning</h3>
             <div class="service-preview">
-              <img src="cafe plans/images.jpg" alt="Cafe Design Preview" class="preview-img" loading="lazy" />
+              <img src="images/kitchen-image-1.webp" alt="Cafe Design Preview" class="preview-img" loading="lazy" />
               <div class="preview-overlay">
                 <span>Click to View All Projects →</span>
               </div>
@@ -378,7 +379,7 @@
             <div class="service-icon">🏨</div>
             <h3>Hotel & Resort Architecture</h3>
             <div class="service-preview">
-              <img src="hotel and resort/images.jpg" alt="Hotel Design Preview" class="preview-img" loading="lazy" />
+              <img src="images/hotel-image-1.webp" alt="Hotel Design Preview" class="preview-img" loading="lazy" />
               <div class="preview-overlay">
                 <span>Click to View All Projects →</span>
               </div>
@@ -390,7 +391,7 @@
             <div class="service-icon">🏠</div>
             <h3>Custom Residential Interiors</h3>
             <div class="service-preview">
-              <img src="kitchen plan/images.jpg" alt="Residential Interior Design Preview" class="preview-img" loading="lazy" />
+              <img src="images/kitchen-image-1.webp" alt="Residential Interior Design Preview" class="preview-img" loading="lazy" />
               <div class="preview-overlay">
                 <span>Click to View All Projects →</span>
               </div>
@@ -402,7 +403,7 @@
             <div class="service-icon">🏛️</div>
             <h3>3D Exterior Elevation</h3>
             <div class="service-preview">
-              <img src="3d designs/images (1).jpg" alt="3D Exterior Design Preview" class="preview-img" loading="lazy" />
+              <img src="images/exterior-1.webp" alt="3D Exterior Design Preview" class="preview-img" loading="lazy" />
               <div class="preview-overlay">
                 <span>Click to View All Projects →</span>
               </div>
@@ -431,14 +432,14 @@
           <div class="tab-content active" id="tab-floor">
             <h4>Precision AutoCAD Layouts</h4>
             <p>Every inch counts. Our B.Tech qualified civil team optimizes room sizes, ventilation shafts, and natural sunlight flow.</p>
-            <img src="plans pics/2d house plan.webp" alt="Floorplan concept" class="preview-img clickable-preview" loading="lazy" />
+            <img src="images/2d-house-plan.webp" alt="Floorplan concept" class="preview-img clickable-preview" loading="lazy" />
           </div>
 
           <div class="tab-content" id="tab-elevation">
             <h4>Photorealistic 3D Renders</h4>
             <p>Visualize exterior finishes, color themes, and LED boundary lighting prior to brickwork completion.</p>
             <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-              <img src="3d designs/images (1).jpg" alt="3D Exterior Elevation" style="width: 100%; height: auto; max-height: 500px; object-fit: contain; border-radius: var(--radius-lg); cursor: pointer;" loading="lazy" onclick="openExteriorGallery(0)" />
+              <img src="images/exterior-1.webp" alt="3D Exterior Elevation" style="width: 100%; height: auto; max-height: 500px; object-fit: contain; border-radius: var(--radius-lg); cursor: pointer;" loading="lazy" onclick="openExteriorGallery(0)" />
               <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">Click to explore all 3D exterior renders →</p>
             </div>
           </div>
@@ -446,7 +447,7 @@
           <div class="tab-content" id="tab-vastu">
             <h4>Scientific Vastu Compliance</h4>
             <p>We ensure master bedrooms, entrance doors, and kitchens match Vastu orientations for balanced energy.</p>
-            <img src="plans pics/vastu plan.jpg" alt="Vastu Plan" class="preview-img clickable-preview" loading="lazy" />
+            <img src="assets/plans/vastu-plan.webp" alt="Vastu Plan" class="preview-img clickable-preview" loading="lazy" />
           </div>
         </div>
       </div>
@@ -494,7 +495,7 @@
           </div>
 
           <div class="calc-actions">
-            <a class="btn primary" href="https://wa.me/919399330188?text=Hello%20Shree%20Mahakal%20Associates,%20I%20calculated%20a%20quote%20on%20your%20website" target="_blank">Book Free Site Visit</a>
+            <a class="btn btn-primary" href="https://wa.me/919399330188?text=Hello%20Shree%20Mahakal%20Associates,%20I%20calculated%20a%20quote%20on%20your%20website" target="_blank">Book Free Site Visit</a>
           </div>
         </div>
       </div>
@@ -538,7 +539,7 @@
     <footer id="contact" class="site-footer section">
       <div class="container footer-grid">
         <div class="footer-col">
-          <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.jpg" alt="Shree Mahakal Logo" class="footer-logo" loading="lazy" />
+          <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.webp" alt="Shree Mahakal Logo" class="footer-logo" loading="lazy" />
           <p>Shree Mahakal Building Associates provides high-end civil engineering, custom 3D architectural layout, café & hotel design, and vastu consulting.</p>
         </div>
 
@@ -922,11 +923,11 @@
 
         <!-- Submit Button -->
         <div style="display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-          <button type="submit" class="btn primary glass-btn" style="flex: 1; min-width: 200px; padding: 1rem 2rem;">
+          <button type="submit" class="btn btn-primary" style="flex: 1; min-width: 200px; padding: 1rem 2rem;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z"/></svg>
             Submit & Send to WhatsApp
           </button>
-          <button type="button" class="btn secondary glass-btn" id="inquiry-form-cancel" style="flex: 1; min-width: 200px; padding: 1rem 2rem;">Cancel</button>
+          <button type="button" class="btn btn-secondary" id="inquiry-form-cancel" style="flex: 1; min-width: 200px; padding: 1rem 2rem;">Cancel</button>
         </div>
       </form>
     </div>
@@ -1065,27 +1066,27 @@
             <button class="carousel-btn prev" id="cafe-carousel-prev" onclick="const t=document.getElementById('cafe-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
             <div class="carousel-track" id="cafe-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(5,Math.round(p*5)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="cafe plans/360_F_1522187751_Mc0GzTPkSlHuzqa0BFGgYOeft7KJVYCD.jpg" alt="Modern Cafe Interior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <img src="images/kitchen-image-1.webp" alt="Modern Cafe Interior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern Cafe Interior</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="cafe plans/Cafe-Floor-Plans.jpg" alt="Cafe Floor Plans" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/g-shape-kitchen.webp" alt="Cafe Floor Plans" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Floor Plans</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="cafe plans/images.jpg" alt="Cafe Design Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/kitchen-image-2.webp" alt="Cafe Design Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Design Concept</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="cafe plans/images (1).jpg" alt="Interior Layout Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/home-design.webp" alt="Interior Layout Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Interior Layout Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="cafe plans/images (2).jpg" alt="Cafe Bar & Counter Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/kitchen-img-1779.webp" alt="Cafe Bar & Counter Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Bar & Counter Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="cafe plans/images" alt="Cafe Seating Area" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/kitchen-17.webp" alt="Cafe Seating Area" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Seating Area</p>
               </div>
             </div>
@@ -1107,7 +1108,7 @@
           <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Ready to design your dream cafe?</p>
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
             <button type="button" class="btn glass-btn" style="padding: 1rem 2rem; background: linear-gradient(135deg, #ffeb3b, #fdd835); color: #000; box-shadow: 0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3); border: none; font-weight: 700; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);" onmouseover="this.style.boxShadow='0 6px 30px rgba(255, 235, 59, 0.7), 0 0 40px rgba(255, 235, 59, 0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3)'; this.style.transform='translateY(0)'" onclick="openInquiryFormModal('cafe')">Discuss on WhatsApp</button>
-            <a href="tel:+919399330188" class="btn secondary glass-btn" style="padding: 1rem 2rem;">Call Now</a>
+            <a href="tel:+919399330188" class="btn btn-secondary" style="padding: 1rem 2rem;">Call Now</a>
           </div>
         </div>
       </div>
@@ -1134,31 +1135,31 @@
             <button class="carousel-btn prev" id="residential-carousel-prev" onclick="const t=document.getElementById('residential-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#residential-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
             <div class="carousel-track" id="residential-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(6,Math.round(p*6)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#residential-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="kitchen plan/images.jpg" alt="Modern Kitchen Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <img src="images/kitchen-image-1.webp" alt="Modern Kitchen Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern Kitchen Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="kitchen plan/images (1).jpg" alt="Home Interior Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/kitchen-image-2.webp" alt="Home Interior Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Home Interior Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="kitchen plan/G-Shape-Modular-Kitchen-Design.jpg" alt="G-Shape Modular Kitchen" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/g-shape-kitchen.webp" alt="G-Shape Modular Kitchen" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">G-Shape Modular Kitchen</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="kitchen plan/home-design.jpg" alt="Home Design Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/home-design.webp" alt="Home Design Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Home Design Concept</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="kitchen plan/IMG_1779-1.jpg" alt="Interior Detail" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/kitchen-img-1779.webp" alt="Interior Detail" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Interior Detail</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="kitchen plan/168-1777533654-ph241.avif" alt="Kitchen Layout" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/kitchen-168.webp" alt="Kitchen Layout" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Kitchen Layout</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="kitchen plan/17-1782107421-q1iCf.avif" alt="Residential Interior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/kitchen/kitchen-17.webp" alt="Residential Interior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Residential Interior</p>
               </div>
             </div>
@@ -1181,7 +1182,7 @@
           <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Ready to design your dream home interior?</p>
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
             <button type="button" class="btn glass-btn" style="padding: 1rem 2rem; background: linear-gradient(135deg, #ffeb3b, #fdd835); color: #000; box-shadow: 0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3); border: none; font-weight: 700; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);" onmouseover="this.style.boxShadow='0 6px 30px rgba(255, 235, 59, 0.7), 0 0 40px rgba(255, 235, 59, 0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3)'; this.style.transform='translateY(0)'" onclick="openInquiryFormModal('residential')">Discuss on WhatsApp</button>
-            <a href="tel:+919399330188" class="btn secondary glass-btn" style="padding: 1rem 2rem;">Call Now</a>
+            <a href="tel:+919399330188" class="btn btn-secondary" style="padding: 1rem 2rem;">Call Now</a>
           </div>
         </div>
       </div>
@@ -1208,47 +1209,47 @@
             <button class="carousel-btn prev" id="hotel-carousel-prev" onclick="const t=document.getElementById('hotel-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
             <div class="carousel-track" id="hotel-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(10,Math.round(p*10)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="hotel and resort/images.jpg" alt="Hotel Exterior Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <img src="images/hotel-image-1.webp" alt="Hotel Exterior Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Exterior Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="hotel and resort/images (1).jpg" alt="Lobby & Reception" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/hotel-resort/hotel-image-2.webp" alt="Lobby & Reception" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Lobby & Reception</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="hotel and resort/images (1)" alt="Resort Landscape" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/hotel-resort/sunyata-hotel.webp" alt="Resort Landscape" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Resort Landscape</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="hotel and resort/sunyata-eco-hotel-design-kacheri_4.jpg" alt="Eco Resort Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/hotel-resort/sunyata-hotel.webp" alt="Eco Resort Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Eco Resort Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/images (1).jpg" alt="Modern House Exterior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="Modern House Exterior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern House Exterior</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/images.jpg" alt="Elevation Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="Elevation Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Elevation Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/nadira-madhusanka-model-02-3d.jpg" alt="3D House Model" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="3D House Model" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">3D House Model</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/1a00d422c69710566b48f4ba268e7f12.jpg" alt="Architectural Visualization" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="Architectural Visualization" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Architectural Visualization</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/mceclip22_1660084136.png" alt="Exterior Rendering" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="Exterior Rendering" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Exterior Rendering</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/what-is-floor-plan-image-thumb-1172x660.avif" alt="Floor Plan Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="Floor Plan Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Floor Plan Concept</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/3DmodelofhouseplanisavailableinthisAutocaddrawingfileDownloadnowSatOct2020055716.png" alt="AutoCAD House Plan" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="AutoCAD House Plan" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">AutoCAD House Plan</p>
               </div>
             </div>
@@ -1275,7 +1276,7 @@
           <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Ready to design your dream hotel or resort?</p>
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
             <button type="button" class="btn glass-btn" style="padding: 1rem 2rem; background: linear-gradient(135deg, #ffeb3b, #fdd835); color: #000; box-shadow: 0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3); border: none; font-weight: 700; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);" onmouseover="this.style.boxShadow='0 6px 30px rgba(255, 235, 59, 0.7), 0 0 40px rgba(255, 235, 59, 0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3)'; this.style.transform='translateY(0)'" onclick="openInquiryFormModal('hotel')">Discuss on WhatsApp</button>
-            <a href="tel:+919399330188" class="btn secondary glass-btn" style="padding: 1rem 2rem;">Call Now</a>
+            <a href="tel:+919399330188" class="btn btn-secondary" style="padding: 1rem 2rem;">Call Now</a>
           </div>
         </div>
       </div>
@@ -1302,27 +1303,27 @@
             <button class="carousel-btn prev" id="exterior-carousel-prev" onclick="const t=document.getElementById('exterior-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
             <div class="carousel-track" id="exterior-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(6,Math.round(p*6)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/images (1).jpg" alt="Modern House Exterior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <img src="images/exterior-1.webp" alt="Modern House Exterior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern House Exterior</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/images.jpg" alt="Elevation Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="Elevation Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Elevation Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/nadira-madhusanka-model-02-3d.jpg" alt="3D House Model" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="3D House Model" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">3D House Model</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/1a00d422c69710566b48f4ba268e7f12.jpg" alt="Architectural Visualization" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="Architectural Visualization" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Architectural Visualization</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/mceclip22_1660084136.png" alt="Exterior Rendering" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="Exterior Rendering" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Exterior Rendering</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="3d designs/what-is-floor-plan-image-thumb-1172x660.avif" alt="Floor Plan Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="images/exterior-1.webp" alt="Floor Plan Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Floor Plan Concept</p>
               </div>
             </div>
@@ -1344,7 +1345,7 @@
           <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Ready to visualize your dream home exterior?</p>
           <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
             <button type="button" class="btn glass-btn" style="padding: 1rem 2rem; background: linear-gradient(135deg, #ffeb3b, #fdd835); color: #000; box-shadow: 0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3); border: none; font-weight: 700; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);" onmouseover="this.style.boxShadow='0 6px 30px rgba(255, 235, 59, 0.7), 0 0 40px rgba(255, 235, 59, 0.5)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(255, 235, 59, 0.5), 0 0 30px rgba(255, 235, 59, 0.3)'; this.style.transform='translateY(0)'" onclick="openInquiryFormModal('exterior')">Discuss on WhatsApp</button>
-            <a href="tel:+919399330188" class="btn secondary glass-btn" style="padding: 1rem 2rem;">Call Now</a>
+            <a href="tel:+919399330188" class="btn btn-secondary" style="padding: 1rem 2rem;">Call Now</a>
           </div>
         </div>
       </div>
@@ -1367,70 +1368,16 @@
     </div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var planData = {
-        structure: {
-          title: 'STRUCTURE PLAN - Essential Foundation & RCC Frame',
-          price: '₹849 / sq. ft.',
-          scope: ['Excavation, soil compaction and footing concrete work', 'RCC columns, beams and slab casting', 'Fly-ash or red brick masonry walls', 'Internal and external plastering', 'Basic electrical conduit fitting'],
-          materials: 'TATA Tiscon or Jindal Panther TMT with Ultratech or ACC Cement',
-          timeline: '3 to 4 months for a 1200 sq. ft. G+1 home'
-        },
-        premium: {
-          title: 'PREMIUM PLAN - Complete Move-In Home',
-          price: '₹1,399 / sq. ft.',
-          scope: ['Complete foundation, RCC structure and brickwork', 'Vitrified tile flooring in living, bedrooms and dining', 'Bathroom ceramic tiles up to lintel height', 'Concealed plumbing and electrical wiring', 'Granite kitchen platform with stainless steel sink', 'Teakwood main door frame and flush doors', 'Double-coat exterior Asian Paints finish'],
-          materials: 'Vitrified tiles, Finolex wiring and Cera bathroom fittings',
-          timeline: '5 to 6 months'
-        },
-        royal: {
-          title: 'ROYAL PLAN - Luxury Architecture & Vastu Finish',
-          price: '₹1,500 / sq. ft.',
-          scope: ['3D elevation and Vastu-compliant layout', 'Large-format premium vitrified tiles', 'Modular false ceiling in living room and master bedroom', 'Branded wall-hung sanitary ware and diverter fittings', 'Modular kitchen trolley and overhead cabinets', 'UPVC or aluminium sliding windows with safety grills', 'Royale emulsion interior paint finish'],
-          materials: 'Kajaria or Somany tiles, Kohler or Jaquar fittings and Asian Royale paint',
-          timeline: '6 to 7 months'
-        },
-        luxury: {
-          title: 'LUXURY PLAN - Smart Mansion & Ultra Finish',
-          price: '₹1,599 / sq. ft.',
-          scope: ['Custom interior architecture and smart-home wiring', 'Italian marble or premium GVT flooring', 'Designer false ceiling with LED profiles', 'Full modular kitchen with quartz countertop', 'Glass shower partition and thermostatic shower panels', 'Heavy carved teakwood main door', 'Exterior texture paint with wood-composite facade'],
-          materials: 'Italian marble, Grohe or Kohler fittings and smart switches',
-          timeline: '7 to 9 months'
-        }
-      };
-      var modal = document.getElementById('plan-details-modal');
-      var content = document.getElementById('plan-modal-content');
-      var closeButton = document.getElementById('plan-modal-close');
-      if (!modal || !content) return;
-
-      function showPlan(planKey) {
-        var plan = planData[planKey];
-        if (!plan) return;
-        content.innerHTML = '<div class="plan-detail-box"><h3 style="color:var(--accent-gold)">' + plan.title + '</h3><div class="modal-price">' + plan.price + '</div><div class="detail-section-title">Detailed Scope of Construction Work</div><ul class="detail-list">' + plan.scope.map(function (item) { return '<li>' + item + '</li>'; }).join('') + '</ul><div class="detail-section-title">Key Brands & Materials Used</div><p class="plan-detail-copy">' + plan.materials + '</p><div class="detail-section-title">Estimated Project Timeline</div><p class="plan-detail-copy">' + plan.timeline + '</p><div class="plan-detail-actions"><a class="btn primary" target="_blank" style="background:linear-gradient(135deg,#f8fafc,#aeb8c4 48%,#ffffff);color:#101820;box-shadow:0 0 12px rgba(226,232,240,.95),0 0 28px rgba(148,163,184,.75);border:1px solid #ffffff;text-shadow:0 0 8px rgba(255,255,255,.9);" href="https://wa.me/919399330188?text=' + encodeURIComponent('Hello Shree Mahakal Associates, I want to enquire about the ' + plan.title + '. Please share complete quotation and availability.') + '">Request This Plan on WhatsApp</a><a class="btn secondary" href="tel:9399330188">Call Engineer</a></div></div>';
-        modal.setAttribute('aria-hidden', 'false');
-      }
-
-      document.querySelectorAll('.view-details-btn').forEach(function (button) {
-        button.addEventListener('click', function (event) {
-          event.preventDefault();
-          showPlan(button.getAttribute('data-plan'));
-        });
-      });
-      closeButton && closeButton.addEventListener('click', function () { modal.setAttribute('aria-hidden', 'true'); });
-      modal.addEventListener('click', function (event) { if (event.target === modal) modal.setAttribute('aria-hidden', 'true'); });
-    });
-  </script>
-
   <!-- Firebase Initialization -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // Firebase configuration - REPLACE WITH YOUR ACTUAL CONFIG
+    // ⚠️ IMPORTANT: Replace these with your actual Firebase project configuration
+    // Get these from: Firebase Console > Project Settings > General > Your apps > Web app > Config
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
+      apiKey: "YOUR_API_KEY_HERE",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
       projectId: "YOUR_PROJECT_ID",
       storageBucket: "YOUR_PROJECT_ID.appspot.com",
@@ -1438,31 +1385,39 @@
       appId: "YOUR_APP_ID"
     };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
+    // Validate config before initializing
+    const hasValidConfig = Object.values(firebaseConfig).every(v => v && !v.includes('YOUR_'));
     
-    // Initialize Auth and Firestore
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    
-    // Initialize App Check (optional - requires reCAPTCHA v3 key)
-    // Uncomment and add your reCAPTCHA v3 site key when ready
-    // try {
-    //   import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check.js";
-    //   const appCheck = initializeAppCheck(app, {
-    //     provider: new ReCaptchaV3Provider('YOUR_RECAPTCHA_V3_SITE_KEY'),
-    //     isTokenAutoRefreshEnabled: true
-    //   });
-    // } catch (e) {
-    //   console.log('App Check not initialized:', e.message);
-    // }
+    if (!hasValidConfig) {
+      console.warn('⚠️ Firebase config not set! Authentication and database features will not work.');
+      console.warn('Please update firebaseConfig in index.html with your actual Firebase project credentials.');
+    } else {
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      
+      // Initialize Auth and Firestore
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      
+      // Initialize App Check (optional - requires reCAPTCHA v3 key)
+      // Uncomment and add your reCAPTCHA v3 site key when ready
+      // try {
+      //   import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check.js";
+      //   const appCheck = initializeAppCheck(app, {
+      //     provider: new ReCaptchaV3Provider('YOUR_RECAPTCHA_V3_SITE_KEY'),
+      //     isTokenAutoRefreshEnabled: true
+      //   });
+      // } catch (e) {
+      //   console.log('App Check not initialized:', e.message);
+      // }
 
-    // Make Firebase services globally available
-    window.firebaseApp = app;
-    window.firebaseAuth = auth;
-    window.firebaseDb = db;
+      // Make Firebase services globally available
+      window.firebaseApp = app;
+      window.firebaseAuth = auth;
+      window.firebaseDb = db;
 
-    console.log('Firebase initialized successfully');
+      console.log('Firebase initialized successfully');
+    }
   </script>
 
   <!-- ====== CAFE GALLERY MODAL ====== -->
@@ -1472,19 +1427,22 @@
       <div class="carousel-container" style="position: relative; width: 100%; height: 80vh; max-height: 700px; overflow: hidden;">
         <div id="cafe-carousel-track" class="carousel-track" style="display: flex; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);">
           <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="/cafe-plans/Cafe-Floor-Plans.jpg" alt="Cafe Floor Plans" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+            <img src="images/kitchen-image-1.webp" alt="Cafe Kitchen Design 1" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
           </div>
           <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="/cafe-plans/360_F_1522187751_Mc0GzTPkSlHuzqa0BFGgYOeft7KJVYCD.jpg" alt="Cafe Design 360" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+            <img src="assets/kitchen/g-shape-kitchen.webp" alt="G-Shape Modular Kitchen" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
           </div>
           <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="/cafe-plans/images.jpg" alt="Cafe Design 1" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+            <img src="assets/kitchen/kitchen-image-2.webp" alt="Cafe Kitchen Design 2" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
           </div>
           <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="/cafe-plans/images (1).jpg" alt="Cafe Design 2" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+            <img src="assets/kitchen/home-design.webp" alt="Home Kitchen Design" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
           </div>
           <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="/cafe-plans/images (2).jpg" alt="Cafe Design 3" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+            <img src="assets/kitchen/kitchen-img-1779.webp" alt="Kitchen Interior" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+          </div>
+          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <img src="assets/kitchen/kitchen-17.webp" alt="Modern Kitchen" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
           </div>
         </div>
         <button id="cafe-carousel-prev" class="carousel-btn carousel-prev" aria-label="Previous" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: none; color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5;">‹</button>
@@ -1495,8 +1453,9 @@
           <button class="carousel-indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
           <button class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
           <button class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
+          <button class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
         </div>
-        <div id="cafe-gallery-counter" class="carousel-counter" style="position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); color: white; font-size: 0.9rem; font-weight: 600; z-index: 5;">1 / 5 Projects</div>
+        <div id="cafe-gallery-counter" class="carousel-counter" style="position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); color: white; font-size: 0.9rem; font-weight: 600; z-index: 5;">1 / 6 Projects</div>
       </div>
     </div>
   </div>
@@ -1504,8 +1463,6 @@
   <!-- Hero Animation Module - New 20-frame scroll-driven cinematic animation -->
 <script type="module" src="src/hero/hero-animation-new.js"></script>
    
-  <script type="module" src="src/app/main.js"></script>
-
   <script>
     function openExteriorGallery(startIndex) {
       const modal = document.getElementById('exterior-gallery-modal');
@@ -1562,6 +1519,6 @@
     });
   </script>
   <!-- Main application module -->
-  <script type="module" src="/src/app/main.js"></script>
+  <script type="module" src="src/app/main.js"></script>
 </body>
 </html>

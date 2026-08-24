@@ -12,10 +12,7 @@ import {
   resetPassword
 } from "../services/auth.js";
 import { 
-  createBooking, 
-  getUserBookings, 
-  sendMessage, 
-  getMessages 
+  createBooking
 } from "../services/booking.js";
 import { 
   validateForm, 
@@ -387,7 +384,7 @@ function initMobileNavigation() {
     drawer.querySelectorAll('.mobile-nav-dropdown[aria-expanded="true"]').forEach(dd => {
       dd.setAttribute('aria-expanded', 'false');
       const menu = dd.querySelector('.mobile-dropdown-menu');
-      if (menu) {menu.hidden = true;}
+      if (menu) {menu.classList.remove('active');}
     });
   };
 
@@ -418,6 +415,40 @@ function initMobileNavigation() {
   });
 }
 
+// Desktop dropdown touch/click support
+function initDesktopDropdown() {
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+  
+  dropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector('.nav-link');
+    const menu = dropdown.querySelector('.nav-dropdown-menu');
+    
+    if (!toggle || !menu) return;
+    
+    // Click/touch handler for desktop
+    toggle.addEventListener('click', (e) => {
+      if (window.innerWidth > 1024) {
+        e.preventDefault();
+        dropdown.classList.toggle('active');
+      }
+    });
+    
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdown.classList.remove('active');
+      }
+    });
+  });
+}
+
 function saveInquiryToStorage(formData) {
   const inquiries = JSON.parse(localStorage.getItem('smba_inquiries') || '[]');
   const inquiry = {
@@ -443,7 +474,7 @@ function openAllPlansModal() {
     </div>
   `;
   
-  Object.entries(planDetails).forEach(([key, plan]) => {
+  Object.entries(planDetails).forEach(([_key, plan]) => {
     const scopeHTML = plan.workScope.map(item => `<li>${item}</li>`).join('');
     allPlansHTML += `
       <div class="plan-detail-box" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border-radius: 12px; border: 1px solid var(--border-glass);">
@@ -487,39 +518,31 @@ function openAllPlansModal() {
 
 // Cafe Gallery Images
 const CAFE_GALLERY_IMAGES = [
-  '/cafe-plans/Cafe-Floor-Plans.jpg',
-  '/cafe-plans/360_F_1522187751_Mc0GzTPkSlHuzqa0BFGgYOeft7KJVYCD.jpg',
-  '/cafe-plans/images.jpg',
-  '/cafe-plans/images (1).jpg',
-  '/cafe-plans/images (2).jpg',
-  '/cafe-plans/images-0.jpg'
+  'images/kitchen-image-1.webp',
+  'assets/kitchen/g-shape-kitchen.webp',
+  'assets/kitchen/kitchen-image-2.webp',
+  'assets/kitchen/home-design.webp',
+  'assets/kitchen/kitchen-img-1779.webp',
+  'assets/kitchen/kitchen-17.avif'
 ];
 
 console.log('Cafe Gallery Images:', CAFE_GALLERY_IMAGES);
 
 // Cafe Gallery Modal
 function openCafeGalleryModal() {
-  console.log('openCafeGalleryModal called');
   const modal = document.getElementById('cafe-gallery-modal');
-  console.log('Modal element:', modal);
   if (modal) {
     populateCafeCarousel();
     initCafeGalleryCarousel(); // Re-initialize navigation after carousel rebuild
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-    console.log('Modal opened');
-  } else {
-    console.error('Modal not found!');
   }
 }
 
 function populateCafeCarousel() {
-  console.log('populateCafeCarousel called');
   const track = document.getElementById('cafe-carousel-track');
   const indicators = document.getElementById('cafe-carousel-indicators');
   const counter = document.getElementById('cafe-gallery-counter');
-  
-  console.log('Elements found:', { track, indicators, counter });
   
   if (!track || !indicators) {
     console.error('Missing carousel elements');
@@ -529,12 +552,10 @@ function populateCafeCarousel() {
   // Generate slides
   track.innerHTML = CAFE_GALLERY_IMAGES.map((src, index) => `
     <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-      <img src="${src}" alt="Cafe Design ${index + 1}" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="console.error('Failed to load:', this.src)" onload="console.log('Loaded:', this.src)" />
+      <img src="${src}" alt="Cafe Design ${index + 1}" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="console.error('Failed to load:', this.src)" />
     </div>
   `).join('');
-  
-  console.log('Track innerHTML set, slides:', track.children.length);
-  
+
   // Generate indicators
   indicators.innerHTML = CAFE_GALLERY_IMAGES.map((_, index) => `
     <button class="carousel-indicator ${index === 0 ? 'active' : ''}" data-index="${index}" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: ${index === 0 ? 'var(--accent-gold)' : 'rgba(255,255,255,0.3)'}; cursor: pointer;"></button>
@@ -833,9 +854,6 @@ function loadAdminDashboard() {
     import('../services/admin.js').then(m => m.adminGetBookingsStats?.()),
     import('../services/admin.js').then(m => m.adminGetAllUsers?.())
   ]).then(([bookings, stats, users]) => {
-    console.log('Admin bookings loaded:', bookings);
-    console.log('Admin stats loaded:', stats);
-    console.log('Admin users loaded:', users);
   }).catch(err => console.error('Admin dashboard load error:', err));
 }
  
@@ -902,7 +920,7 @@ async function handleAdminLogin(e) {
   const password = form.querySelector('#admin-password').value;
   
   try {
-    const { user, error } = await loginWithEmail(email, password);
+    const { user: _user, error } = await loginWithEmail(email, password);
     
     if (error) {
       showNotification(error, 'error');
@@ -943,7 +961,7 @@ async function handleSignup(e) {
   }
   
   try {
-    const { user, error } = await registerWithEmail(email, password, {
+    const { user: _user, error } = await registerWithEmail(email, password, {
       name: nameValidation.cleaned,
       phone: phoneValidation.cleaned
     });
@@ -1021,6 +1039,7 @@ async function handleRequirementsSubmit(e) {
 function setupEventListeners() {
   initPlanDetailButtons();
   initMobileNavigation();
+  initDesktopDropdown();
 
   // Login button
   loginBtn?.addEventListener('click', () => openLoginModal('user-login'));
@@ -1043,9 +1062,7 @@ function setupEventListeners() {
   
   // Hotel Design Card click
   const hotelCard = document.getElementById('hotel-resort');
-  console.log('Hotel card element:', hotelCard);
-  hotelCard?.addEventListener('click', (e) => {
-    console.log('Hotel card clicked!', e);
+  hotelCard?.addEventListener('click', () => {
     openHotelGalleryModal();
   });
   // Hotel Gallery backdrop close
@@ -1319,9 +1336,9 @@ function initMobileDropdown() {
       
       dropdown.setAttribute('aria-expanded', !isOpen);
       if (isOpen) {
-        menu.hidden = true;
+        menu.classList.remove('active');
       } else {
-        menu.hidden = false;
+        menu.classList.add('active');
       }
     });
   });

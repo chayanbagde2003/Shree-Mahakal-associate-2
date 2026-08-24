@@ -15,7 +15,7 @@
 // Configuration
 const HERO_CONFIG = {
   frameCount: 36,
-  framePath: 'assets/premium_hero_36_frames_4k/hero_premium_frame_',
+  framePath: '/hero_frames/hero_premium_frame_',
   frameExtension: '_4k.jpg',
   framePadding: 2, // zero-padding (01, 02, etc.)
   
@@ -60,17 +60,6 @@ function generateFrameUrls(config) {
 const FRAME_URLS = generateFrameUrls(HERO_CONFIG);
 
 /**
- * Calculate frame index from scroll progress
- * @param {number} scrollProgress - 0 to 1
- * @returns {number} frame index (0-19)
- */
-function getFrameFromProgress(scrollProgress) {
-  const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
-  const frameIndex = Math.floor(clampedProgress * HERO_CONFIG.frameCount);
-  return Math.max(0, Math.min(HERO_CONFIG.frameCount - 1, frameIndex));
-}
-
-/**
  * Get the exact progress within a frame (for crossfade)
  * @param {number} scrollProgress - 0 to 1
  * @returns {object} { frameIndex, frameProgress }
@@ -93,7 +82,6 @@ function getFrameProgress(scrollProgress) {
 function preloadFrames(urls, priorityCount = 8) {
   return new Promise((resolve) => {
     const images = [];
-    let loadedCount = 0;
     
     // Load priority frames first
     const priorityUrls = urls.slice(0, Math.min(priorityCount, urls.length));
@@ -105,11 +93,9 @@ function preloadFrames(urls, priorityCount = 8) {
         img.decoding = 'async';
         img.loading = 'eager';
         img.onload = () => {
-          loadedCount++;
           resolveImg({ img, index, url });
         };
         img.onerror = () => {
-          loadedCount++;
           // Create a placeholder on error
           const placeholder = new Image();
           placeholder.src = urls[0]; // fallback to first frame
@@ -155,10 +141,6 @@ function easeInOutCubic(t) {
 
 function easeOutCubic(t) {
   return 1 - Math.pow(1 - t, 3);
-}
-
-function easeInCubic(t) {
-  return t * t * t;
 }
 
 /**
@@ -666,34 +648,10 @@ if (document.readyState === 'loading') {
     this.frameImg2.style.opacity = '0';
     this.frameImg2.loading = 'lazy';
     
-    // Content overlay - Hero content with proper layout
-    this.overlay = document.createElement('div');
-    this.overlay.className = 'hero-animation-overlay';
-    this.overlay.innerHTML = `
-      <div class="hero-content" style="max-width: 580px; width: 100%;">
-        <div class="sub-badge">CIVIL ENGINEER • ARCHITECT • VASTU SPECIALIST</div>
-        <h1 class="hero-title">BUILD YOUR<br>DREAM HOME<br>WITH UNMATCHED<br>QUALITY</h1>
-        <p class="hero-supporting-text" style="font-size: 1.1rem; line-height: 1.6; color: rgba(240, 246, 252, 0.85); margin: 1.5rem 0; max-width: 480px;">From concept to creation — we design and build spaces that inspire generations.</p>
-        <div class="offer-pill" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; background: linear-gradient(135deg, rgba(230, 57, 70, 0.2), rgba(230, 57, 70, 0.1)); border: 1px solid var(--accent-red); color: var(--accent-red); border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 2rem;">🏷️ <strong>2.5% DISCOUNT ON ANY PLAN</strong></div>
-        <div class="hero-actions" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
-          <a class="btn primary" href="#packages" style="padding: 1rem 2rem; font-size: 1rem;">Explore Pricing Plans</a>
-          <a class="btn whatsapp" href="https://wa.me/919399330188?text=Hello%20Shree%20Mahakal%20Associates%2C%20I%20want%20to%20avail%20the%202.5%25%20discount%20offer%20on%20construction%20plans" target="_blank" style="padding: 1rem 2rem; font-size: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z"/></svg>
-            WhatsApp
-          </a>
-        </div>
-        <div class="hero-contact" style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
-          <a class="btn contact-link" href="tel:+919399330188" style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 1.5rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: var(--text-main); border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: var(--transition);" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.borderColor='var(--accent-gold)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='var(--border-glass)'">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            <span>Call: 9399330188</span>
-          </a>
-          <span class="location" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.95rem;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            <span>Rajnandgaon, Chhattisgarh</span>
-          </span>
-        </div>
-      </div>
-    `;
+    // Content overlay - DISABLED: Using HTML .hero-content instead to avoid duplicate CTAs
+    // this.overlay = document.createElement('div');
+    // this.overlay.className = 'hero-animation-overlay';
+    // this.overlay.innerHTML = `...`;
     
     // Spacer for scroll distance
     this.spacer = document.createElement('div');
@@ -719,14 +677,13 @@ if (document.readyState === 'loading') {
     // 1. Poster (bottom)
     // 2. Frame layers
     // 3. Blend overlay (soft edges)
-    // 4. Content overlay
-    // 5. Scroll indicator
-    // 6. Loader
+    // 4. Scroll indicator
+    // 5. Loader
+    // NOTE: Using HTML .hero-content instead of JS overlay to avoid duplicate CTAs
     this.visual.appendChild(this.posterImg);
     this.visual.appendChild(this.frameImg1);
     this.visual.appendChild(this.frameImg2);
     this.visual.appendChild(this.blendOverlay);
-    this.visual.appendChild(this.overlay);
     this.visual.appendChild(this.scrollIndicator);
     this.visual.appendChild(this.loader);
     
@@ -1012,7 +969,6 @@ if (document.readyState === 'loading') {
   
   let lastScrollY = window.scrollY;
   let ticking = false;
-  const headerHeight = 80; // px
   const threshold = 50; // pixels to scroll before hiding
   const scrollThreshold = 10; // minimum scroll to trigger
   

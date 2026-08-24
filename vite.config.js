@@ -58,16 +58,16 @@ export default defineConfig(({ mode }) => {
       imagemin({
         gifsicle: { optimizationLevel: 7, interlaced: false },
         optipng: { optimizationLevel: 7 },
-        mozjpeg: { quality: 85, progressive: true },
-        pngquant: { quality: [0.8, 0.9], speed: 4 },
+        mozjpeg: { quality: 90, progressive: true },
+        pngquant: { quality: [0.85, 0.95], speed: 4 },
         svgo: {
           plugins: [
             { name: 'removeViewBox', active: false },
             { name: 'removeEmptyAttrs', active: false }
           ]
         },
-        webp: { quality: 85 },
-        avif: { quality: 80 }
+        webp: { quality: 90, lossless: false, near_lossless: 60 },
+        avif: { quality: 90, lossless: false }
       })
     ]
   };

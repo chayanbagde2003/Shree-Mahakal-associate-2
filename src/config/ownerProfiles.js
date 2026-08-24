@@ -15,7 +15,7 @@ export const ownerProfiles = {
       "3D Architecture & Layout Specialist"
     ],
     phone: "9399330188",
-    image: "assets/chayan.jpg"
+    image: "assets/chayan.webp"
   },
   krishnakant: {
     name: "Krishnakant D.",
@@ -27,7 +27,7 @@ export const ownerProfiles = {
       "On-Site Quality Assurance"
     ],
     phone: "7725037456",
-    image: "assets/krishnakant.jpg"
+    image: "assets/krishnakant.webp"
   }
 };
 

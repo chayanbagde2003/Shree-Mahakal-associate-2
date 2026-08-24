@@ -1,112 +1,94 @@
-/**
- * Admin Service
- * Admin-only operations for managing bookings, users, and messages.
- * These functions require admin custom claims.
- */
-
-import { 
-  getDoc, 
-  getDocs, 
-  updateDoc, 
-  deleteDoc, 
-  addDoc,
-  query, 
-  where, 
-  orderBy, 
-  limit, 
-  startAfter,
-  collection,
-  doc,
-  writeBatch,
-  serverTimestamp
-} from "firebase/firestore";
-import { db } from "../firebase/config.js";
 import { BUSINESS_CONFIG } from "../config/business.js";
 
-/**
- * Check if current user is admin
- * This should be called before any admin operation
- */
+const BOOKINGS_KEY = 'smba_bookings';
+const MESSAGES_KEY = 'smba_messages';
+const USERS_KEY = 'smba_users';
+
+function getBookings() {
+  return JSON.parse(localStorage.getItem(BOOKINGS_KEY) || '[]');
+}
+
+function saveBookings(bookings) {
+  localStorage.setItem(BOOKINGS_KEY, JSON.stringify(bookings));
+}
+
+function getMessages() {
+  return JSON.parse(localStorage.getItem(MESSAGES_KEY) || '[]');
+}
+
+function saveMessages(messages) {
+  localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages));
+}
+
+function getUsers() {
+  return JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+}
+
 export const requireAdmin = async (user) => {
   if (!user) {throw new Error('Not authenticated');}
   
-  const idTokenResult = await user.getIdTokenResult();
-  if (!idTokenResult.claims.admin) {
+  const isAdmin = user.email === 'admin@shreemahakal.com' || user.uid === 'admin';
+  if (!isAdmin) {
     throw new Error('Admin access required');
   }
   
   return true;
 };
 
-/**
- * Get all bookings with pagination and filters (Admin)
- */
 export const adminGetAllBookings = async (options = {}) => {
   const { 
     status, 
     service, 
     searchTerm, 
     page = 1, 
-    pageSize = 20,
-    lastDoc = null
+    pageSize = 20
   } = options;
   
-  let q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'));
+  let bookings = getBookings();
+  bookings.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   
   if (status) {
-    q = query(q, where('status', '==', status));
+    bookings = bookings.filter(b => b.status === status);
   }
   
   if (service) {
-    q = query(q, where('service', '==', service));
+    bookings = bookings.filter(b => b.planChoice === service);
   }
   
-  if (lastDoc) {
-    q = query(q, startAfter(lastDoc), limit(pageSize));
-  } else {
-    q = query(q, limit(pageSize));
-  }
-  
-  const snapshot = await getDocs(q);
-  let bookings = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  
-  // Apply search filter client-side
   if (searchTerm) {
     const term = searchTerm.toLowerCase();
     bookings = bookings.filter(b => 
       b.fullName?.toLowerCase().includes(term) ||
       b.email?.toLowerCase().includes(term) ||
       b.phone?.includes(term) ||
-      b.service?.toLowerCase().includes(term) ||
+      b.planChoice?.toLowerCase().includes(term) ||
       b.id?.toLowerCase().includes(term)
     );
   }
   
-  const lastVisible = snapshot.docs[snapshot.docs.length - 1];
-  const hasMore = snapshot.docs.length === pageSize;
+  const start = (page - 1) * pageSize;
+  const end = start + pageSize;
+  const paginatedBookings = bookings.slice(start, end);
   
-  return { bookings, lastDoc: lastVisible, hasMore };
+  return { 
+    bookings: paginatedBookings, 
+    lastDoc: null, 
+    hasMore: end < bookings.length 
+  };
 };
 
-/**
- * Get booking statistics for admin dashboard
- */
 export const adminGetBookingsStats = async () => {
   try {
+    const bookings = getBookings();
     const statuses = BUSINESS_CONFIG.bookingStatuses.map(s => s.id);
-    const stats = { total: 0 };
+    const stats = { total: bookings.length };
     
-    // Get all bookings once
-    const snapshot = await getDocs(collection(db, 'bookings'));
-    stats.total = snapshot.size;
-    
-    // Count by status
     for (const status of statuses) {
       stats[status] = 0;
     }
     
-    snapshot.docs.forEach(doc => {
-      const status = doc.data().status;
+    bookings.forEach(b => {
+      const status = b.status;
       if (statuses.includes(status)) {
         stats[status]++;
       }
@@ -119,91 +101,60 @@ export const adminGetBookingsStats = async () => {
   }
 };
 
-/**
- * Update booking status (Admin)
- */
 export const adminUpdateBookingStatus = async (bookingId, status, adminNotes = '') => {
   const validStatuses = BUSINESS_CONFIG.bookingStatuses.map(s => s.id);
   if (!validStatuses.includes(status)) {
     throw new Error('Invalid status');
   }
   
-  const docRef = doc(db, 'bookings', bookingId);
-  await updateDoc(docRef, {
-    status,
-    adminNotes,
-    updatedAt: serverTimestamp()
-  });
+  const bookings = getBookings();
+  const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+  
+  if (bookingIndex !== -1) {
+    bookings[bookingIndex].status = status;
+    bookings[bookingIndex].adminNotes = adminNotes;
+    bookings[bookingIndex].updatedAt = new Date().toISOString();
+    saveBookings(bookings);
+  }
   
   return { success: true };
 };
 
-/**
- * Get all users (Admin)
- */
 export const adminGetAllUsers = async () => {
-  const q = query(collection(db, 'users'), orderBy('createdAt', 'desc'));
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const users = getUsers();
+  return users.map(u => ({ ...u })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 };
 
-/**
- * Get user by ID (Admin)
- */
 export const adminGetUserById = async (userId) => {
-  const docRef = doc(db, 'users', userId);
-  const snapshot = await getDoc(docRef);
-  
-  if (snapshot.exists()) {
-    return { id: snapshot.id, ...snapshot.data() };
-  }
-  return null;
+  const users = getUsers();
+  return users.find(u => u.uid === userId) || null;
 };
 
-/**
- * Get all messages for a user or booking (Admin)
- */
 export const adminGetMessages = async (userId, bookingId = null) => {
-  let q;
+  const messages = getMessages();
+  let filtered = messages;
   
   if (bookingId) {
-    q = query(
-      collection(db, 'messages'),
-      where('bookingId', '==', bookingId),
-      orderBy('createdAt', 'asc')
-    );
+    filtered = messages.filter(m => m.bookingId === bookingId);
   } else if (userId) {
-    q = query(
-      collection(db, 'messages'),
-      where('userId', '==', userId),
-      orderBy('createdAt', 'desc')
-    );
-  } else {
-    q = query(collection(db, 'messages'), orderBy('createdAt', 'desc'));
+    filtered = messages.filter(m => m.userId === userId);
   }
   
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 };
 
-/**
- * Mark messages as read (Admin)
- */
 export const adminMarkMessagesAsRead = async (messageIds) => {
-  const batch = writeBatch(db);
-  
+  const messages = getMessages();
   messageIds.forEach(id => {
-    const docRef = doc(db, 'messages', id);
-    batch.update(docRef, { read: true });
+    const msgIndex = messages.findIndex(m => m.id === id);
+    if (msgIndex !== -1) {
+      messages[msgIndex].read = true;
+    }
   });
-  
-  await batch.commit();
+  saveMessages(messages);
   return { success: true };
 };
 
-/**
- * Send admin reply to user
- */
 export const adminSendReply = async (userId, message, bookingId = null, adminId) => {
   const messageData = {
     userId,
@@ -211,22 +162,22 @@ export const adminSendReply = async (userId, message, bookingId = null, adminId)
     senderId: adminId,
     senderRole: 'admin',
     message: message.trim(),
-    createdAt: serverTimestamp(),
+    createdAt: new Date().toISOString(),
     read: false
   };
   
-  const docRef = await addDoc(collection(db, 'messages'), messageData);
-  return { id: docRef.id, success: true };
+  const messages = getMessages();
+  messages.push(messageData);
+  saveMessages(messages);
+  
+  return { id: messageData.id, success: true };
 };
 
-/**
- * Get WhatsApp URL for a booking
- */
 export const getBookingWhatsAppUrl = (booking) => {
   const message = `Hello, I have submitted a booking request.
 
 Booking ID: ${booking.id}
-Service: ${booking.service}
+Service: ${booking.planChoice}
 Name: ${booking.fullName}
 Phone: ${booking.phone}
 Location: ${booking.location}
@@ -236,9 +187,6 @@ I would like to discuss my project.`;
   return `https://wa.me/919399330188?text=${encodeURIComponent(message)}`;
 };
 
-/**
- * Get tel URL for a booking
- */
 export const getBookingTelUrl = (booking) => {
   return `tel:+91${booking.phone.replace(/[^\d]/g, '')}`;
 };
