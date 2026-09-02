@@ -19,8 +19,8 @@ const HERO_CONFIG = {
   frameExtension: '_4k.jpg',
   framePadding: 2, // zero-padding (01, 02, etc.)
   
-  // Intro animation (auto-play) - 1 second total for all 36 frames (faster)
-  introDuration: 1000, // 1 second total
+  // Intro animation (auto-play) - fast 0.6s total for all 36 frames
+  introDuration: 600, // 0.6s total - was 1000
   introFrames: 36, // Play all frames during intro
   introHoldDuration: 0, // No hold, unlock immediately
   

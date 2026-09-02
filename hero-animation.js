@@ -4,7 +4,7 @@ class HeroAnimationController {
     this.totalFrames = 55;
     this.framePath = 'hero_60_frames_4k/hero_frame_';
     this.frameExt = '.jpg';
-    this.targetDuration = 500;
+    this.targetDuration = 280; // fast - was 500
     this.frameDuration = this.targetDuration / this.totalFrames;
     this.currentFrame = 1;
     this.isPlaying = false;
@@ -60,7 +60,7 @@ class HeroAnimationController {
   }
 
   async loadRemainingFrames() {
-    const batchSize = 5;
+    const batchSize = 10; // faster preload - was 5
     for (let i = 2; i <= this.totalFrames; i += batchSize) {
       const batch = [];
       for (let j = i; j < i + batchSize && j <= this.totalFrames; j++) {
