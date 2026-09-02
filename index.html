@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Security: Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://firestore.googleapis.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com wss://*.firebaseio.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
   <!-- Firebase App Check (optional) -->
   <!-- <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-check.js"></script> -->
   <!-- Preload only first hero frame for LCP -->
@@ -56,7 +56,7 @@
 
       <!-- RIGHT: Login -->
       <div class="header-right">
-        <a class="btn btn-ghost" id="login-btn" href="login.html">Login</a>
+        <button class="btn btn-login" id="login-btn" type="button"><span class="btn-icon" aria-hidden="true"></span>Login</button>
       </div>
 
       <!-- Mobile Menu Button -->
@@ -94,7 +94,7 @@
       </nav>
       <div class="mobile-drawer-divider"></div>
       <div class="mobile-drawer-auth">
-        <a class="btn btn-primary mobile-auth-btn" id="mobile-login-btn" href="login.html" style="width: 100%;">Login</a>
+        <button class="btn btn-primary mobile-auth-btn btn-login" id="mobile-login-btn" type="button" style="width: 100%;"><span class="btn-icon" aria-hidden="true"></span>Login</button>
       </div>
     </div>
     <div class="mobile-drawer-overlay" id="mobile-drawer-overlay"></div>
@@ -363,7 +363,7 @@
         </div>
 
         <div class="services-grid">
-          <div class="service-card glass" id="cafe-design" onclick="document.getElementById('cafe-gallery-modal')?.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; console.log('Cafe card clicked via onclick')">
+          <div class="service-card glass" id="cafe-design">
             <div class="service-icon">☕</div>
             <h3>Café Design & Planning</h3>
             <div class="service-preview">
@@ -375,7 +375,7 @@
             <p>Aesthetic interior themes, optimal seating layout, coffee bar placement, and ambient lighting designed to maximize customer experience and profitability.</p>
           </div>
 
-          <div class="service-card glass" id="hotel-resort" onclick="document.getElementById('hotel-gallery-modal')?.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; console.log('Hotel card clicked via onclick')">
+          <div class="service-card glass" id="hotel-resort">
             <div class="service-icon">🏨</div>
             <h3>Hotel & Resort Architecture</h3>
             <div class="service-preview">
@@ -387,7 +387,7 @@
             <p>Comprehensive master planning for hotels, lobby lounges, guest suites, and outdoor dining spaces tailored to modern luxury standards.</p>
           </div>
 
-          <div class="service-card glass" id="residential-interiors" onclick="document.getElementById('residential-gallery-modal')?.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; console.log('Residential card clicked via onclick')">
+          <div class="service-card glass" id="residential-interiors">
             <div class="service-icon">🏠</div>
             <h3>Custom Residential Interiors</h3>
             <div class="service-preview">
@@ -399,7 +399,7 @@
             <p>Modular kitchens, false ceilings, custom wardrobes, wall paneling, and curated color palettes designed for modern lifestyle needs.</p>
           </div>
 
-          <div class="service-card glass" id="3d-exterior" onclick="document.getElementById('exterior-gallery-modal')?.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; console.log('Exterior card clicked via onclick')">
+          <div class="service-card glass" id="3d-exterior">
             <div class="service-icon">🏛️</div>
             <h3>3D Exterior Elevation</h3>
             <div class="service-preview">
@@ -563,50 +563,80 @@
 
   <!-- ====== LOGIN MODAL ====== -->
   <div id="login-modal" class="modal" aria-hidden="true">
-    <div class="modal-panel glass large-modal">
+    <div class="modal-panel login-modal-panel">
       <button class="modal-close" id="login-modal-close">✕</button>
-      <div class="login-tabs">
-        <button class="login-tab active" data-tab="user-login">User Login</button>
-        <button class="login-tab" data-tab="admin-login">Admin Login</button>
+      <div class="login-modal-content">
+        <div class="login-modal-header">
+          <h2 style="font-size: var(--text-3xl); margin-bottom: var(--space-2);">Welcome Back</h2>
+          <p style="color: var(--color-text-secondary);">Sign in to your account to continue</p>
+        </div>
       </div>
       
       <!-- User Login Form -->
       <div class="login-tab-content active" id="user-login">
-        <h3 style="margin-bottom: 1.5rem; text-align: center; color: var(--accent-gold);">Login to Continue</h3>
         <form id="user-login-form">
           <div class="form-group">
             <label for="user-email">Email Address</label>
-            <input type="email" id="user-email" name="email" required placeholder="your@email.com" />
+            <div class="form-input-wrapper">
+              <svg class="form-input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <input type="email" id="user-email" name="email" required placeholder="your@email.com" class="form-input" />
+            </div>
           </div>
           <div class="form-group">
             <label for="user-password">Password</label>
-            <input type="password" id="user-password" name="password" required placeholder="Enter password" />
+            <div class="form-input-wrapper">
+              <svg class="form-input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <input type="password" id="user-password" name="password" required placeholder="Enter password" class="form-input" />
+            </div>
           </div>
-          <div class="form-group checkbox-group">
-            <input type="checkbox" id="remember-me" name="remember" />
-            <label for="remember-me">Remember me</label>
+          <div class="form-options">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" id="remember-me" name="remember" />
+              <label for="remember-me" style="margin: 0;">Remember me</label>
+            </div>
+            <a href="#" style="color: var(--color-primary); font-size: var(--text-sm);">Forgot password?</a>
           </div>
-          <button type="submit" class="btn primary" style="width: 100%; margin-top: 1rem;">Login</button>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--space-2);">Sign In</button>
         </form>
-        <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
-          Don't have an account? <a href="#" id="show-signup" style="color: var(--accent-gold);">Sign up</a>
+        <p style="text-align: center; margin-top: var(--space-6); font-size: var(--text-sm); color: var(--color-text-secondary);">
+          Don't have an account? <a href="#" id="show-signup" style="color: var(--color-primary); font-weight: var(--font-semibold);">Create one</a>
         </p>
       </div>
 
-      <!-- Admin Login Form -->
-      <div class="login-tab-content" id="admin-login">
-        <h3 style="margin-bottom: 1.5rem; text-align: center; color: var(--accent-gold);">Admin Login</h3>
-        <form id="admin-login-form">
+      <!-- Signup Form -->
+      <div class="login-tab-content" id="signup">
+        <form id="signup-form">
           <div class="form-group">
-            <label for="admin-email">Admin Email</label>
-            <input type="email" id="admin-email" name="email" required placeholder="admin@email.com" />
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" name="name" required placeholder="Your full name" class="form-input" />
           </div>
           <div class="form-group">
-            <label for="admin-password">Password</label>
-            <input type="password" id="admin-password" name="password" required placeholder="Enter admin password" />
+            <label for="signup-email">Email Address</label>
+            <div class="form-input-wrapper">
+              <svg class="form-input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <input type="email" id="signup-email" name="email" required placeholder="your@email.com" class="form-input" />
+            </div>
           </div>
-          <button type="submit" class="btn primary" style="width: 100%; margin-top: 1rem;">Access Admin Panel</button>
+          <div class="form-group">
+            <label for="signup-phone">Phone Number</label>
+            <input type="tel" id="signup-phone" name="phone" required placeholder="+91 98765 43210" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <div class="form-input-wrapper">
+              <svg class="form-input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <input type="password" id="signup-password" name="password" required placeholder="At least 6 characters" class="form-input" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="signup-confirm-password">Confirm Password</label>
+            <input type="password" id="signup-confirm-password" name="confirmPassword" required placeholder="Confirm your password" class="form-input" />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--space-2);">Create Account</button>
         </form>
+        <p style="text-align: center; margin-top: var(--space-6); font-size: var(--text-sm); color: var(--color-text-secondary);">
+          Already have an account? <a href="#" id="back-to-login" style="color: var(--color-primary); font-weight: var(--font-semibold);">Sign in</a>
+        </p>
       </div>
     </div>
   </div>
@@ -933,118 +963,7 @@
     </div>
   </div>
 
-  <!-- ====== ADMIN PANEL MODAL ====== -->
-  <div id="admin-panel-modal" class="modal" aria-hidden="true">
-    <div class="modal-panel glass large-modal" style="max-width: 1100px; max-height: 90vh; overflow-y: auto;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-        <h3 style="color: var(--accent-gold);">Admin Dashboard</h3>
-        <button class="btn secondary" id="admin-panel-close">Close</button>
-      </div>
-      
-      <div class="admin-tabs">
-        <button class="admin-tab active" data-tab="bookings">📋 All Bookings</button>
-        <button class="admin-tab" data-tab="inquiries">📋 Inquiries & Requirements</button>
-        <button class="admin-tab" data-tab="plans">📐 Plan Selections</button>
-        <button class="admin-tab" data-tab="users">👥 Users</button>
-      </div>
 
-      <!-- Inquiries Tab -->
-      <div class="admin-tab-content active" id="bookings">
-        <div style="margin-bottom: 1rem;">
-          <input type="text" id="booking-search" placeholder="Search bookings..." style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-glass); background: var(--bg-card); color: var(--text-main); width: 100%; max-width: 300px;" />
-        </div>
-        <div class="table-container" style="overflow-x: auto;">
-          <table id="bookings-table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
-            <thead>
-              <tr style="background: var(--bg-card); border-bottom: 2px solid var(--border-glass);">
-                <th style="padding: 1rem; text-align: left;">Date</th>
-                <th style="padding: 1rem; text-align: left;">User</th>
-                <th style="padding: 1rem; text-align: left;">Plan</th>
-                <th style="padding: 1rem; text-align: left;">Location</th>
-                <th style="padding: 1rem; text-align: left;">Plot Size</th>
-                <th style="padding: 1rem; text-align: left;">Budget</th>
-                <th style="padding: 1rem; text-align: left;">Status</th>
-                <th style="padding: 1rem; text-align: left;">Actions</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div id="bookings-pagination" style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;"></div>
-      </div>
-
-      <!-- Inquiries Tab -->
-        <div style="margin-bottom: 1rem;">
-          <input type="text" id="inquiry-search" placeholder="Search inquiries..." style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-glass); background: var(--bg-card); color: var(--text-main); width: 100%; max-width: 300px;" />
-        </div>
-        <div class="table-container" style="overflow-x: auto;">
-          <table id="inquiries-table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
-            <thead>
-              <tr style="background: var(--bg-card); border-bottom: 2px solid var(--border-glass);">
-                <th style="padding: 1rem; text-align: left;">Date</th>
-                <th style="padding: 1rem; text-align: left;">Name</th>
-                <th style="padding: 1rem; text-align: left;">Contact</th>
-                <th style="padding: 1rem; text-align: left;">Project Type</th>
-                <th style="padding: 1rem; text-align: left;">Plan</th>
-                <th style="padding: 1rem; text-align: left;">Budget</th>
-                <th style="padding: 1rem; text-align: left;">Status</th>
-                <th style="padding: 1rem; text-align: left;">Actions</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-        <div id="inquiry-pagination" style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;"></div>
-      </div>
-
-      <!-- Plan Selections Tab -->
-      <div class="admin-tab-content" id="plans">
-        <div style="margin-bottom: 1rem;">
-          <select id="plan-filter" style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-glass); background: var(--bg-card); color: var(--text-main);">
-            <option value="">All Plans</option>
-            <option value="structure">Structure Plan</option>
-            <option value="premium">Premium Plan</option>
-            <option value="royal">Royal Plan</option>
-            <option value="luxury">Luxury Plan</option>
-          </select>
-        </div>
-        <div class="table-container" style="overflow-x: auto;">
-          <table id="plans-table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
-            <thead>
-              <tr style="background: var(--bg-card); border-bottom: 2px solid var(--border-glass);">
-                <th style="padding: 1rem; text-align: left;">Date</th>
-                <th style="padding: 1rem; text-align: left;">User</th>
-                <th style="padding: 1rem; text-align: left;">Plan</th>
-                <th style="padding: 1rem; text-align: left;">Plot Size</th>
-                <th style="padding: 1rem; text-align: left;">Est. Cost</th>
-                <th style="padding: 1rem; text-align: left;">Status</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Users Tab -->
-      <div class="admin-tab-content" id="users">
-        <div class="table-container" style="overflow-x: auto;">
-          <table id="users-table" style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
-            <thead>
-              <tr style="background: var(--bg-card); border-bottom: 2px solid var(--border-glass);">
-                <th style="padding: 1rem; text-align: left;">Name</th>
-                <th style="padding: 1rem; text-align: left;">Email</th>
-                <th style="padding: 1rem; text-align: left;">Phone</th>
-                <th style="padding: 1rem; text-align: left;">Registered</th>
-                <th style="padding: 1rem; text-align: left;">Inquiries</th>
-                <th style="padding: 1rem; text-align: left;">Status</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ====== CAFE DESIGN GALLERY MODAL ====== -->
   <div id="cafe-gallery-modal" class="modal modal-fullscreen" aria-hidden="true" onclick="if(event.target===this){this.setAttribute('aria-hidden','true');document.body.style.overflow=''}">
@@ -1064,33 +983,41 @@
         <div class="carousel-container" style="position: relative; width: 100%; max-width: 900px; margin: 0 auto;">
           <div class="carousel-wrapper" style="overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-glass); position: relative; touch-action: pan-y;">
             <button class="carousel-btn prev" id="cafe-carousel-prev" onclick="const t=document.getElementById('cafe-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
-            <div class="carousel-track" id="cafe-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(5,Math.round(p*5)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
+            <div class="carousel-track" id="cafe-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(12,Math.round(p*12)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/kitchen-image-1.webp" alt="Modern Cafe Interior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern Cafe Interior</p>
+                <img src="assets/cafe-pics/360_F_1522187751_Mc0GzTPkSlHuzqa0BFGgYOeft7KJVYCD.jpg" alt="Cafe Ambiance Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Ambiance Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="assets/kitchen/g-shape-kitchen.webp" alt="Cafe Floor Plans" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Floor Plans</p>
+                <img src="assets/cafe-pics/360_F_1662286312_eI7l30O5LI43BJuKpi0hPlWqaY3meefX.jpg" alt="Modern Coffee Shop Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern Coffee Shop Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="assets/kitchen/kitchen-image-2.webp" alt="Cafe Design Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Design Concept</p>
+                <img src="assets/cafe-pics/A4196-10-Things-you-should-remember-before-designing-a-coffee-shop.webp" alt="Coffee Shop Planning Tips" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Coffee Shop Planning Tips</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="assets/kitchen/home-design.webp" alt="Interior Layout Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Interior Layout Design</p>
+                <img src="assets/cafe-pics/images (1).jpg" alt="Cafe Interior Concept 1" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Interior Concept 1</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="assets/kitchen/kitchen-img-1779.webp" alt="Cafe Bar & Counter Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Bar & Counter Design</p>
+                <img src="assets/cafe-pics/images (2).jpg" alt="Cafe Interior Concept 2" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Interior Concept 2</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="assets/kitchen/kitchen-17.webp" alt="Cafe Seating Area" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Seating Area</p>
+                <img src="assets/cafe-pics/images (3).jpg" alt="Cafe Seating Arrangement" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Seating Arrangement</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="assets/cafe-pics/images (4).jpg" alt="Cafe Lighting & Aesthetics" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Lighting & Aesthetics</p>
+              </div>
+              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                <img src="assets/cafe-pics/images.jpg" alt="Premium Cafe Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Premium Cafe Design</p>
               </div>
             </div>
-            <button class="carousel-btn next" id="cafe-carousel-next" onclick="const t=document.getElementById('cafe-carousel-track'); if(t){const s=Math.min(5,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
+            <button class="carousel-btn next" id="cafe-carousel-next" onclick="const t=document.getElementById('cafe-carousel-track'); if(t){const s=Math.min(7,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
           </div>
         </div>
         
@@ -1102,6 +1029,13 @@
           <button class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="6" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="7" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="8" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="9" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="10" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="11" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="12" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
         </div>
         
         <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); text-align: center; width: 100%; max-width: 900px;">
@@ -1207,7 +1141,7 @@
         <div class="carousel-container" style="position: relative; width: 100%; max-width: 900px; margin: 0 auto;">
           <div class="carousel-wrapper" style="overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-glass); position: relative; touch-action: pan-y;">
             <button class="carousel-btn prev" id="hotel-carousel-prev" onclick="const t=document.getElementById('hotel-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
-            <div class="carousel-track" id="hotel-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(10,Math.round(p*10)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
+            <div class="carousel-track" id="hotel-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(14,Math.round(p*14)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
                 <img src="images/hotel-image-1.webp" alt="Hotel Exterior Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Exterior Design</p>
@@ -1251,9 +1185,25 @@
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
                 <img src="images/exterior-1.webp" alt="AutoCAD House Plan" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">AutoCAD House Plan</p>
+                  <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                    <img src="assets/hotel-resort/images (1).jpg" alt="Luxury Hotel Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                    <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Luxury Hotel Design</p>
+                  </div>
+                  <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                    <img src="assets/hotel-resort/images (2).jpg" alt="Resort Room Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                    <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Resort Room Design</p>
+                  </div>
+                  <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                    <img src="assets/hotel-resort/images (5).jpg" alt="Hotel Amenities" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                    <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Amenities</p>
+                  </div>
+                  <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
+                    <img src="assets/hotel-resort/images.jpg" alt="Resort Architecture" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                    <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Resort Architecture</p>
+                  </div>
               </div>
             </div>
-            <button class="carousel-btn next" id="hotel-carousel-next" onclick="const t=document.getElementById('hotel-carousel-track'); if(t){const s=Math.min(10,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
+            <button class="carousel-btn next" id="hotel-carousel-next" onclick="const t=document.getElementById('hotel-carousel-track'); if(t){const s=Math.min(14,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
           </div>
         </div>
         
@@ -1270,6 +1220,10 @@
           <button class="carousel-indicator" data-index="8" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="9" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="10" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="11" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="12" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="13" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
+          <button class="carousel-indicator" data-index="14" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
         </div>
         
         <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); text-align: center; width: 100%; max-width: 900px;">
@@ -1301,33 +1255,29 @@
         <div class="carousel-container" style="position: relative; width: 100%; max-width: 900px; margin: 0 auto;">
           <div class="carousel-wrapper" style="overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-glass); position: relative; touch-action: pan-y;">
             <button class="carousel-btn prev" id="exterior-carousel-prev" onclick="const t=document.getElementById('exterior-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
-            <div class="carousel-track" id="exterior-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(6,Math.round(p*6)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
+            <div class="carousel-track" id="exterior-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(4,Math.round(p*4)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="Modern House Exterior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <img src="assets/3d-designs/a3932d38a7686fa172cf661ea0533953.jpg" alt="Modern House Exterior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern House Exterior</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="Elevation Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/3d-designs/eb01f3e533902f63a6ba47502d1dabb2.0000000.jpg" alt="Elevation Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Elevation Design</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="3D House Model" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/3d-designs/images (1).jpg" alt="3D House Model" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">3D House Model</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="Architectural Visualization" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/3d-designs/images (2).jpg" alt="Architectural Visualization" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Architectural Visualization</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="Exterior Rendering" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <img src="assets/3d-designs/images.jpg" alt="Exterior Rendering" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Exterior Rendering</p>
               </div>
-              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="Floor Plan Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Floor Plan Concept</p>
-              </div>
             </div>
-            <button class="carousel-btn next" id="exterior-carousel-next" onclick="const t=document.getElementById('exterior-carousel-track'); if(t){const s=Math.min(5,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
+            <button class="carousel-btn next" id="exterior-carousel-next" onclick="const t=document.getElementById('exterior-carousel-track'); if(t){const s=Math.min(4,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
           </div>
         </div>
         
@@ -1420,49 +1370,8 @@
     }
   </script>
 
-  <!-- ====== CAFE GALLERY MODAL ====== -->
-  <div id="cafe-gallery-modal" class="modal" aria-hidden="true">
-    <div class="modal-panel glass large-modal" style="max-width: 95vw; max-height: 95vh; padding: 0; overflow: hidden;">
-      <button class="modal-close" id="cafe-gallery-close" style="z-index: 10;">✕</button>
-      <div class="carousel-container" style="position: relative; width: 100%; height: 80vh; max-height: 700px; overflow: hidden;">
-        <div id="cafe-carousel-track" class="carousel-track" style="display: flex; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);">
-          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="images/kitchen-image-1.webp" alt="Cafe Kitchen Design 1" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
-          </div>
-          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="assets/kitchen/g-shape-kitchen.webp" alt="G-Shape Modular Kitchen" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
-          </div>
-          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="assets/kitchen/kitchen-image-2.webp" alt="Cafe Kitchen Design 2" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
-          </div>
-          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="assets/kitchen/home-design.webp" alt="Home Kitchen Design" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
-          </div>
-          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="assets/kitchen/kitchen-img-1779.webp" alt="Kitchen Interior" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
-          </div>
-          <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <img src="assets/kitchen/kitchen-17.webp" alt="Modern Kitchen" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
-          </div>
-        </div>
-        <button id="cafe-carousel-prev" class="carousel-btn carousel-prev" aria-label="Previous" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: none; color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5;">‹</button>
-        <button id="cafe-carousel-next" class="carousel-btn carousel-next" aria-label="Next" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: none; color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5;">›</button>
-        <div id="cafe-carousel-indicators" class="carousel-indicators" style="position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 5;">
-          <button class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: var(--accent-gold); cursor: pointer;"></button>
-          <button class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
-          <button class="carousel-indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
-          <button class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
-          <button class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
-          <button class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer;"></button>
-        </div>
-        <div id="cafe-gallery-counter" class="carousel-counter" style="position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); color: white; font-size: 0.9rem; font-weight: 600; z-index: 5;">1 / 6 Projects</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Hero Animation Module - New 20-frame scroll-driven cinematic animation -->
-<script type="module" src="src/hero/hero-animation-new.js"></script>
-   
+  <!-- Hero Animation Module disabled - using hero-animation.js (60 frames) to preserve layout -->
+    
   <script>
     function openExteriorGallery(startIndex) {
       const modal = document.getElementById('exterior-gallery-modal');
@@ -1518,6 +1427,8 @@
       }
     });
   </script>
+  <!-- Hero Animation Controller -->
+  <script type="module" src="hero-animation.js"></script>
   <!-- Main application module -->
   <script type="module" src="src/app/main.js"></script>
 </body>

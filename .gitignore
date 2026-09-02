@@ -7,12 +7,19 @@ dist/
 # Environment / secrets
 .env
 .env.*
+!.env.example
+service-account*.json
+firebase-admin*.json
+credentials*.json
+private-key*.json
 
 # Editor / OS files
 .vscode/
 .DS_Store
 Thumbs.db
 
+# Large media - use Git LFS or host externally (90MB hero frames)
+hero_60_frames_4k/
 # Misc
 *.log
 *.tmp

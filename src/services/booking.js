@@ -1,76 +1,107 @@
-const BOOKINGS_KEY = 'smba_bookings';
-const MESSAGES_KEY = 'smba_messages';
+import { initializeFirebase } from "../config/firebase.js";
 
-function getBookings() {
-  return JSON.parse(localStorage.getItem(BOOKINGS_KEY) || '[]');
-}
-
-function saveBookings(bookings) {
-  localStorage.setItem(BOOKINGS_KEY, JSON.stringify(bookings));
-}
-
-function getAllMessages() {
-  return JSON.parse(localStorage.getItem(MESSAGES_KEY) || '[]');
-}
-
-function saveMessages(messages) {
-  localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages));
-}
+const BOOKINGS_COLLECTION = 'bookings';
+const MESSAGES_COLLECTION = 'messages';
 
 function generateId() {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
 
+async function getDb() {
+  const { db } = await initializeFirebase();
+  if (!db) {
+    throw new Error('Firestore not initialized');
+  }
+  return db;
+}
+
 export const createBooking = async (data, userId) => {
   try {
-    const bookings = getBookings();
+    const db = await getDb();
+    const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js");
+    
     const booking = {
-      id: generateId(),
       ...data,
       userId,
       status: 'new',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
     };
     
-    bookings.unshift(booking);
-    saveBookings(bookings);
+    const docRef = await addDoc(collection(db, BOOKINGS_COLLECTION), booking);
     
-    return { id: booking.id, error: null };
+    return { id: docRef.id, error: null };
   } catch (error) {
+    console.error('Error creating booking:', error);
     return { id: null, error: 'Failed to create booking' };
   }
 };
 
 export const getUserBookings = async (userId) => {
-  const bookings = getBookings();
-  return bookings.filter(b => b.userId === userId);
+  try {
+    const db = await getDb();
+    const { collection, query, where, orderBy, getDocs } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js");
+    
+    const q = query(
+      collection(db, BOOKINGS_COLLECTION),
+      where('userId', '==', userId),
+      orderBy('createdAt', 'desc')
+    );
+    
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error fetching user bookings:', error);
+    return [];
+  }
 };
 
 export const sendMessage = async (data) => {
   try {
-const messages = getAllMessages();
+    const db = await getDb();
+    const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js");
+    
     const message = {
-      id: generateId(),
       ...data,
-      createdAt: new Date().toISOString(),
+      createdAt: serverTimestamp(),
       read: false
     };
     
-    messages.push(message);
-    saveMessages(messages);
+    const docRef = await addDoc(collection(db, MESSAGES_COLLECTION), message);
     
-    return { id: message.id, error: null };
+    return { id: docRef.id, error: null };
   } catch (error) {
+    console.error('Error sending message:', error);
     return { id: null, error: 'Failed to send message' };
   }
 };
 
 export const getMessages = async (userId, bookingId = null) => {
-  const messages = getAllMessages();
-  return messages.filter(m => 
-    (bookingId ? m.bookingId === bookingId : m.userId === userId)
-  );
+  try {
+    const db = await getDb();
+    const { collection, query, where, orderBy, getDocs } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js");
+    
+    let q;
+    if (bookingId) {
+      q = query(
+        collection(db, MESSAGES_COLLECTION),
+        where('bookingId', '==', bookingId),
+        orderBy('createdAt', 'asc')
+      );
+    } else {
+      q = query(
+        collection(db, MESSAGES_COLLECTION),
+        where('userId', '==', userId),
+        orderBy('createdAt', 'asc')
+      );
+    }
+    
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+    return [];
+  }
 };
 
 export default {

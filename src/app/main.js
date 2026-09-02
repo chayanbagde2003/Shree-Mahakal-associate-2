@@ -53,14 +53,13 @@ function showNotification(message, type = 'info') {
     setTimeout(() => el.remove(), 300);
   }, 4000);
 }
-let isAdmin = false;
 
 // DOM Elements
 const loginBtn = document.getElementById('login-btn');
+const mobileLoginBtn = document.getElementById('mobile-login-btn');
 const callBtn = document.getElementById('call-btn');
 const loginModal = document.getElementById('login-modal');
 const requirementsModal = document.getElementById('requirements-modal');
-const adminPanelModal = document.getElementById('admin-panel-modal');
 const planDetailsModal = document.getElementById('plan-details-modal');
 const planModalContent = document.getElementById('plan-modal-content');
 const planModalClose = document.getElementById('plan-modal-close');
@@ -69,7 +68,7 @@ const inquiryFormClose = document.getElementById('inquiry-form-modal-close');
 const inquiryFormCancel = document.getElementById('inquiry-form-cancel');
 const inquiryForm = document.getElementById('inquiry-form');
 const inquiryPlanInput = document.getElementById('inquiry-plan');
-const inquiryAddressInput = document.getElementById('inquiry-address');
+const inquiryAddressInput = document.getElementById('inquiry-address') || document.getElementById('inquiry-location');
 
 // Admin WhatsApp Number
 const ADMIN_WHATSAPP = '919399330188';
@@ -158,10 +157,9 @@ function initContactButtons() {
 
 // Initialize auth state listener
 function initAuthListener() {
-  onAuthStateChange(({ user, profile, isAdmin: adminStatus }) => {
+  onAuthStateChange(({ user, profile }) => {
     currentUser = user;
     currentUserProfile = profile;
-    isAdmin = adminStatus;
     updateAuthUI();
     
     // If login modal was open, close it
@@ -185,11 +183,7 @@ function updateAuthUI() {
     loginBtn.classList.add('primary');
     loginBtn.classList.remove('secondary');
     loginBtn.onclick = () => {
-      if (isAdmin) {
-        openAdminPanel();
-      } else {
-        openRequirementsModal();
-      }
+      openRequirementsModal();
     };
   } else {
     loginBtn.textContent = 'Login';
@@ -207,16 +201,19 @@ function openLoginModal(defaultTab = 'user-login') {
 
 function closeLoginModal() {
   loginModal.setAttribute('aria-hidden', 'true');
-  document.getElementById('user-login-form').reset();
-  document.getElementById('admin-login-form').reset();
-  document.getElementById('signup-form').reset();
+  document.getElementById('user-login-form')?.reset();
+  document.getElementById('signup-form')?.reset();
 }
 
 function switchLoginTab(tabId) {
-  document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.login-tab-content').forEach(c => c.classList.remove('active'));
-  document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-  document.getElementById(tabId).classList.add('active');
+  // Simply show the requested tab content
+  const tabContent = document.getElementById(tabId);
+  if (tabContent) {
+    // Hide all tab contents
+    document.querySelectorAll('.login-tab-content').forEach(c => c.classList.remove('active'));
+    // Show the requested tab
+    tabContent.classList.add('active');
+  }
 }
 
 // Requirements Modal
@@ -274,8 +271,26 @@ function closeInquiryFormModal() {
   }
 }
 
-// Send inquiry to admin WhatsApp
+// Send inquiry securely - sanitize, validate, then store
 async function sendInquiryToAdmin(formData) {
+  // Client-side sanitization + validation (server rules enforce again)
+  const sanitized = {};
+  for (const [k,v] of Object.entries(formData)) {
+    sanitized[k] = typeof v === 'string' ? sanitizeText(v) : v;
+  }
+  const validation = validateForm(sanitized, bookingValidationRules);
+  if (!validation.isValid) {
+    const firstError = Object.values(validation.errors)[0];
+    showNotification(firstError, 'error');
+    return false;
+  }
+  // File validation if present
+  const files = document.getElementById('reference-files')?.files;
+  if (files && files.length) {
+    const fileCheck = validateFiles(files);
+    if (!fileCheck.valid) { showNotification(fileCheck.message,'error'); return false; }
+  }
+  formData = sanitized;
   const planNames = {
     structure: 'Structure Plan (₹849/sq.ft)',
     premium: 'Premium Plan (₹1,399/sq.ft)',
@@ -320,8 +335,28 @@ User: ${currentUser ? currentUser.email : 'Guest'}`;
   const whatsappUrl = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(message)}`;
   window.open(whatsappUrl, '_blank');
   
-  // Also save to localStorage for admin dashboard
-  saveInquiryToStorage(formData);
+  // Securely save to Firestore (with localStorage fallback removed - Firestore only)
+  try {
+    const uid = currentUser?.uid || 'guest_' + Date.now();
+    const payload = {
+      fullName: formData.fullName,
+      phone: formData.phone,
+      email: formData.email,
+      location: formData.location,
+      address: formData.address || formData.location,
+      projectType: formData.projectType,
+      planChoice: formData.plan || formData.planChoice || 'custom',
+      plotSize: Number(formData.plotSize) || 0,
+      floors: formData.floors || '2',
+      budgetRange: formData.budgetRange || '',
+      specialRequirements: formData.specialRequirements || '',
+      status: 'new'
+    };
+    await createBooking(payload, uid);
+  } catch (e) {
+    console.warn('Booking save failed, keeping local backup', e);
+    saveInquiryToStorage(formData);
+  }
   
   return true;
 }
@@ -341,16 +376,140 @@ function openPlanDetails(planKey) {
       <p class="plan-detail-copy">${plan.materials}</p>
       <div class="detail-section-title">Estimated Project Timeline</div>
       <p class="plan-detail-copy">${plan.timeline}</p>
-      <div class="plan-detail-actions">
-        <button class="btn primary plan-inquiry-btn" type="button" data-plan="${planKey}" style="background:linear-gradient(135deg,#f8fafc,#aeb8c4 48%,#ffffff);color:#101820;box-shadow:0 0 12px rgba(226,232,240,.95),0 0 28px rgba(148,163,184,.75);border:1px solid #ffffff;text-shadow:0 0 8px rgba(255,255,255,.9);">Request This Plan on WhatsApp</button>
-        <a class="btn secondary" href="tel:9399330188">Call Engineer</a>
+
+      <div style="margin:1.5rem 0; display:flex; gap:1rem; flex-wrap:wrap;">
+        <a href="https://wa.me/919399330188?text=${encodeURIComponent(
+          `Hello Shree Mahakal Associates, I'm interested in the ${plan.title} (${plan.price}). Could you please share more details and a quote for my project?`
+        )}" target="_blank" class="btn btn-secondary" style="flex:1; min-width:200px; text-align:center; display:inline-flex; align-items:center; justify-content:center; gap:0.5rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z"/></svg>
+          Message on WhatsApp
+        </a>
+        <a href="tel:9399330188" class="btn btn-primary" style="flex:1; min-width:200px; text-align:center; display:inline-flex; align-items:center; justify-content:center; gap:0.5rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call Engineer
+        </a>
       </div>
+
+      <hr style="margin:1.5rem 0; border-color:var(--border-glass);" />
+
+      <h4 style="margin-bottom:1rem; color:var(--accent-gold);">Request a Quote</h4>
+      <form id="plan-detail-inquiry-form" class="inquiry-form-inline">
+        <input type="hidden" name="plan" value="${planKey}" />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pdi-full-name">Full Name *</label>
+            <input type="text" id="pdi-full-name" name="fullName" required placeholder="Your full name" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="pdi-phone">Phone Number *</label>
+            <input type="tel" id="pdi-phone" name="phone" required placeholder="+91 98765 43210" class="form-input" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pdi-email">Email *</label>
+            <input type="email" id="pdi-email" name="email" required placeholder="your@email.com" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="pdi-location">Project Location *</label>
+            <input type="text" id="pdi-location" name="location" required placeholder="City, Area, Landmark" class="form-input" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pdi-address">Full Site Address *</label>
+          <textarea id="pdi-address" name="address" required rows="2" placeholder="House/plot number, street, area, city" class="form-textarea"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pdi-project-type">Project Type *</label>
+            <select id="pdi-project-type" name="projectType" required class="form-select">
+              <option value="">Select type</option>
+              <option value="residential">Residential Home</option>
+              <option value="commercial">Commercial Building</option>
+              <option value="renovation">Renovation/Extension</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pdi-floors">Number of Floors</label>
+            <select id="pdi-floors" name="floors" class="form-select">
+              <option value="1">Ground Floor Only</option>
+              <option value="2" selected>G+1 (Ground + 1 Floor)</option>
+              <option value="3">G+2</option>
+              <option value="4">G+3</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pdi-plot-size">Land Size (sq. ft.) *</label>
+            <input type="number" id="pdi-plot-size" name="plotSize" min="500" required placeholder="e.g., 1200" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="pdi-budget">Estimated Budget *</label>
+            <select id="pdi-budget" name="budgetRange" required class="form-select">
+              <option value="">Select budget</option>
+              <option value="5-10">₹5-10 Lakhs</option>
+              <option value="10-15">₹10-15 Lakhs</option>
+              <option value="15-20">₹15-20 Lakhs</option>
+              <option value="20-25">₹20-25 Lakhs</option>
+              <option value="25-30">₹25-30 Lakhs</option>
+              <option value="30-40">₹30-40 Lakhs</option>
+              <option value="40-50">₹40-50 Lakhs</option>
+              <option value="50-60">₹50-60 Lakhs</option>
+              <option value="60-80">₹60-80 Lakhs</option>
+              <option value="80-100">₹80-100 Lakhs</option>
+              <option value="100-150">₹1-1.5 Crore</option>
+              <option value="150+">₹1.5 Crore+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pdi-special">Special Requirements / Notes</label>
+          <textarea id="pdi-special" name="specialRequirements" rows="3" placeholder="Any specific requirements, design preferences, or notes..." class="form-textarea"></textarea>
+        </div>
+        <div style="display:flex; gap:1rem; margin-top:1.5rem; flex-wrap:wrap;">
+          <button type="submit" class="btn btn-primary" style="flex:1; min-width:200px; padding:1rem 2rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414z"/></svg>
+            Submit & Send to WhatsApp
+          </button>
+          <button type="button" class="btn btn-secondary" id="pdi-cancel" style="flex:1; min-width:200px; padding:1rem 2rem;">Cancel</button>
+        </div>
+      </form>
     </div>
   `;
-  planModalContent.querySelector('.plan-inquiry-btn').addEventListener('click', () => {
+
+  // prefill if logged in
+  if (currentUser) {
+    const pf = currentUserProfile || {};
+    document.getElementById('pdi-full-name').value = pf.name || currentUser.displayName || '';
+    document.getElementById('pdi-email').value = currentUser.email || '';
+    document.getElementById('pdi-phone').value = pf.phone || '';
+    document.getElementById('pdi-location').value = pf.city || '';
+    document.getElementById('pdi-address').value = pf.address || '';
+  }
+
+  // cancel button
+  document.getElementById('pdi-cancel').addEventListener('click', () => {
     planDetailsModal.setAttribute('aria-hidden', 'true');
-    openInquiryFormModal(planKey);
   });
+
+  // form submit
+  document.getElementById('plan-detail-inquiry-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    const requiredFields = ['fullName','phone','email','location','address','projectType','plotSize','budgetRange'];
+    for (const field of requiredFields) {
+      if (!data[field]) { showNotification('Please fill in all required fields','error'); return; }
+    }
+
+    await sendInquiryToAdmin(data);
+    showNotification('Inquiry sent successfully! We\'ll contact you soon.');
+    planDetailsModal.setAttribute('aria-hidden', 'true');
+  });
+
   planDetailsModal.setAttribute('aria-hidden', 'false');
 }
 
@@ -423,7 +582,7 @@ function initDesktopDropdown() {
     const toggle = dropdown.querySelector('.nav-link');
     const menu = dropdown.querySelector('.nav-dropdown-menu');
     
-    if (!toggle || !menu) return;
+    if (!toggle || !menu) { return; }
     
     // Click/touch handler for desktop
     toggle.addEventListener('click', (e) => {
@@ -745,12 +904,131 @@ function initCafeGalleryCarousel() {
 }
 
 // Hotel Gallery Modal
+const HOTEL_GALLERY_IMAGES = [
+  'images/hotel-image-1.webp',
+  'assets/hotel/hotel-image-2.webp',
+  'assets/hotel/sunyata-hotel.webp',
+];
+
 function openHotelGalleryModal() {
   const modal = document.getElementById('hotel-gallery-modal');
   if (modal) {
+    populateHotelCarousel();
+    initHotelGalleryCarousel();
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
+}
+
+function populateHotelCarousel() {
+  const track = document.getElementById('hotel-carousel-track');
+  const indicators = document.getElementById('hotel-carousel-indicators');
+  const counter = document.getElementById('hotel-gallery-counter');
+  if (!track || !indicators) return;
+
+  track.innerHTML = HOTEL_GALLERY_IMAGES.map((src, index) => `
+    <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+      <img src="${src}" alt="Hotel Design ${index + 1}" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="console.error('Failed to load:', this.src)" />
+    </div>
+  `).join('');
+
+  indicators.innerHTML = HOTEL_GALLERY_IMAGES.map((_, index) => `
+    <button class="carousel-indicator ${index === 0 ? 'active' : ''}" data-index="${index}" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: ${index === 0 ? 'var(--accent-gold)' : 'rgba(255,255,255,0.3)'}; cursor: pointer;"></button>
+  `).join('');
+
+  if (counter) counter.textContent = `1 / ${HOTEL_GALLERY_IMAGES.length} Projects`;
+
+  indicators.querySelectorAll('.carousel-indicator').forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      const carouselTrack = document.getElementById('hotel-carousel-track');
+      if (carouselTrack) {
+        carouselTrack.style.transform = `translateX(-${index * 100}%)`;
+        updateHotelIndicators(index);
+      }
+    });
+  });
+}
+
+function updateHotelIndicators(activeIndex) {
+  const indicators = document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator');
+  const counter = document.getElementById('hotel-gallery-counter');
+  const prevBtn = document.getElementById('hotel-carousel-prev');
+  const nextBtn = document.getElementById('hotel-carousel-next');
+
+  indicators.forEach((indicator, index) => {
+    indicator.style.background = index === activeIndex ? 'var(--accent-gold)' : 'rgba(255, 255, 255, 0.3)';
+    indicator.classList.toggle('active', index === activeIndex);
+  });
+
+  if (counter) counter.textContent = `${activeIndex + 1} / ${HOTEL_GALLERY_IMAGES.length} Projects`;
+  if (prevBtn) { prevBtn.style.opacity = activeIndex === 0 ? '0.5' : '1'; prevBtn.style.pointerEvents = activeIndex === 0 ? 'none' : 'auto'; }
+  if (nextBtn) { nextBtn.style.opacity = activeIndex === HOTEL_GALLERY_IMAGES.length - 1 ? '0.5' : '1'; nextBtn.style.pointerEvents = activeIndex === HOTEL_GALLERY_IMAGES.length - 1 ? 'none' : 'auto'; }
+}
+
+function initHotelGalleryCarousel() {
+  const track = document.getElementById('hotel-carousel-track');
+  const prevBtn = document.getElementById('hotel-carousel-prev');
+  const nextBtn = document.getElementById('hotel-carousel-next');
+  if (!track || !prevBtn || !nextBtn) return;
+
+  const newPrevBtn = prevBtn.cloneNode(true);
+  const newNextBtn = nextBtn.cloneNode(true);
+  prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+  nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+
+  let currentIndex = 0;
+  const totalSlides = HOTEL_GALLERY_IMAGES.length;
+  let initialized = false;
+
+  function updateCarousel() {
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    updateHotelIndicators(currentIndex);
+  }
+
+  function goToSlide(index) {
+    currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
+    updateCarousel();
+  }
+
+  function nextSlide() { if (currentIndex < totalSlides - 1) goToSlide(currentIndex + 1); }
+  function prevSlide() { if (currentIndex > 0) goToSlide(currentIndex - 1); }
+  function resetCarousel() { currentIndex = 0; updateCarousel(); }
+
+  newPrevBtn.addEventListener('click', prevSlide);
+  newNextBtn.addEventListener('click', nextSlide);
+
+  document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('hotel-gallery-modal');
+    if (modal && modal.getAttribute('aria-hidden') === 'false') {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'Escape') closeHotelGalleryModal();
+    }
+  });
+
+  let touchStartX = 0, touchEndX = 0;
+  track.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  track.addEventListener('touchend', (e) => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, { passive: true });
+
+  function handleSwipe() {
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) { if (diff > 0) nextSlide(); else prevSlide(); }
+  }
+
+  const modal = document.getElementById('hotel-gallery-modal');
+  if (modal) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'aria-hidden') {
+          if (modal.getAttribute('aria-hidden') === 'false' && !initialized) { resetCarousel(); initialized = true; }
+          else if (modal.getAttribute('aria-hidden') === 'true') { initialized = false; }
+        }
+      });
+    });
+    observer.observe(modal, { attributes: true, attributeFilter: ['aria-hidden'] });
+    if (modal.getAttribute('aria-hidden') === 'false') { resetCarousel(); initialized = true; }
+  }
+  updateCarousel();
 }
 
 function closeHotelGalleryModal() {
@@ -774,12 +1052,131 @@ function initHotelGalleryBackdropClose() {
 }
 
 // Residential Gallery Modal
+const RESIDENTIAL_GALLERY_IMAGES = [
+  'images/kitchen-image-1.webp',
+  'assets/kitchen/kitchen-image-2.webp',
+  'assets/kitchen/g-shape-kitchen.webp',
+  'assets/kitchen/home-design.webp',
+  'assets/kitchen/kitchen-img-1779.webp',
+  'assets/kitchen/kitchen-168.webp',
+  'assets/kitchen/kitchen-17.webp',
+];
+
 function openResidentialGalleryModal() {
   const modal = document.getElementById('residential-gallery-modal');
   if (modal) {
+    populateResidentialCarousel();
+    initResidentialGalleryCarousel();
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
+}
+
+function populateResidentialCarousel() {
+  const track = document.getElementById('residential-carousel-track');
+  const indicators = document.getElementById('residential-carousel-indicators');
+  const counter = document.getElementById('residential-gallery-counter');
+  if (!track || !indicators) return;
+
+  track.innerHTML = RESIDENTIAL_GALLERY_IMAGES.map((src, index) => `
+    <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+      <img src="${src}" alt="Residential Design ${index + 1}" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="console.error('Failed to load:', this.src)" />
+    </div>
+  `).join('');
+
+  indicators.innerHTML = RESIDENTIAL_GALLERY_IMAGES.map((_, index) => `
+    <button class="carousel-indicator ${index === 0 ? 'active' : ''}" data-index="${index}" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: ${index === 0 ? 'var(--accent-gold)' : 'rgba(255,255,255,0.3)'}; cursor: pointer;"></button>
+  `).join('');
+
+  if (counter) counter.textContent = `1 / ${RESIDENTIAL_GALLERY_IMAGES.length} Projects`;
+
+  indicators.querySelectorAll('.carousel-indicator').forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      const carouselTrack = document.getElementById('residential-carousel-track');
+      if (carouselTrack) {
+        carouselTrack.style.transform = `translateX(-${index * 100}%)`;
+        updateResidentialIndicators(index);
+      }
+    });
+  });
+}
+
+function updateResidentialIndicators(activeIndex) {
+  const indicators = document.querySelectorAll('#residential-carousel-indicators .carousel-indicator');
+  const counter = document.getElementById('residential-gallery-counter');
+  const prevBtn = document.getElementById('residential-carousel-prev');
+  const nextBtn = document.getElementById('residential-carousel-next');
+
+  indicators.forEach((indicator, index) => {
+    indicator.style.background = index === activeIndex ? 'var(--accent-gold)' : 'rgba(255, 255, 255, 0.3)';
+    indicator.classList.toggle('active', index === activeIndex);
+  });
+
+  if (counter) counter.textContent = `${activeIndex + 1} / ${RESIDENTIAL_GALLERY_IMAGES.length} Projects`;
+  if (prevBtn) { prevBtn.style.opacity = activeIndex === 0 ? '0.5' : '1'; prevBtn.style.pointerEvents = activeIndex === 0 ? 'none' : 'auto'; }
+  if (nextBtn) { nextBtn.style.opacity = activeIndex === RESIDENTIAL_GALLERY_IMAGES.length - 1 ? '0.5' : '1'; nextBtn.style.pointerEvents = activeIndex === RESIDENTIAL_GALLERY_IMAGES.length - 1 ? 'none' : 'auto'; }
+}
+
+function initResidentialGalleryCarousel() {
+  const track = document.getElementById('residential-carousel-track');
+  const prevBtn = document.getElementById('residential-carousel-prev');
+  const nextBtn = document.getElementById('residential-carousel-next');
+  if (!track || !prevBtn || !nextBtn) return;
+
+  const newPrevBtn = prevBtn.cloneNode(true);
+  const newNextBtn = nextBtn.cloneNode(true);
+  prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+  nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+
+  let currentIndex = 0;
+  const totalSlides = RESIDENTIAL_GALLERY_IMAGES.length;
+  let initialized = false;
+
+  function updateCarousel() {
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    updateResidentialIndicators(currentIndex);
+  }
+
+  function goToSlide(index) { currentIndex = Math.max(0, Math.min(index, totalSlides - 1)); updateCarousel(); }
+  function nextSlide() { if (currentIndex < totalSlides - 1) goToSlide(currentIndex + 1); }
+  function prevSlide() { if (currentIndex > 0) goToSlide(currentIndex - 1); }
+  function resetCarousel() { currentIndex = 0; updateCarousel(); }
+
+  newPrevBtn.addEventListener('click', prevSlide);
+  newNextBtn.addEventListener('click', nextSlide);
+
+  document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('residential-gallery-modal');
+    if (modal && modal.getAttribute('aria-hidden') === 'false') {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'Escape') closeResidentialGalleryModal();
+    }
+  });
+
+  let touchStartX = 0, touchEndX = 0;
+  track.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  track.addEventListener('touchend', (e) => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, { passive: true });
+
+  function handleSwipe() {
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) { if (diff > 0) nextSlide(); else prevSlide(); }
+  }
+
+  const modal = document.getElementById('residential-gallery-modal');
+  if (modal) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'aria-hidden') {
+          if (modal.getAttribute('aria-hidden') === 'false' && !initialized) { resetCarousel(); initialized = true; }
+          else if (modal.getAttribute('aria-hidden') === 'true') { initialized = false; }
+        }
+      });
+    });
+    observer.observe(modal, { attributes: true, attributeFilter: ['aria-hidden'] });
+    if (modal.getAttribute('aria-hidden') === 'false') { resetCarousel(); initialized = true; }
+  }
+  updateCarousel();
 }
 
 function closeResidentialGalleryModal() {
@@ -803,12 +1200,131 @@ function initResidentialGalleryBackdropClose() {
 }
 
 // Exterior Gallery Modal
+const EXTERIOR_GALLERY_IMAGES = [
+  'images/exterior-1.webp',
+  'assets/exterior/exterior-2.webp',
+  'assets/exterior/exterior-3.webp',
+  'assets/exterior/exterior-4.webp',
+  'assets/exterior/exterior-5.webp',
+  'assets/exterior/exterior-6.webp',
+  'assets/exterior/exterior-7.webp',
+];
+
 function openExteriorGalleryModal() {
   const modal = document.getElementById('exterior-gallery-modal');
   if (modal) {
+    populateExteriorCarousel();
+    initExteriorGalleryCarousel();
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
+}
+
+function populateExteriorCarousel() {
+  const track = document.getElementById('exterior-carousel-track');
+  const indicators = document.getElementById('exterior-carousel-indicators');
+  const counter = document.getElementById('exterior-gallery-counter');
+  if (!track || !indicators) return;
+
+  track.innerHTML = EXTERIOR_GALLERY_IMAGES.map((src, index) => `
+    <div class="carousel-slide" style="flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+      <img src="${src}" alt="Exterior Design ${index + 1}" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="console.error('Failed to load:', this.src)" />
+    </div>
+  `).join('');
+
+  indicators.innerHTML = EXTERIOR_GALLERY_IMAGES.map((_, index) => `
+    <button class="carousel-indicator ${index === 0 ? 'active' : ''}" data-index="${index}" style="width: 12px; height: 12px; border-radius: 50%; border: none; background: ${index === 0 ? 'var(--accent-gold)' : 'rgba(255,255,255,0.3)'}; cursor: pointer;"></button>
+  `).join('');
+
+  if (counter) counter.textContent = `1 / ${EXTERIOR_GALLERY_IMAGES.length} Projects`;
+
+  indicators.querySelectorAll('.carousel-indicator').forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      const carouselTrack = document.getElementById('exterior-carousel-track');
+      if (carouselTrack) {
+        carouselTrack.style.transform = `translateX(-${index * 100}%)`;
+        updateExteriorIndicators(index);
+      }
+    });
+  });
+}
+
+function updateExteriorIndicators(activeIndex) {
+  const indicators = document.querySelectorAll('#exterior-carousel-indicators .carousel-indicator');
+  const counter = document.getElementById('exterior-gallery-counter');
+  const prevBtn = document.getElementById('exterior-carousel-prev');
+  const nextBtn = document.getElementById('exterior-carousel-next');
+
+  indicators.forEach((indicator, index) => {
+    indicator.style.background = index === activeIndex ? 'var(--accent-gold)' : 'rgba(255, 255, 255, 0.3)';
+    indicator.classList.toggle('active', index === activeIndex);
+  });
+
+  if (counter) counter.textContent = `${activeIndex + 1} / ${EXTERIOR_GALLERY_IMAGES.length} Projects`;
+  if (prevBtn) { prevBtn.style.opacity = activeIndex === 0 ? '0.5' : '1'; prevBtn.style.pointerEvents = activeIndex === 0 ? 'none' : 'auto'; }
+  if (nextBtn) { nextBtn.style.opacity = activeIndex === EXTERIOR_GALLERY_IMAGES.length - 1 ? '0.5' : '1'; nextBtn.style.pointerEvents = activeIndex === EXTERIOR_GALLERY_IMAGES.length - 1 ? 'none' : 'auto'; }
+}
+
+function initExteriorGalleryCarousel() {
+  const track = document.getElementById('exterior-carousel-track');
+  const prevBtn = document.getElementById('exterior-carousel-prev');
+  const nextBtn = document.getElementById('exterior-carousel-next');
+  if (!track || !prevBtn || !nextBtn) return;
+
+  const newPrevBtn = prevBtn.cloneNode(true);
+  const newNextBtn = nextBtn.cloneNode(true);
+  prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+  nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+
+  let currentIndex = 0;
+  const totalSlides = EXTERIOR_GALLERY_IMAGES.length;
+  let initialized = false;
+
+  function updateCarousel() {
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    updateExteriorIndicators(currentIndex);
+  }
+
+  function goToSlide(index) { currentIndex = Math.max(0, Math.min(index, totalSlides - 1)); updateCarousel(); }
+  function nextSlide() { if (currentIndex < totalSlides - 1) goToSlide(currentIndex + 1); }
+  function prevSlide() { if (currentIndex > 0) goToSlide(currentIndex - 1); }
+  function resetCarousel() { currentIndex = 0; updateCarousel(); }
+
+  newPrevBtn.addEventListener('click', prevSlide);
+  newNextBtn.addEventListener('click', nextSlide);
+
+  document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('exterior-gallery-modal');
+    if (modal && modal.getAttribute('aria-hidden') === 'false') {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'Escape') closeExteriorGalleryModal();
+    }
+  });
+
+  let touchStartX = 0, touchEndX = 0;
+  track.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  track.addEventListener('touchend', (e) => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, { passive: true });
+
+  function handleSwipe() {
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) { if (diff > 0) nextSlide(); else prevSlide(); }
+  }
+
+  const modal = document.getElementById('exterior-gallery-modal');
+  if (modal) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'aria-hidden') {
+          if (modal.getAttribute('aria-hidden') === 'false' && !initialized) { resetCarousel(); initialized = true; }
+          else if (modal.getAttribute('aria-hidden') === 'true') { initialized = false; }
+        }
+      });
+    });
+    observer.observe(modal, { attributes: true, attributeFilter: ['aria-hidden'] });
+    if (modal.getAttribute('aria-hidden') === 'false') { resetCarousel(); initialized = true; }
+  }
+  updateCarousel();
 }
 
 function closeExteriorGalleryModal() {
@@ -831,34 +1347,8 @@ function initExteriorGalleryBackdropClose() {
   }
 }
 
-// Admin Panel
-function openAdminPanel() {
-  if (!currentUser || !isAdmin) {
-    loginModal.dataset.trigger = 'admin';
-    openLoginModal('admin-login');
-    return;
-  }
-  
-  adminPanelModal.setAttribute('aria-hidden', 'false');
-  loadAdminDashboard();
-}
-
-function closeAdminPanel() {
-  adminPanelModal.setAttribute('aria-hidden', 'true');
-}
- 
-function loadAdminDashboard() {
-  // Load admin dashboard data using dynamic imports
-  Promise.all([
-    import('../services/admin.js').then(m => m.adminGetAllBookings?.()),
-    import('../services/admin.js').then(m => m.adminGetBookingsStats?.()),
-    import('../services/admin.js').then(m => m.adminGetAllUsers?.())
-  ]).then(([bookings, stats, users]) => {
-  }).catch(err => console.error('Admin dashboard load error:', err));
-}
- 
 // Close modals on outside click
-[loginModal, requirementsModal, adminPanelModal, document.getElementById('cafe-gallery-modal')].forEach(modal => {
+[loginModal, requirementsModal, document.getElementById('cafe-gallery-modal')].forEach(modal => {
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
@@ -869,23 +1359,6 @@ function loadAdminDashboard() {
       }
     });
   }
-});
-
-// Login tab switching
-document.querySelectorAll('.login-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    switchLoginTab(tab.dataset.tab);
-  });
-});
-
-// Admin tab switching
-document.querySelectorAll('.admin-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById(tab.dataset.tab).classList.add('active');
-  });
 });
 
 // Form validation and submission
@@ -910,26 +1383,6 @@ async function handleUserLogin(e) {
     }
   } catch (err) {
     showNotification('Login failed. Please try again.', 'error');
-  }
-}
-
-async function handleAdminLogin(e) {
-  e.preventDefault();
-  const form = e.target;
-  const email = form.querySelector('#admin-email').value.trim().toLowerCase();
-  const password = form.querySelector('#admin-password').value;
-  
-  try {
-    const { user: _user, error } = await loginWithEmail(email, password);
-    
-    if (error) {
-      showNotification(error, 'error');
-    } else {
-      showNotification('Admin access granted!');
-      closeLoginModal();
-    }
-  } catch (err) {
-    showNotification('Admin login failed. Please try again.', 'error');
   }
 }
 
@@ -1043,11 +1496,11 @@ function setupEventListeners() {
 
   // Login button
   loginBtn?.addEventListener('click', () => openLoginModal('user-login'));
+  mobileLoginBtn?.addEventListener('click', () => openLoginModal('user-login'));
   
   // Close modal buttons
   document.getElementById('login-modal-close')?.addEventListener('click', closeLoginModal);
   document.getElementById('requirements-modal-close')?.addEventListener('click', closeRequirementsModal);
-  document.getElementById('admin-panel-close')?.addEventListener('click', closeAdminPanel);
   document.getElementById('cafe-gallery-close')?.addEventListener('click', closeCafeGalleryModal);
   document.getElementById('hotel-gallery-close')?.addEventListener('click', closeHotelGalleryModal);
   document.getElementById('residential-gallery-close')?.addEventListener('click', closeResidentialGalleryModal);
@@ -1113,24 +1566,10 @@ function setupEventListeners() {
     closeInquiryFormModal();
   });
   
-  // Login tab switching
-  document.querySelectorAll('.login-tab').forEach(tab => {
-    tab.addEventListener('click', () => switchLoginTab(tab.dataset.tab));
-  });
   
-  // Admin tab switching
-  document.querySelectorAll('.admin-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(tab.dataset.tab).classList.add('active');
-    });
-  });
   
   // Form submissions
   document.getElementById('user-login-form')?.addEventListener('submit', handleUserLogin);
-  document.getElementById('admin-login-form')?.addEventListener('submit', handleAdminLogin);
   document.getElementById('signup-form')?.addEventListener('submit', handleSignup);
   document.getElementById('requirements-form')?.addEventListener('submit', handleRequirementsSubmit);
   
@@ -1140,31 +1579,71 @@ function setupEventListeners() {
     switchLoginTab('signup');
   });
   
-  // Forgot password
+  // Back to login link
+  document.getElementById('back-to-login')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    switchLoginTab('user-login');
+  });
+  
+  // Forgot password - use modal instead of prompt
   document.getElementById('forgot-password')?.addEventListener('click', async (e) => {
     e.preventDefault();
-    const email = prompt('Enter your email for password reset:');
-    if (email) {
+    openForgotPasswordModal();
+  });
+
+  function openForgotPasswordModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.setAttribute('aria-hidden', 'false');
+    modal.innerHTML = `
+      <div class="modal-panel glass" style="max-width: 400px;">
+        <button class="modal-close" id="forgot-modal-close">✕</button>
+        <h3 style="margin-bottom: 1.5rem; text-align: center; color: var(--accent-gold);">Reset Password</h3>
+        <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">Enter your email to receive a password reset link</p>
+        <form id="forgot-password-form">
+          <div class="form-group">
+            <label for="forgot-email">Email Address</label>
+            <input type="email" id="forgot-email" name="email" required placeholder="your@email.com" class="form-input" autocomplete="email" />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Send Reset Link</button>
+        </form>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    const closeModal = () => {
+      modal.remove();
+      document.body.style.overflow = '';
+    };
+
+    modal.querySelector('#forgot-modal-close').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    modal.querySelector('#forgot-password-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = e.target.querySelector('#forgot-email').value.trim().toLowerCase();
+      
+      const emailValidation = validateEmail(email);
+      if (!emailValidation.valid) {
+        return showNotification(emailValidation.message, 'error');
+      }
+
       try {
-        const { error } = await resetPassword(email.trim());
-        if (error) {showNotification(error, 'error');}
-        else {showNotification('Password reset email sent!');}
+        const { error } = await resetPassword(email);
+        if (error) {
+          showNotification(error, 'error');
+        } else {
+          showNotification('Password reset email sent!');
+          closeModal();
+        }
       } catch {
         showNotification('Failed to send reset email', 'error');
       }
-    }
-  });
-  
-  // Close modals on outside click
-  [loginModal, requirementsModal, adminPanelModal].forEach(modal => {
-    if (modal) {
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.setAttribute('aria-hidden', 'true');
-        }
-      });
-    }
-  });
+    });
+  }
   
   // Protected buttons
   callBtn?.addEventListener('click', (e) => {
@@ -1405,4 +1884,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-export { openLoginModal, openRequirementsModal, openAdminPanel, openInquiryFormModal };
+export { openLoginModal, openRequirementsModal, openInquiryFormModal };

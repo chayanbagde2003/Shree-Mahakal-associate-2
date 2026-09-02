@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public site - no admin collection access. Bookings: allow create with validation only.
+    match /bookings/{bookingId} {
+      // Validated create - must include required fields, no admin read
+      allow create: if
+        request.resource.data.keys().hasAll(['fullName','phone','email','location','projectType','planChoice','plotSize']) &&
+        request.resource.data.fullName is string && request.resource.data.fullName.size() >= 2 && request.resource.data.fullName.size() <= 100 &&
+        request.resource.data.phone is string && request.resource.data.phone.matches('^\\+?[0-9]{10,15}$') &&
+        request.resource.data.email is string && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$') &&
+        request.resource.data.plotSize is number && request.resource.data.plotSize >= 500 &&
+        request.resource.data.createdAt != null;
+      // No public read/list/update/delete - only via Firebase Console / backend
+      allow read, list, update, delete: if false;
+    }
+
+    // Users collection - only owner can read/write own doc
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Messages - only owner can create/read own messages
+    match /messages/{messageId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid && request.resource.data.message is string && request.resource.data.message.size() <= 2000;
+      allow update, delete: if false;
+    }
+  }
+}

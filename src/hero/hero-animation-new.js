@@ -19,8 +19,8 @@ const HERO_CONFIG = {
   frameExtension: '_4k.jpg',
   framePadding: 2, // zero-padding (01, 02, etc.)
   
-  // Intro animation (auto-play) - 2 seconds total for all 36 frames
-  introDuration: 2000, // 2 seconds total
+  // Intro animation (auto-play) - 1 second total for all 36 frames (faster)
+  introDuration: 1000, // 1 second total
   introFrames: 36, // Play all frames during intro
   introHoldDuration: 0, // No hold, unlock immediately
   
@@ -385,6 +385,9 @@ class HeroAnimationController {
     // Unlock scroll immediately
     this.unlockScroll();
     
+    // Animate hero title text
+    this.animateHeroTitle();
+    
     // Hide scroll indicator
     if (this.scrollIndicator) {
       this.scrollIndicator.style.opacity = '0';
@@ -471,6 +474,57 @@ class HeroAnimationController {
     this.currentFrameIndex = frameIndex;
     this.crossfadeProgress = frameProgress;
     this.renderFrame();
+  }
+  
+  animateHeroTitle() {
+    const titleEl = document.querySelector('.hero-title');
+    if (!titleEl) return;
+    // Prevent re-running
+    if (titleEl.dataset.animated === 'true') return;
+    titleEl.dataset.animated = 'true';
+    
+    // Desired words in order with direction and highlight flag
+    const words = [
+      { text: 'Building', dir: 'left', highlight: false },
+      { text: 'Dreams,', dir: 'top', highlight: false },
+      { text: 'Crafting', dir: 'bottom', highlight: true },
+      { text: 'Legacies', dir: 'right', highlight: true }
+    ];
+    
+    // Build spans
+    const spans = words.map((w, i) => {
+      const span = document.createElement('span');
+      span.className = 'hero-word';
+      span.textContent = w.text + (i < words.length - 1 ? ' ' : '');
+      span.style.opacity = '0';
+      span.style.filter = 'blur(5px)';
+      span.style.transition = 'opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.9s cubic-bezier(0.25,0.46,0.45,0.94)';
+      // Initial transforms
+      let tx = 0, ty = 0;
+      if (w.dir === 'left') tx = -40;
+      else if (w.dir === 'right') tx = 40;
+      else if (w.dir === 'top') ty = -30;
+      else if (w.dir === 'bottom') ty = 30;
+      span.style.transform = `translate(${tx}px, ${ty}px)`;
+      if (w.highlight) span.classList.add('hero-highlight');
+      return span;
+    });
+    
+    // Replace title content with spans
+    titleEl.innerHTML = '';
+    spans.forEach(s => titleEl.appendChild(s));
+    
+    // Force reflow then animate
+    requestAnimationFrame(() => {
+      spans.forEach((span, i) => {
+        const delay = 100 + i * 150; // 100ms pause then stagger ~150ms
+        setTimeout(() => {
+          span.style.opacity = '1';
+          span.style.transform = 'translate(0,0)';
+          span.style.filter = 'blur(0)';
+        }, delay);
+      });
+    });
   }
   
   renderFrame() {

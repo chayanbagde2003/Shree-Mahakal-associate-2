@@ -1,5 +1,4 @@
 import { defineConfig, loadEnv } from 'vite';
-import imagemin from 'vite-plugin-imagemin';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -9,11 +8,10 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       assetsDir: 'assets',
-      sourcemap: true,
+      sourcemap: false,
       rollupOptions: {
         input: {
           main: 'index.html',
-          admin: 'admin.html',
           login: 'login.html'
         }
       },
@@ -30,7 +28,11 @@ export default defineConfig(({ mode }) => {
       open: true,
       cors: true,
       headers: {
-        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com;"
+        'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://firestore.googleapis.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com wss://*.firebaseio.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'DENY',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
       }
     },
     resolve: {
@@ -53,22 +55,6 @@ export default defineConfig(({ mode }) => {
     },
     optimizeDeps: {
       include: ['firebase/app', 'firebase/auth', 'firebase/firestore']
-    },
-    plugins: [
-      imagemin({
-        gifsicle: { optimizationLevel: 7, interlaced: false },
-        optipng: { optimizationLevel: 7 },
-        mozjpeg: { quality: 90, progressive: true },
-        pngquant: { quality: [0.85, 0.95], speed: 4 },
-        svgo: {
-          plugins: [
-            { name: 'removeViewBox', active: false },
-            { name: 'removeEmptyAttrs', active: false }
-          ]
-        },
-        webp: { quality: 90, lossless: false, near_lossless: 60 },
-        avif: { quality: 90, lossless: false }
-      })
-    ]
+    }
   };
 });

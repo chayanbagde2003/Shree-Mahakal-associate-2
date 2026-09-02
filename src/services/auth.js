@@ -12,9 +12,9 @@ async function initializeFirebase() {
   }
   
   try {
-    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
-    const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
-    const { getFirestore } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js");
+    const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js");
+    const { getFirestore } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js");
     
     // Validate config
     const requiredKeys = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
@@ -77,9 +77,14 @@ function getAuthErrorMessage(code) {
     'auth/cancelled-popup-request': 'Sign-in was cancelled.',
     'auth/network-request-failed': 'Network error. Please check your connection.',
     'auth/operation-not-allowed': 'This sign-in method is not enabled. Contact support.',
-    'auth/requires-recent-login': 'Please sign in again to complete this action.'
+    'auth/requires-recent-login': 'Please sign in again to complete this action.',
+    'auth/invalid-credential': 'Invalid credentials. Please check your email and password.',
+    'auth/user-disabled': 'This account has been disabled. Contact support.',
+    'auth/unauthorized-domain': 'This domain is not authorized. Add it to Firebase Console > Authentication > Settings > Authorized domains.',
+    'auth/popup-blocked': 'Sign-in popup was blocked. Please allow pop-ups for this site.',
+    'auth/popup-closed-by-user': 'Sign-in popup was closed. Please try again.'
   };
-  return errorMessages[code] || 'An error occurred. Please try again.';
+  return errorMessages[code] || `An error occurred: ${code}. Please try again.`;
 }
 
 // Convert Firebase user to local user format
@@ -101,11 +106,10 @@ export const registerWithEmail = async (email, password, profileData = {}) => {
     const { auth } = await initializeFirebase();
     
     if (!auth) {
-      // Fallback to localStorage if Firebase not configured
-      return registerWithEmailLocal(email, password, profileData);
+      throw new Error('Firebase not configured');
     }
     
-    const { createUserWithEmailAndPassword, updateProfile } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+    const { createUserWithEmailAndPassword, updateProfile } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js");
     
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const firebaseUser = userCredential.user;
@@ -138,111 +142,17 @@ export const registerWithEmail = async (email, password, profileData = {}) => {
   }
 };
 
-// LocalStorage fallback registration
-function registerWithEmailLocal(email, password, profileData = {}) {
-  try {
-    const users = getUsers();
-    const existingUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
-    
-    if (existingUser) {
-      return { user: null, error: getAuthErrorMessage('auth/email-already-in-use') };
-    }
-    
-    if (password.length < 6) {
-      return { user: null, error: getAuthErrorMessage('auth/weak-password') };
-    }
-    
-    const user = {
-      uid: generateId(),
-      email: email.toLowerCase(),
-      displayName: profileData.name || '',
-      emailVerified: true,
-      createdAt: new Date().toISOString(),
-      ...profileData
-    };
-    
-    users.push(user);
-    saveUsers(users);
-    setCurrentUser(user);
-    
-    window.dispatchEvent(new CustomEvent('smba-auth-change'));
-    
-    return { user, error: null };
-  } catch (error) {
-    return { user: null, error: getAuthErrorMessage(error.code) };
-  }
-}
-
 export const loginWithEmail = async (email, password) => {
   try {
     const { auth } = await initializeFirebase();
     
     if (!auth) {
-      // Fallback to localStorage if Firebase not configured
-      return loginWithEmailLocal(email, password);
+      throw new Error('Firebase not configured');
     }
     
-    const { signInWithEmailAndPassword } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+    const { signInWithEmailAndPassword } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js");
     
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const firebaseUser = userCredential.user;
-    
-    // Convert to local format and store
-    const localUser = firebaseUserToLocal(firebaseUser);
-    setCurrentUser(localUser);
-    
-    // Update localStorage
-    const users = getUsers();
-    const existingIndex = users.findIndex(u => u.uid === localUser.uid);
-    if (existingIndex >= 0) {
-      users[existingIndex] = { ...users[existingIndex], ...localUser, lastLoginAt: new Date().toISOString() };
-    } else {
-      users.push(localUser);
-    }
-    saveUsers(users);
-    
-    window.dispatchEvent(new CustomEvent('smba-auth-change'));
-    
-    return { user: localUser, error: null };
-  } catch (error) {
-    return { user: null, error: getAuthErrorMessage(error.code) };
-  }
-};
-
-// LocalStorage fallback login
-function loginWithEmailLocal(email, _password) {
-  try {
-    const users = getUsers();
-    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
-    
-    if (!user) {
-      return { user: null, error: getAuthErrorMessage('auth/user-not-found') };
-    }
-    
-    setCurrentUser(user);
-    window.dispatchEvent(new CustomEvent('smba-auth-change'));
-    
-    return { user, error: null };
-  } catch (error) {
-    return { user: null, error: getAuthErrorMessage(error.code) };
-  }
-}
-
-export const loginWithGoogle = async () => {
-  try {
-    const { auth } = await initializeFirebase();
-    
-    if (!auth) {
-      return { user: null, error: 'Google sign-in requires Firebase configuration. Please set up Firebase first.' };
-    }
-    
-    const { GoogleAuthProvider, signInWithPopup } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
-    
-    const provider = new GoogleAuthProvider();
-    provider.addScope('email');
-    provider.addScope('profile');
-    
-    const userCredential = await signInWithPopup(auth, provider);
     const firebaseUser = userCredential.user;
     
     // Convert to local format and store
@@ -272,7 +182,7 @@ export const logoutUser = async () => {
     const { auth } = await initializeFirebase();
     
     if (auth) {
-      const { signOut } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+      const { signOut } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js");
       await signOut(auth);
     }
     
@@ -293,7 +203,7 @@ export const resetPassword = async (email) => {
       return { error: 'Password reset requires Firebase configuration.' };
     }
     
-    const { sendPasswordResetEmail } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+    const { sendPasswordResetEmail } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js");
     await sendPasswordResetEmail(auth, email);
     
     return { error: null };
@@ -310,7 +220,7 @@ export const updateUserName = async (name) => {
     const { auth } = await initializeFirebase();
     
     if (auth && auth.currentUser) {
-      const { updateProfile } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+      const { updateProfile } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js");
       await updateProfile(auth.currentUser, { displayName: name });
     }
     
@@ -329,17 +239,16 @@ export const updateUserName = async (name) => {
 };
 
 export const checkAdminStatus = async (user) => {
-  if (!user) {return false;}
-  return user.email === 'admin@shreemahakal.com' || user.uid === 'admin';
+  // Admin removed - always false for public site
+  return false;
 };
 
 export const onAuthStateChange = async (callback) => {
   // Initial check from localStorage
   const user = getCurrentUser();
   if (user) {
-    const isAdmin = await checkAdminStatus(user);
     const profile = { ...user };
-    callback({ user, profile, isAdmin });
+    callback({ user, profile, isAdmin: false });
   } else {
     callback({ user: null, profile: null, isAdmin: false });
   }
@@ -349,7 +258,7 @@ export const onAuthStateChange = async (callback) => {
   let unsubscribe = null;
   
   if (auth) {
-    const { onAuthStateChanged } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+    const { onAuthStateChanged } = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js");
     unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         const localUser = firebaseUserToLocal(firebaseUser);
@@ -365,8 +274,7 @@ export const onAuthStateChange = async (callback) => {
         }
         saveUsers(users);
         
-        const isAdmin = await checkAdminStatus(localUser);
-        callback({ user: localUser, profile: localUser, isAdmin });
+        callback({ user: localUser, profile: localUser, isAdmin: false });
       } else {
         setCurrentUser(null);
         callback({ user: null, profile: null, isAdmin: false });
@@ -378,9 +286,8 @@ export const onAuthStateChange = async (callback) => {
   const handler = async () => {
     const updatedUser = getCurrentUser();
     if (updatedUser) {
-      const isAdmin = await checkAdminStatus(updatedUser);
       const profile = { ...updatedUser };
-      callback({ user: updatedUser, profile, isAdmin });
+      callback({ user: updatedUser, profile, isAdmin: false });
     } else {
       callback({ user: null, profile: null, isAdmin: false });
     }
@@ -427,7 +334,6 @@ export const getTelUrl = () => {
 export default {
   registerWithEmail,
   loginWithEmail,
-  loginWithGoogle,
   logoutUser,
   resetPassword,
   updateUserName,
