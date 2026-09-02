@@ -963,21 +963,23 @@ h6 { font-size: var(--text-lg); }
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Mobile Drawer */
+/* Mobile Drawer - auto-adjust with hamburger */
 .mobile-drawer {
   position: fixed;
   top: 0;
   right: 0;
   height: 100vh;
+  height: 100dvh;
   width: 320px;
-  max-width: 100%;
+  max-width: 85vw;
   background: var(--color-bg-elevated);
   border-left: 1px solid var(--color-border);
   z-index: var(--z-modal);
   transform: translateX(100%);
   transition: transform var(--transition-base);
   flex-direction: column;
-  display: none; /* Hidden by default, shown via media query */
+  display: none; /* Hidden on desktop, shown via media query for auto-adjust */
+  overflow-y: auto;
 }
 
 @media (max-width: 1024px) {
@@ -1080,7 +1082,7 @@ h6 { font-size: var(--text-lg); }
   justify-content: center;
 }
 
-/* ===== Mobile Responsive ===== */
+/* ===== Mobile Responsive - auto adjust desktop/mobile ===== */
 @media (max-width: 1024px) {
   .site-header {
     height: var(--header-height-mobile);
@@ -1094,8 +1096,8 @@ h6 { font-size: var(--text-lg); }
     display: none;
   }
 
-  .header-right .btn-ghost {
-    display: none;
+  .header-right {
+    display: none; /* hide desktop login - use hamburger drawer login */
   }
 
   .mobile-drawer {

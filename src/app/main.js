@@ -1807,16 +1807,19 @@ if (document.readyState === 'loading') {
   initCostCalculator();
 }
 
-// Mobile dropdown toggle
+// Mobile dropdown toggle - inside hamburger, all toggles present
 function initMobileDropdown() {
   const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
   dropdownToggles.forEach(toggle => {
-    toggle.addEventListener('click', () => {
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       const dropdown = toggle.closest('.mobile-nav-dropdown');
       const menu = dropdown.querySelector('.mobile-dropdown-menu');
       const isOpen = dropdown.getAttribute('aria-expanded') === 'true';
       
-      dropdown.setAttribute('aria-expanded', !isOpen);
+      dropdown.setAttribute('aria-expanded', String(!isOpen));
+      toggle.setAttribute('aria-expanded', String(!isOpen));
       if (isOpen) {
         menu.classList.remove('active');
       } else {
