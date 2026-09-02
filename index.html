@@ -974,7 +974,7 @@
           <button class="modal-close" id="cafe-gallery-close" onclick="document.getElementById('cafe-gallery-modal').setAttribute('aria-hidden','true');document.body.style.overflow=''" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); border-radius: var(--radius-full); color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: all var(--transition-fast);">✕</button>
           <div>
             <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">Café Design & Planning</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);" id="cafe-gallery-counter">1 / 6 Projects</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" id="cafe-gallery-counter">1 / 8 Projects</p>
           </div>
         </div>
       </div>
@@ -983,7 +983,7 @@
         <div class="carousel-container" style="position: relative; width: 100%; max-width: 900px; margin: 0 auto;">
           <div class="carousel-wrapper" style="overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-glass); position: relative; touch-action: pan-y;">
             <button class="carousel-btn prev" id="cafe-carousel-prev" onclick="const t=document.getElementById('cafe-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
-            <div class="carousel-track" id="cafe-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(12,Math.round(p*12)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
+            <div class="carousel-track" id="cafe-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(7,Math.round(p*7)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#cafe-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
                 <img src="assets/cafe-pics/360_F_1522187751_Mc0GzTPkSlHuzqa0BFGgYOeft7KJVYCD.jpg" alt="Cafe Ambiance Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
                 <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Cafe Ambiance Design</p>
@@ -1021,7 +1021,7 @@
           </div>
         </div>
         
-        <!-- Carousel Indicators -->
+        <!-- Carousel Indicators - 8 for 8 cafe-pics -->
         <div class="carousel-indicators" id="cafe-carousel-indicators" style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
           <button class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-gold); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
@@ -1031,11 +1031,6 @@
           <button class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="6" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="7" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="8" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="9" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="10" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="11" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="12" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
         </div>
         
         <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); text-align: center; width: 100%; max-width: 900px;">
@@ -1132,82 +1127,46 @@
           <button class="modal-close" id="hotel-gallery-close" onclick="document.getElementById('hotel-gallery-modal').setAttribute('aria-hidden','true');document.body.style.overflow=''" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); border-radius: var(--radius-full); color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: all var(--transition-fast);">✕</button>
           <div>
             <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">Hotel & Resort Architecture</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);" id="hotel-gallery-counter">1 / 11 Projects</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" id="hotel-gallery-counter">1 / 6 Projects</p>
           </div>
         </div>
       </div>
       <div class="gallery-content" style="padding: 2rem; max-height: calc(100vh - 80px); overflow-y: auto; display: flex; flex-direction: column; align-items: center;">
-        <!-- Carousel Container -->
+        <!-- Carousel Container - Hotel now shows all 6 from assets/hotel-resort -->
         <div class="carousel-container" style="position: relative; width: 100%; max-width: 900px; margin: 0 auto;">
           <div class="carousel-wrapper" style="overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-glass); position: relative; touch-action: pan-y;">
-            <button class="carousel-btn prev" id="hotel-carousel-prev" onclick="const t=document.getElementById('hotel-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
-            <div class="carousel-track" id="hotel-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(14,Math.round(p*14)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})">
+            <button class="carousel-btn prev" id="hotel-carousel-prev" onclick="const t=document.getElementById('hotel-carousel-track'); if(t){const s=Math.max(0,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)-1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)});document.getElementById('hotel-gallery-counter').textContent=(s+1)+' / 6 Projects'}" style="position: absolute; left: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(90deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Previous image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❮</button>
+            <div class="carousel-track" id="hotel-carousel-track" style="display: flex; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); touch-action: pan-y;" onclick="const r=this.getBoundingClientRect();const x=event.clientX-r.left;const p=x/r.width;const s=Math.max(0,Math.min(5,Math.round(p*5)));this.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)});document.getElementById('hotel-gallery-counter').textContent=(s+1)+' / 6 Projects'">
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/hotel-image-1.webp" alt="Hotel Exterior Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Exterior Design</p>
+                <img src="assets/hotel-resort/hotel-image-2.webp" alt="Hotel Image 2" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="eager" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Image 2</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="assets/hotel-resort/hotel-image-2.webp" alt="Lobby & Reception" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Lobby & Reception</p>
+                <img src="assets/hotel-resort/sunyata-hotel.webp" alt="Sunyata Hotel" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Sunyata Hotel</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="assets/hotel-resort/sunyata-hotel.webp" alt="Resort Landscape" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Resort Landscape</p>
+                <img src="assets/hotel-resort/images (1).jpg" alt="Hotel Image 1" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Image 1</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="assets/hotel-resort/sunyata-hotel.webp" alt="Eco Resort Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Eco Resort Design</p>
+                <img src="assets/hotel-resort/images (2).jpg" alt="Hotel Image 2" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Image</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="Modern House Exterior" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Modern House Exterior</p>
+                <img src="assets/hotel-resort/images (5).jpg" alt="Hotel Image 5" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Image 5</p>
               </div>
               <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="Elevation Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Elevation Design</p>
-              </div>
-              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="3D House Model" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">3D House Model</p>
-              </div>
-              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="Architectural Visualization" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Architectural Visualization</p>
-              </div>
-              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="Exterior Rendering" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Exterior Rendering</p>
-              </div>
-              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="Floor Plan Concept" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Floor Plan Concept</p>
-              </div>
-              <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                <img src="images/exterior-1.webp" alt="AutoCAD House Plan" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">AutoCAD House Plan</p>
-                  <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                    <img src="assets/hotel-resort/images (1).jpg" alt="Luxury Hotel Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                    <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Luxury Hotel Design</p>
-                  </div>
-                  <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                    <img src="assets/hotel-resort/images (2).jpg" alt="Resort Room Design" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                    <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Resort Room Design</p>
-                  </div>
-                  <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                    <img src="assets/hotel-resort/images (5).jpg" alt="Hotel Amenities" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                    <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Amenities</p>
-                  </div>
-                  <div class="carousel-slide" style="flex: 0 0 100%; min-width: 100%;">
-                    <img src="assets/hotel-resort/images.jpg" alt="Resort Architecture" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
-                    <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Resort Architecture</p>
-                  </div>
+                <img src="assets/hotel-resort/images.jpg" alt="Hotel Image" style="width: 100%; height: 60vh; max-height: 700px; object-fit: cover;" loading="lazy" />
+                <p style="margin-top: 1rem; font-size: 1rem; color: var(--text-secondary); text-align: center; font-weight: 500;">Hotel Image</p>
               </div>
             </div>
-            <button class="carousel-btn next" id="hotel-carousel-next" onclick="const t=document.getElementById('hotel-carousel-track'); if(t){const s=Math.min(14,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)})}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
+            <button class="carousel-btn next" id="hotel-carousel-next" onclick="const t=document.getElementById('hotel-carousel-track'); if(t){const s=Math.min(5,Math.round(-parseFloat(t.style.transform.replace('translateX(','').replace('%)','')/100||0)+1));t.style.transform='translateX(-'+s*100+'%)';document.querySelectorAll('#hotel-carousel-indicators .carousel-indicator').forEach((i,n)=>{i.style.background=n===s?'var(--accent-gold)':'rgba(255,255,255,0.3)';i.classList.toggle('active',n===s)});document.getElementById('hotel-gallery-counter').textContent=(s+1)+' / 6 Projects'}" style="position: absolute; right: 0; top: 0; bottom: 0; width: 60px; border-radius: 0; background: linear-gradient(270deg,rgba(0,0,0,0.5),transparent); border: none; color: var(--text-main); font-size: 2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); z-index: 20; opacity: 0.7;" aria-label="Next image" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">❯</button>
           </div>
         </div>
         
-        <!-- Carousel Indicators -->
+        <!-- Carousel Indicators - 6 for 6 hotel-resort -->
         <div class="carousel-indicators" id="hotel-carousel-indicators" style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
           <button class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-gold); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
@@ -1215,15 +1174,6 @@
           <button class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="6" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="7" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="8" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="9" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="10" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="11" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="12" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="13" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="14" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
         </div>
         
         <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); text-align: center; width: 100%; max-width: 900px;">
@@ -1246,7 +1196,7 @@
           <button class="modal-close" id="exterior-gallery-close" onclick="document.getElementById('exterior-gallery-modal').setAttribute('aria-hidden','true');document.body.style.overflow=''" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); border-radius: var(--radius-full); color: var(--text-main); font-size: 1.25rem; cursor: pointer; transition: all var(--transition-fast);">✕</button>
           <div>
             <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">3D Exterior Elevation</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);" id="exterior-gallery-counter">1 / 6 Projects</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" id="exterior-gallery-counter">1 / 5 Projects</p>
           </div>
         </div>
       </div>
@@ -1281,14 +1231,13 @@
           </div>
         </div>
         
-        <!-- Carousel Indicators -->
+        <!-- Carousel Indicators - 5 for 5 3d-designs -->
         <div class="carousel-indicators" id="exterior-carousel-indicators" style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
           <button class="carousel-indicator active" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-gold); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="3" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
           <button class="carousel-indicator" data-index="4" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
-          <button class="carousel-indicator" data-index="5" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); border: none; cursor: pointer; transition: all var(--transition-fast);"></button>
         </div>
         
         <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-glass); text-align: center; width: 100%; max-width: 900px;">

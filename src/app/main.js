@@ -675,14 +675,16 @@ function openAllPlansModal() {
   planDetailsModal.setAttribute('aria-hidden', 'false');
 }
 
-// Cafe Gallery Images
+// Cafe Gallery Images - all from assets/cafe-pics per user request
 const CAFE_GALLERY_IMAGES = [
-  'images/kitchen-image-1.webp',
-  'assets/kitchen/g-shape-kitchen.webp',
-  'assets/kitchen/kitchen-image-2.webp',
-  'assets/kitchen/home-design.webp',
-  'assets/kitchen/kitchen-img-1779.webp',
-  'assets/kitchen/kitchen-17.avif'
+  'assets/cafe-pics/360_F_1522187751_Mc0GzTPkSlHuzqa0BFGgYOeft7KJVYCD.jpg',
+  'assets/cafe-pics/360_F_1662286312_eI7l30O5LI43BJuKpi0hPlWqaY3meefX.jpg',
+  'assets/cafe-pics/A4196-10-Things-you-should-remember-before-designing-a-coffee-shop.webp',
+  'assets/cafe-pics/images (1).jpg',
+  'assets/cafe-pics/images (2).jpg',
+  'assets/cafe-pics/images (3).jpg',
+  'assets/cafe-pics/images (4).jpg',
+  'assets/cafe-pics/images.jpg'
 ];
 
 console.log('Cafe Gallery Images:', CAFE_GALLERY_IMAGES);
@@ -903,11 +905,14 @@ function initCafeGalleryCarousel() {
   updateCarousel();
 }
 
-// Hotel Gallery Modal
+// Hotel Gallery Modal - all from assets/hotel-resort per user request
 const HOTEL_GALLERY_IMAGES = [
-  'images/hotel-image-1.webp',
-  'assets/hotel/hotel-image-2.webp',
-  'assets/hotel/sunyata-hotel.webp',
+  'assets/hotel-resort/hotel-image-2.webp',
+  'assets/hotel-resort/sunyata-hotel.webp',
+  'assets/hotel-resort/images (1).jpg',
+  'assets/hotel-resort/images (2).jpg',
+  'assets/hotel-resort/images (5).jpg',
+  'assets/hotel-resort/images.jpg'
 ];
 
 function openHotelGalleryModal() {
@@ -1199,15 +1204,13 @@ function initResidentialGalleryBackdropClose() {
   }
 }
 
-// Exterior Gallery Modal
+// Exterior Gallery Modal - all from assets/3d-designs per user request
 const EXTERIOR_GALLERY_IMAGES = [
-  'images/exterior-1.webp',
-  'assets/exterior/exterior-2.webp',
-  'assets/exterior/exterior-3.webp',
-  'assets/exterior/exterior-4.webp',
-  'assets/exterior/exterior-5.webp',
-  'assets/exterior/exterior-6.webp',
-  'assets/exterior/exterior-7.webp',
+  'assets/3d-designs/a3932d38a7686fa172cf661ea0533953.jpg',
+  'assets/3d-designs/eb01f3e533902f63a6ba47502d1dabb2.0000000.jpg',
+  'assets/3d-designs/images (1).jpg',
+  'assets/3d-designs/images (2).jpg',
+  'assets/3d-designs/images.jpg'
 ];
 
 function openExteriorGalleryModal() {
