@@ -1862,7 +1862,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.openInquiryFormModal = openInquiryFormModal;
   window.openCafeGalleryModal = openCafeGalleryModal;
   
-  // Header scroll effect
+  // Header scroll effect + shrink
   initHeaderScrollEffect();
   
   // Hero stats counter animation
@@ -1870,6 +1870,27 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Scroll progress indicator
   initScrollProgress();
+
+  // Button ripple - professional micro-interaction (no layout change)
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      ripple.style.left = `${e.clientX - rect.left}px`;
+      ripple.style.top = `${e.clientY - rect.top}px`;
+      ripple.style.width = ripple.style.height = `${Math.max(rect.width, rect.height)}px`;
+      ripple.style.marginLeft = ripple.style.marginTop = `-${Math.max(rect.width, rect.height)/2}px`;
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+
+  // Image blur placeholder -> loaded
+  document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+    if (img.complete) img.classList.add('loaded');
+    else img.addEventListener('load', () => img.classList.add('loaded'), { once: true });
+  });
   
   // Initialize Cost Calculator
   initCostCalculator();

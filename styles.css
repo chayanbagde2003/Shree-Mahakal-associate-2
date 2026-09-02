@@ -829,11 +829,55 @@ h6 { font-size: var(--text-lg); }
   color: var(--color-primary);
 }
 
-/* Header scroll effect */
+/* Header scroll effect - premium shrink */
 .site-header.scrolled {
   background: rgba(10, 15, 20, 0.98);
   border-bottom-color: var(--color-border-strong);
   box-shadow: var(--shadow-md);
+  height: 60px;
+}
+.site-header.scrolled .logo-img { width: 52px; height: 52px; }
+.site-header.scrolled .company-name { font-size: 1rem; }
+
+/* Scroll progress gold bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 9999;
+  transition: transform 0.1s linear;
+}
+
+/* Button ripple */
+.btn { position: relative; overflow: hidden; }
+.btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  transform: scale(0);
+  animation: ripple-anim 0.6s linear;
+  pointer-events: none;
+}
+@keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
+
+/* Image blur placeholder */
+img[loading="lazy"] { background: linear-gradient(110deg, #111820 8%, #1a242e 18%, #111820 33%); background-size: 200% 100%; animation: shimmer 1.5s linear infinite; }
+@keyframes shimmer { to { background-position-x: -200%; } }
+img.loaded { animation: none; background: none; }
+
+/* Glass-card unified hover - premium gold glow */
+.service-card, .why-us-card, .about-point, .plan-card {
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+.service-card:hover, .why-us-card:hover, .about-point:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl), 0 0 20px rgba(201,168,68,0.12);
+  border-color: var(--color-primary-border);
 }
 
 /* Mobile dropdown styles */

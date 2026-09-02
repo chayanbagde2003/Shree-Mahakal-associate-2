@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Shree Mahakal Building Associates | Civil Engineer, Architect & Vastu Specialist</title>
   <meta name="description" content="Civil Engineer | Architect | Vastu Specialist — Shree Mahakal Building Associates. Premium construction, architectural design, and project management services." />
+  <meta property="og:title" content="Shree Mahakal Building Associates | Civil Engineer, Architect & Vastu Specialist" />
+  <meta property="og:description" content="Premium construction, architectural design, and Vastu-compliant homes in Rajnandgaon. 100+ projects, 10+ years experience." />
+  <meta property="og:image" content="assets/banner.webp" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Shree Mahakal Building Associates","description":"Civil Engineer, Architect & Vastu Specialist in Rajnandgaon","address":{"@type":"PostalAddress","addressLocality":"Rajnandgaon","addressRegion":"Chhattisgarh","streetAddress":"Nandai Chowk, Pendri Chowk"},"telephone":"+919399330188","url":"https://shreemahakalassociates.com","priceRange":"₹849 - ₹1599 per sq.ft"}</script>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -138,22 +144,22 @@
         <!-- ====== HERO STATS ====== -->
         <div class="hero-stats glass glass-subtle">
           <div class="stat-item">
-            <div class="stat-number">100+</div>
+            <div class="stat-number" data-count="100">100+</div>
             <div class="stat-label">Projects Completed</div>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <div class="stat-number">10+</div>
+            <div class="stat-number" data-count="10">10+</div>
             <div class="stat-label">Years Experience</div>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <div class="stat-number">50+</div>
+            <div class="stat-number" data-count="50">50+</div>
             <div class="stat-label">Happy Clients</div>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <div class="stat-number">4</div>
+            <div class="stat-number" data-count="4">4</div>
             <div class="stat-label">Premium Plans</div>
           </div>
         </div>
@@ -527,6 +533,34 @@
       </div>
     </section>
 
+    <!-- ====== TESTIMONIALS - PROFESSIONAL TRUST ====== -->
+    <section class="section testimonials-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Testimonials</span>
+          <h2 class="section-title">WHAT OUR CLIENTS SAY</h2>
+          <p class="section-subtitle">Trusted by 50+ families in Rajnandgaon</p>
+        </div>
+        <div class="testimonials-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+          <article class="glass" style="padding:1.5rem;border-radius:16px;">
+            <div style="color:#facc15;">★★★★★</div>
+            <p style="margin:0.75rem 0;color:var(--color-text-secondary);">"Chayan sir designed our 2BHK exactly as we imagined. On-time, transparent billing."</p>
+            <strong>— Amit Verma, Rajnandgaon</strong><span style="color:var(--color-text-muted);font-size:0.85rem;"> • Royal Plan • 1800 sq.ft</span>
+          </article>
+          <article class="glass" style="padding:1.5rem;border-radius:16px;">
+            <div style="color:#facc15;">★★★★★</div>
+            <p style="margin:0.75rem 0;color:var(--color-text-secondary);">"Vastu + modern look perfectly balanced. Labour and material quality was excellent."</p>
+            <strong>— Priya Sahu, Dongargarh</strong><span style="color:var(--color-text-muted);font-size:0.85rem;"> • Premium Plan • 1200 sq.ft</span>
+          </article>
+          <article class="glass" style="padding:1.5rem;border-radius:16px;">
+            <div style="color:#facc15;">★★★★★</div>
+            <p style="margin:0.75rem 0;color:var(--color-text-secondary);">"Cafe interior got us 30% more customers. 3D preview helped us decide early."</p>
+            <strong>— Cafe Mocha, Raipur</strong><span style="color:var(--color-text-muted);font-size:0.85rem;"> • Cafe Design</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- ====== IMAGE POPUP MODAL ====== -->
     <div id="image-modal" class="modal" aria-hidden="true">
       <div class="modal-panel image-modal">
@@ -539,8 +573,13 @@
     <footer id="contact" class="site-footer section">
       <div class="container footer-grid">
         <div class="footer-col">
-          <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.webp" alt="Shree Mahakal Logo" class="footer-logo" loading="lazy" />
+          <img src="assets/7df767e8-b372-4224-b6dc-93ef7d348672.webp" alt="Shree Mahakal Logo" class="footer-logo" loading="lazy" onload="this.classList.add('loaded')" />
           <p>Shree Mahakal Building Associates provides high-end civil engineering, custom 3D architectural layout, café & hotel design, and vastu consulting.</p>
+          <div style="display:flex;gap:0.75rem;margin-top:1rem;">
+            <a href="https://wa.me/919399330188" aria-label="WhatsApp" style="width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:var(--color-bg-card);border:1px solid var(--color-border);">🟢</a>
+            <a href="tel:+919399330188" aria-label="Call" style="width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:var(--color-bg-card);border:1px solid var(--color-border);">📞</a>
+            <a href="https://maps.google.com/?q=Nandai+Chowk+Rajnandgaon" target="_blank" aria-label="Maps" style="width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:var(--color-bg-card);border:1px solid var(--color-border);">📍</a>
+          </div>
         </div>
 
         <div class="footer-col">
@@ -553,6 +592,7 @@
           <h3>Our Offices</h3>
           <p>📍 Nandai Chowk, Rajnandgaon</p>
           <p>📍 Pendri Chowk, Rajnandgaon</p>
+          <iframe src="https://maps.google.com/maps?q=Nandai%20Chowk%20Rajnandgaon&t=&z=14&ie=UTF8&iwloc=&output=embed" style="width:100%;height:140px;border:0;border-radius:12px;margin-top:0.75rem;" loading="lazy" title="Map Nandai Chowk"></iframe>
         </div>
       </div>
       <div class="footer-bottom">
