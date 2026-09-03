@@ -37,21 +37,23 @@ function showNotification(message, type = 'info') {
   const el = document.createElement('div');
   el.className = `notification ${type}`;
   el.style.cssText = `
-    position: fixed; top: 20px; right: 20px; z-index: 10000;
-    padding: 1rem 1.5rem; border-radius: var(--radius-md);
-    font-weight: 600; max-width: 350px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    animation: slideInRight 0.3s ease;
-    ${type === 'success' ? 'background: linear-gradient(135deg, #22c55e, #16a34a); color: white;' : ''}
-    ${type === 'error' ? 'background: linear-gradient(135deg, #ef4444, #dc2626); color: white;' : ''}
-    ${type === 'info' ? 'background: linear-gradient(135deg, #3b82f6, #2563eb); color: white;' : ''}
+    position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 10000;
+    padding: 0.75rem 1.25rem; border-radius: var(--radius-full);
+    font-weight: 500; font-size: 0.9rem; max-width: 90%; min-width: 280px; text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25); backdrop-filter: blur(8px);
+    animation: fadeIn 0.25s ease;
+    ${type === 'success' ? 'background: rgba(34,197,94,0.95); color: white; border: 1px solid rgba(255,255,255,0.2);' : ''}
+    ${type === 'error' ? 'background: rgba(239,68,68,0.95); color: white; border: 1px solid rgba(255,255,255,0.2);' : ''}
+    ${type === 'info' ? 'background: rgba(59,130,246,0.95); color: white; border: 1px solid rgba(255,255,255,0.2);' : ''}
   `;
   el.textContent = message;
   document.body.appendChild(el);
   setTimeout(() => {
-    el.style.animation = 'slideInRight 0.3s ease reverse';
-    setTimeout(() => el.remove(), 300);
-  }, 4000);
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(-50%) translateY(-10px)';
+    el.style.transition = 'all 0.25s ease';
+    setTimeout(() => el.remove(), 250);
+  }, 3500);
 }
 
 // DOM Elements
