@@ -1402,12 +1402,7 @@ img.loaded { animation: none; background: none; }
 
 .hero-subtitle {
   font-size: var(--text-lg);
-  background: linear-gradient(90deg, #C0C0C0 0%, #A8A8A8 40%, #000000 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  /* Fallback for browsers without background-clip */
-  color: #C0C0C0;
+  color: #000000;
   line-height: var(--leading-relaxed);
   max-width: 600px;
   margin-bottom: var(--space-8);
