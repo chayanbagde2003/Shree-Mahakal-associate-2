@@ -175,52 +175,21 @@ function initAuthListener() {
   });
 }
 
-// Update UI based on auth state - preserves icon, updates both desktop + mobile, does not overwrite layout/photos
+// Update UI based on auth state
 function updateAuthUI() {
-  const applyToBtn = (btn, isLoggedIn, name) => {
-    if (!btn) return;
-    // preserve icon span if present
-    const icon = btn.querySelector('.btn-icon');
-    const label = isLoggedIn ? name : 'Login';
-    // rebuild innerHTML preserving icon span (no photo/layout change)
-    if (icon) {
-      btn.innerHTML = '';
-      btn.appendChild(icon);
-      btn.appendChild(document.createTextNode(label));
-    } else if (btn.id === 'mobile-login-btn') {
-      // mobile button also has icon span - ensure same
-      const mIcon = document.createElement('span');
-      mIcon.className = 'btn-icon';
-      mIcon.setAttribute('aria-hidden','true');
-      btn.innerHTML = '';
-      btn.appendChild(mIcon);
-      btn.appendChild(document.createTextNode(label));
-    } else {
-      btn.textContent = label;
-      // re-add icon for desktop if missing
-      if (!btn.querySelector('.btn-icon')) {
-        const newIcon = document.createElement('span');
-        newIcon.className = 'btn-icon';
-        newIcon.setAttribute('aria-hidden','true');
-        btn.prepend(newIcon);
-      }
-    }
-    // do not use invalid 'primary'/'secondary' classes - keep btn-login styling
-    btn.classList.add('btn-login');
-    // set click behaviour via dataset, listener in setupEventListeners handles open
-    btn.dataset.authState = isLoggedIn ? 'loggedIn' : 'loggedOut';
-  };
-  const displayName = currentUserProfile?.name || currentUser.displayName || currentUser?.email?.split('@')[0] || 'User';
-  const isLoggedIn = !!currentUser;
-  applyToBtn(loginBtn, isLoggedIn, displayName);
-  applyToBtn(mobileLoginBtn, isLoggedIn, displayName);
-  // update onclick centrally to avoid duplicate handlers
-  if (isLoggedIn) {
-    if (loginBtn) loginBtn.onclick = () => openRequirementsModal();
-    if (mobileLoginBtn) mobileLoginBtn.onclick = () => openRequirementsModal();
+  if (currentUser) {
+    const displayName = currentUserProfile?.name || currentUser.displayName || 'User';
+    loginBtn.textContent = displayName;
+    loginBtn.classList.add('primary');
+    loginBtn.classList.remove('secondary');
+    loginBtn.onclick = () => {
+      openRequirementsModal();
+    };
   } else {
-    if (loginBtn) loginBtn.onclick = () => openLoginModal('user-login');
-    if (mobileLoginBtn) mobileLoginBtn.onclick = () => openLoginModal('user-login');
+    loginBtn.textContent = 'Login';
+    loginBtn.classList.add('secondary');
+    loginBtn.classList.remove('primary');
+    loginBtn.onclick = () => openLoginModal('user-login');
   }
 }
 
@@ -1381,13 +1350,15 @@ function initExteriorGalleryBackdropClose() {
   }
 }
 
-// Close modals on outside click - all modals (preserve layout/photos, fix backdrop bug)
-[loginModal, requirementsModal, planDetailsModal, inquiryFormModal, document.getElementById('cafe-gallery-modal'), document.getElementById('hotel-gallery-modal'), document.getElementById('residential-gallery-modal'), document.getElementById('exterior-gallery-modal')].forEach(modal => {
+// Close modals on outside click
+[loginModal, requirementsModal, document.getElementById('cafe-gallery-modal')].forEach(modal => {
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
+        if (modal.id === 'cafe-gallery-modal') {
+          document.body.style.overflow = '';
+        }
       }
     });
   }
@@ -1462,14 +1433,10 @@ async function handleSignup(e) {
   }
 }
 
-// Requirements form submission - with double-submit guard (preserves layout/photos)
-let requirementsSubmitting = false;
+// Requirements form submission
 async function handleRequirementsSubmit(e) {
   e.preventDefault();
-  if (requirementsSubmitting) return;
-  requirementsSubmitting = true;
-  const submitBtn = e.target.querySelector('button[type="submit"]');
-  if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.6'; }
+  
   const form = e.target;
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries());
@@ -1491,10 +1458,7 @@ async function handleRequirementsSubmit(e) {
   const validation = validateForm(data, bookingValidationRules);
   if (!validation.isValid) {
     const firstError = Object.values(validation.errors)[0];
-    showNotification(firstError, 'error');
-    requirementsSubmitting = false;
-    if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = ''; }
-    return;
+    return showNotification(firstError, 'error');
   }
   
   // Validate files
@@ -1502,10 +1466,7 @@ async function handleRequirementsSubmit(e) {
   if (files && files.length > 0) {
     const fileValidation = validateFiles(files, { maxFiles: 5, maxSizeMB: 5 });
     if (!fileValidation.valid) {
-      showNotification(fileValidation.message, 'error');
-      requirementsSubmitting = false;
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = ''; }
-      return;
+      return showNotification(fileValidation.message, 'error');
     }
   }
   
@@ -1523,16 +1484,10 @@ async function handleRequirementsSubmit(e) {
       showNotification(error, 'error');
     } else {
       showNotification(`Booking submitted successfully! Your Booking ID: ${id}`);
-      // clear draft on success
-      try { localStorage.removeItem(`smba_draft_${currentUser.uid}`); } catch {}
       closeRequirementsModal();
     }
   } catch (err) {
     showNotification('Failed to submit booking. Please try again.', 'error');
-  } finally {
-    requirementsSubmitting = false;
-    const btn = document.querySelector('#requirements-form button[type="submit"]');
-    if (btn) { btn.disabled = false; btn.style.opacity = ''; }
   }
 }
 
@@ -1554,36 +1509,28 @@ function setupEventListeners() {
   document.getElementById('residential-gallery-close')?.addEventListener('click', closeResidentialGalleryModal);
   document.getElementById('exterior-gallery-close')?.addEventListener('click', closeExteriorGalleryModal);
   
-  // Service cards - click + keyboard (accessibility, photo paths unchanged)
-  const addCardHandlers = (id, opener) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.addEventListener('click', opener);
-    el.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        opener();
-      }
-    });
-  };
-  addCardHandlers('cafe-design', openCafeGalleryModal);
+  // Cafe Design Card click
+  document.getElementById('cafe-design')?.addEventListener('click', openCafeGalleryModal);
   // Cafe Gallery backdrop close
   initCafeGalleryBackdropClose();
   // Cafe Gallery carousel
   initCafeGalleryCarousel();
   
   // Hotel Design Card click
-  addCardHandlers('hotel-resort', openHotelGalleryModal);
+  const hotelCard = document.getElementById('hotel-resort');
+  hotelCard?.addEventListener('click', () => {
+    openHotelGalleryModal();
+  });
   // Hotel Gallery backdrop close
   initHotelGalleryBackdropClose();
   
   // Residential Design Card click
-  addCardHandlers('residential-interiors', openResidentialGalleryModal);
+  document.getElementById('residential-interiors')?.addEventListener('click', openResidentialGalleryModal);
   // Residential Gallery backdrop close
   initResidentialGalleryBackdropClose();
   
   // Exterior Design Card click
-  addCardHandlers('3d-exterior', openExteriorGalleryModal);
+  document.getElementById('3d-exterior')?.addEventListener('click', openExteriorGalleryModal);
   // Exterior Gallery backdrop close
   initExteriorGalleryBackdropClose();
   
@@ -1600,25 +1547,9 @@ function setupEventListeners() {
     });
   }
   
-  // Save as Draft - stores requirements form locally without Firestore (preserves data)
-  document.getElementById('save-draft-btn')?.addEventListener('click', () => {
-    const form = document.getElementById('requirements-form');
-    if (!form) return;
-    const fd = new FormData(form);
-    const draft = Object.fromEntries(fd.entries());
-    const key = currentUser?.uid ? `smba_draft_${currentUser.uid}` : 'smba_draft_guest';
-    try { localStorage.setItem(key, JSON.stringify({ ...draft, savedAt: new Date().toISOString() })); } catch {}
-    showNotification('Draft saved locally', 'info');
-  });
-
-  // Inquiry Form submission - with double-submit guard
-  let inquirySubmitting = false;
+  // Inquiry Form submission
   inquiryForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (inquirySubmitting) return;
-    inquirySubmitting = true;
-    const btn = inquiryForm.querySelector('button[type="submit"]');
-    if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
     const formData = new FormData(inquiryForm);
     const data = Object.fromEntries(formData.entries());
     
@@ -1627,8 +1558,6 @@ function setupEventListeners() {
     for (const field of requiredFields) {
       if (!data[field]) {
         showNotification(`Please fill in all required fields`, 'error');
-        if (btn) { btn.disabled = false; btn.style.opacity = ''; }
-        inquirySubmitting = false;
         return;
       }
     }
@@ -1638,8 +1567,6 @@ function setupEventListeners() {
     
     showNotification('Inquiry sent successfully! We\'ll contact you soon.');
     closeInquiryFormModal();
-    if (btn) { btn.disabled = false; btn.style.opacity = ''; }
-    inquirySubmitting = false;
   });
   
   
@@ -1731,13 +1658,15 @@ function setupEventListeners() {
     }
   });
   
-  // Explore Plans / Pricing nav - allow scrolling without forced login (preserves layout/photos, fixes UX bug)
-  // Previously this blocked all #packages links for guests; now guest can view section, detailed actions still work
+  // Explore Plans buttons
   document.querySelectorAll('a[href="#packages"]').forEach(btn => {
-    // no preventDefault - keep native smooth scroll
-    btn.addEventListener('click', () => {
-      // optional gentle hint for guests, but do not block navigation
-      // if (!currentUser) showNotification('Tip: login to get detailed quote', 'info');
+    btn.addEventListener('click', (e) => {
+      if (!currentUser) {
+        e.preventDefault();
+        loginModal.dataset.trigger = 'requirements';
+        openLoginModal('user-login');
+        showNotification('Please login to view detailed plans', 'info');
+      }
     });
   });
   
@@ -1846,13 +1775,6 @@ function initCostCalculator() {
     if (calcAreaDisplay) {calcAreaDisplay.textContent = area.toLocaleString('en-IN');}
     if (calcBaseCost) {calcBaseCost.textContent = `₹${Math.round(baseCost).toLocaleString('en-IN')}`;}
     if (calcDiscountAmount) {calcDiscountAmount.textContent = `-₹${Math.round(discount).toLocaleString('en-IN')}`;}
-    // update Book Free Site Visit link to include calculated amount (no photo change)
-    const bookLink = document.querySelector('.calc-actions a.btn');
-    if (bookLink) {
-      const planText = calcPlan.options[calcPlan.selectedIndex]?.text || '';
-      const msg = `Hello Shree Mahakal Associates, I calculated a quote: ${area} sq.ft. × ${planText} = ${calcOutput.textContent} (discount ${apply ? '2.5% applied' : 'no discount'}). Please book a free site visit.`;
-      bookLink.href = `https://wa.me/919399330188?text=${encodeURIComponent(msg)}`;
-    }
   }
 
   calcArea.addEventListener('input', updateCalcOutput);
@@ -1975,9 +1897,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Mobile dropdown
   initMobileDropdown();
-  
-  // Fix button types without touching photo paths (prevents form submit accidents)
-  document.querySelectorAll('.carousel-btn, .carousel-indicator, .modal-close').forEach(b => { if (!b.getAttribute('type')) b.setAttribute('type','button'); });
   
   // Active nav highlight
   initActiveNavHighlight();
