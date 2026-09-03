@@ -57,6 +57,34 @@ function showNotification(message, type = 'info') {
   }, 3500);
 }
 
+// Login success animation (1-2s premium, auth only)
+function showLoginSuccessAnimation(displayName) {
+  return new Promise((resolve) => {
+    const overlay = document.createElement('div');
+    overlay.className = 'login-success-overlay';
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.innerHTML = `
+      <div class="login-success-card">
+        <div class="login-checkmark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="login-success-title">Welcome, ${displayName} 👋</div>
+        <div class="login-success-sub">Signed in successfully</div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+    // auto-remove after 1.4s
+    setTimeout(() => {
+      overlay.style.opacity = '0';
+      overlay.style.transition = 'opacity 0.25s ease';
+      setTimeout(() => { overlay.remove(); resolve(); }, 250);
+    }, 1400);
+  });
+}
+
+// Auth loading to prevent flicker
+let isAuthChecking = true;
+
 // DOM Elements
 const loginBtn = document.getElementById('login-btn');
 const mobileLoginBtn = document.getElementById('mobile-login-btn');
@@ -158,16 +186,24 @@ function initContactButtons() {
   });
 }
 
-// Initialize auth state listener
+// Initialize auth state listener - Firebase onAuthStateChanged is source of truth, survives refresh
 function initAuthListener() {
+  // Show checking state until first callback (prevents flicker)
+  isAuthChecking = true;
+  updateAuthUI();
+  let firstCall = true;
   onAuthStateChange(({ user, profile }) => {
     currentUser = user;
     currentUserProfile = profile;
+    if (firstCall) {
+      isAuthChecking = false;
+      firstCall = false;
+    }
     updateAuthUI();
     
-    // If login modal was open, close it
-    if (loginModal?.getAttribute('aria-hidden') === 'false') {
-      closeLoginModal();
+    // If login modal was open, close it (but success animation handles close)
+    if (loginModal?.getAttribute('aria-hidden') === 'false' && !isAuthChecking) {
+      // keep open for animation, will be closed by handle success
     }
     
     // If requirements modal should open after login
@@ -213,7 +249,16 @@ function updateAuthUI() {
     // set click behaviour via dataset, listener in setupEventListeners handles open
     btn.dataset.authState = isLoggedIn ? 'loggedIn' : 'loggedOut';
   };
-  const displayName = currentUserProfile?.name || currentUser.displayName || currentUser?.email?.split('@')[0] || 'User';
+  if (isAuthChecking) {
+    if (loginBtn) { const ic = loginBtn.querySelector('.btn-icon'); loginBtn.innerHTML = ''; if (ic) loginBtn.appendChild(ic); loginBtn.appendChild(document.createTextNode('Checking...')); loginBtn.disabled = true; loginBtn.style.opacity = '0.7'; }
+    if (mobileLoginBtn) { mobileLoginBtn.textContent = 'Checking...'; mobileLoginBtn.disabled = true; mobileLoginBtn.style.opacity = '0.7'; }
+    const pm = document.getElementById('profile-menu'); if (pm) pm.style.display = 'none';
+    return;
+  } else {
+    if (loginBtn) { loginBtn.disabled = false; loginBtn.style.opacity = ''; }
+    if (mobileLoginBtn) { mobileLoginBtn.disabled = false; mobileLoginBtn.style.opacity = ''; }
+  }
+  const displayName = currentUserProfile?.name || currentUser?.displayName || currentUser?.email?.split('@')[0] || 'User';
   const isLoggedIn = !!currentUser;
   // Profile menu handling like other websites - show name/avatar when logged in
   const profileMenu = document.getElementById('profile-menu');
@@ -1425,17 +1470,28 @@ async function handleUserLogin(e) {
   const emailValidation = validateEmail(email);
   if (!emailValidation.valid) {return showNotification(emailValidation.message, 'error');}
   
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const origText = submitBtn ? submitBtn.textContent : '';
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Signing in...'; submitBtn.style.opacity = '0.7'; }
   try {
     const { user, error } = await loginWithEmail(email, password);
     
     if (error) {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origText; submitBtn.style.opacity = ''; }
       showNotification(error, 'error');
     } else {
-      showNotification(`Welcome back, ${user.displayName || 'User'}!`);
+      const name = user.displayName || user.email?.split('@')[0] || 'User';
+      if (submitBtn) submitBtn.textContent = 'Success...';
       closeLoginModal();
+      await showLoginSuccessAnimation(name);
+      showNotification(`Welcome, ${name} 👋`, 'success');
     }
   } catch (err) {
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origText; submitBtn.style.opacity = ''; }
     showNotification('Login failed. Please try again.', 'error');
+  } finally {
+    if (submitBtn && !submitBtn.disabled) { /* keep success state until animation done */ }
+    setTimeout(() => { if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origText; submitBtn.style.opacity = ''; } }, 1600);
   }
 }
 
@@ -1466,6 +1522,9 @@ async function handleSignup(e) {
     return showNotification('Passwords do not match', 'error');
   }
   
+  const submitBtn2 = form.querySelector('button[type="submit"]');
+  const origText2 = submitBtn2 ? submitBtn2.textContent : '';
+  if (submitBtn2) { submitBtn2.disabled = true; submitBtn2.textContent = 'Creating...'; submitBtn2.style.opacity = '0.7'; }
   try {
     const { user: _user, error } = await registerWithEmail(email, password, {
       name: nameValidation.cleaned,
@@ -1473,14 +1532,19 @@ async function handleSignup(e) {
     });
     
     if (error) {
+      if (submitBtn2) { submitBtn2.disabled = false; submitBtn2.textContent = origText2; submitBtn2.style.opacity = ''; }
       showNotification(error, 'error');
     } else {
-      showNotification(`Welcome, ${nameValidation.cleaned}! Account created successfully.`, 'success');
+      if (submitBtn2) submitBtn2.textContent = 'Success...';
       closeLoginModal();
-      // Auto-login: user already set via registerWithEmail -> updateAuthUI will show profile, no need to sign in again
+      await showLoginSuccessAnimation(nameValidation.cleaned);
+      showNotification(`Welcome, ${nameValidation.cleaned} 👋`, 'success');
     }
   } catch (err) {
+    if (submitBtn2) { submitBtn2.disabled = false; submitBtn2.textContent = origText2; submitBtn2.style.opacity = ''; }
     showNotification('Registration failed. Please try again.', 'error');
+  } finally {
+    setTimeout(() => { if (submitBtn2) { submitBtn2.disabled = false; submitBtn2.textContent = origText2; submitBtn2.style.opacity = ''; } }, 1600);
   }
 }
 

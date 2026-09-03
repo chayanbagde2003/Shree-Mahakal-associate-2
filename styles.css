@@ -3017,6 +3017,66 @@ img.loaded { animation: none; background: none; }
   z-index: 2;
 }
 
+/* ===== Login Success Animation (auth only, 1-2s premium) ===== */
+.login-success-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(10,15,20,0.6);
+  backdrop-filter: blur(4px);
+  z-index: var(--z-tooltip);
+  animation: loginFadeIn 0.25s ease;
+}
+.login-success-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8) var(--space-10);
+  text-align: center;
+  box-shadow: var(--shadow-xl), 0 0 30px rgba(201,168,68,0.15);
+  animation: loginCardIn 0.35s cubic-bezier(0.16,1,0.3,1);
+  min-width: 280px;
+}
+.login-checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  display: grid;
+  place-items: center;
+  margin: 0 auto var(--space-4);
+  box-shadow: 0 0 20px rgba(201,168,68,0.4);
+  animation: loginCheckPop 0.5s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+}
+.login-checkmark svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--color-text-inverse);
+  stroke-width: 3;
+  fill: none;
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: loginCheckDraw 0.4s ease 0.5s forwards;
+}
+.login-success-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+  animation: loginFadeUp 0.35s ease 0.7s both;
+}
+.login-success-sub {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  animation: loginFadeUp 0.35s ease 0.8s both;
+}
+@keyframes loginFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes loginCardIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes loginCheckPop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes loginCheckDraw { to { stroke-dashoffset: 0; } }
+@keyframes loginFadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
 /* ===== Print ===== */
 @media print {
   .site-header,
