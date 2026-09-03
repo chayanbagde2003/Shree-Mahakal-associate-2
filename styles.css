@@ -955,11 +955,12 @@ img.loaded { animation: none; background: none; }
   gap: var(--space-3);
 }
 
-/* Mobile Menu Button */
+/* Mobile Menu Button - ensure fully visible on mobile */
 .mobile-menu-btn {
   display: none;
   width: 44px;
   height: 44px;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-md);
@@ -968,6 +969,7 @@ img.loaded { animation: none; background: none; }
   color: var(--color-text);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  margin-left: auto;
 }
 
 .mobile-menu-btn:hover {
