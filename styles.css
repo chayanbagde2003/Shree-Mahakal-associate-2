@@ -1402,6 +1402,7 @@ img.loaded { animation: none; background: none; }
 
 .hero-subtitle {
   font-size: var(--text-lg);
+  font-weight: var(--font-extrabold);
   color: #000000;
   line-height: var(--leading-relaxed);
   max-width: 600px;
