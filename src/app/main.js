@@ -1475,8 +1475,9 @@ async function handleSignup(e) {
     if (error) {
       showNotification(error, 'error');
     } else {
-      showNotification('Account created! Please check your email for verification.');
+      showNotification(`Welcome, ${nameValidation.cleaned}! Account created successfully.`, 'success');
       closeLoginModal();
+      // Auto-login: user already set via registerWithEmail -> updateAuthUI will show profile, no need to sign in again
     }
   } catch (err) {
     showNotification('Registration failed. Please try again.', 'error');
@@ -1588,6 +1589,14 @@ function setupEventListeners() {
     await logoutUser();
     showNotification('Logged out successfully', 'info');
     if (profileDropdown) { profileDropdown.setAttribute('aria-hidden','true'); profileDropdown.style.display='none'; }
+  });
+  document.getElementById('profile-dashboard-btn')?.addEventListener('click', () => {
+    if (profileDropdown) { profileDropdown.setAttribute('aria-hidden','true'); profileDropdown.style.display='none'; }
+    showNotification('Dashboard coming soon', 'info');
+  });
+  document.getElementById('profile-bookings-btn')?.addEventListener('click', () => {
+    if (profileDropdown) { profileDropdown.setAttribute('aria-hidden','true'); profileDropdown.style.display='none'; }
+    openRequirementsModal();
   });
   
   // Close modal buttons
