@@ -3017,25 +3017,32 @@ img.loaded { animation: none; background: none; }
   z-index: 2;
 }
 
-/* ===== Login Success Animation (small, contained in login modal, 1-2s) ===== */
+/* ===== Login Success Animation - small glassmorphism card (280-360px, 1-1.5s) ===== */
 .login-success-overlay {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
-  background: rgba(17,24,32,0.92);
-  backdrop-filter: blur(8px);
+  background: rgba(17,24,32,0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 10;
   border-radius: var(--radius-xl);
   animation: loginFadeIn 0.2s ease;
 }
 .login-success-card {
-  background: transparent;
-  border: none;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: var(--radius-xl);
   padding: var(--space-6) var(--space-8);
   text-align: center;
-  min-width: 220px;
+  width: 320px;
+  max-width: 90%;
+  min-width: 280px;
+  max-width: 360px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 20px rgba(201,168,68,0.08);
   animation: loginCardIn 0.3s cubic-bezier(0.16,1,0.3,1);
 }
 .login-checkmark {

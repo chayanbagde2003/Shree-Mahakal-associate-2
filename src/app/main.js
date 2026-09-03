@@ -1491,7 +1491,7 @@ async function handleUserLogin(e) {
       if (submitBtn) submitBtn.textContent = 'Success...';
       closeLoginModal();
       await showLoginSuccessAnimation(name);
-      showNotification(`Welcome, ${name} 👋`, 'success');
+      // Small glass card is the only success UI - no large notification
     }
   } catch (err) {
     if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origText; submitBtn.style.opacity = ''; }
@@ -1545,7 +1545,7 @@ async function handleSignup(e) {
       if (submitBtn2) submitBtn2.textContent = 'Success...';
       closeLoginModal();
       await showLoginSuccessAnimation(nameValidation.cleaned);
-      showNotification(`Welcome, ${nameValidation.cleaned} 👋`, 'success');
+      // Small glass card is the only success UI
     }
   } catch (err) {
     if (submitBtn2) { submitBtn2.disabled = false; submitBtn2.textContent = origText2; submitBtn2.style.opacity = ''; }
@@ -1658,8 +1658,8 @@ function setupEventListeners() {
   });
   document.getElementById('logout-btn')?.addEventListener('click', async () => {
     await logoutUser();
-    showNotification('Logged out successfully', 'info');
     if (profileDropdown) { profileDropdown.setAttribute('aria-hidden','true'); profileDropdown.style.display='none'; }
+    // No large notification - just return to Sign In state silently
   });
   document.getElementById('profile-dashboard-btn')?.addEventListener('click', () => {
     if (profileDropdown) { profileDropdown.setAttribute('aria-hidden','true'); profileDropdown.style.display='none'; }
