@@ -57,7 +57,7 @@ function showNotification(message, type = 'info') {
   }, 3500);
 }
 
-// Login success animation (1-2s premium, auth only)
+// Login success animation - small, contained inside login modal (1-2s)
 function showLoginSuccessAnimation(displayName) {
   return new Promise((resolve) => {
     const overlay = document.createElement('div');
@@ -69,11 +69,16 @@ function showLoginSuccessAnimation(displayName) {
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
         <div class="login-success-title">Welcome, ${displayName} 👋</div>
-        <div class="login-success-sub">Signed in successfully</div>
+        <div class="login-success-sub">Signed in</div>
       </div>
     `;
-    document.body.appendChild(overlay);
-    // auto-remove after 1.4s
+    const panel = loginModal?.querySelector('.login-modal-panel') || loginModal;
+    if (panel) {
+      panel.style.position = 'relative';
+      panel.appendChild(overlay);
+    } else {
+      document.body.appendChild(overlay);
+    }
     setTimeout(() => {
       overlay.style.opacity = '0';
       overlay.style.transition = 'opacity 0.25s ease';
@@ -250,9 +255,11 @@ function updateAuthUI() {
     btn.dataset.authState = isLoggedIn ? 'loggedIn' : 'loggedOut';
   };
   if (isAuthChecking) {
-    if (loginBtn) { const ic = loginBtn.querySelector('.btn-icon'); loginBtn.innerHTML = ''; if (ic) loginBtn.appendChild(ic); loginBtn.appendChild(document.createTextNode('Checking...')); loginBtn.disabled = true; loginBtn.style.opacity = '0.7'; }
-    if (mobileLoginBtn) { mobileLoginBtn.textContent = 'Checking...'; mobileLoginBtn.disabled = true; mobileLoginBtn.style.opacity = '0.7'; }
+    // Keep login UI immediately as Sign In (no Checking... text), check happens in background
+    if (loginBtn) { loginBtn.disabled = false; loginBtn.style.opacity = ''; }
+    if (mobileLoginBtn) { mobileLoginBtn.disabled = false; mobileLoginBtn.style.opacity = ''; }
     const pm = document.getElementById('profile-menu'); if (pm) pm.style.display = 'none';
+    // Do not show any large notification during checking
     return;
   } else {
     if (loginBtn) { loginBtn.disabled = false; loginBtn.style.opacity = ''; }

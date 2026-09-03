@@ -3017,26 +3017,26 @@ img.loaded { animation: none; background: none; }
   z-index: 2;
 }
 
-/* ===== Login Success Animation (auth only, 1-2s premium) ===== */
+/* ===== Login Success Animation (small, contained in login modal, 1-2s) ===== */
 .login-success-overlay {
-  position: fixed;
+  position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
-  background: rgba(10,15,20,0.6);
-  backdrop-filter: blur(4px);
-  z-index: var(--z-tooltip);
-  animation: loginFadeIn 0.25s ease;
+  background: rgba(17,24,32,0.92);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+  border-radius: var(--radius-xl);
+  animation: loginFadeIn 0.2s ease;
 }
 .login-success-card {
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
+  background: transparent;
+  border: none;
   border-radius: var(--radius-xl);
-  padding: var(--space-8) var(--space-10);
+  padding: var(--space-6) var(--space-8);
   text-align: center;
-  box-shadow: var(--shadow-xl), 0 0 30px rgba(201,168,68,0.15);
-  animation: loginCardIn 0.35s cubic-bezier(0.16,1,0.3,1);
-  min-width: 280px;
+  min-width: 220px;
+  animation: loginCardIn 0.3s cubic-bezier(0.16,1,0.3,1);
 }
 .login-checkmark {
   width: 56px;
