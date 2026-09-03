@@ -60,9 +60,23 @@
         </ul>
       </nav>
 
-      <!-- RIGHT: Login -->
+      <!-- RIGHT: Login / Profile -->
       <div class="header-right">
         <button class="btn btn-login" id="login-btn" type="button"><span class="btn-icon" aria-hidden="true"></span>Login</button>
+        <div class="profile-menu" id="profile-menu" style="display:none; position:relative;">
+          <button class="btn btn-login" id="profile-btn" type="button" aria-expanded="false" aria-haspopup="true">
+            <span class="profile-avatar" aria-hidden="true">👤</span>
+            <span id="profile-name">User</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="profile-dropdown glass" id="profile-dropdown" aria-hidden="true" style="position:absolute; top:calc(100% + 8px); right:0; min-width:220px; background: var(--color-bg-elevated); border:1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); padding: 0.5rem; display:none; z-index: var(--z-dropdown);">
+            <div class="profile-dropdown-header" style="padding:0.75rem 1rem; border-bottom:1px solid var(--color-border); margin-bottom:0.5rem;">
+              <strong id="profile-dropdown-name" style="display:block; font-size: var(--text-sm);">User</strong>
+              <small id="profile-dropdown-email" style="color: var(--color-text-secondary); font-size: var(--text-xs); word-break: break-all;">user@example.com</small>
+            </div>
+            <button id="logout-btn" type="button" class="profile-dropdown-item" style="width:100%; text-align:left; padding:0.6rem 1rem; border-radius: var(--radius-md); background:transparent; color: var(--color-text); font-size: var(--text-sm);">Logout</button>
+          </div>
+        </div>
       </div>
 
       <!-- Mobile Menu Button -->

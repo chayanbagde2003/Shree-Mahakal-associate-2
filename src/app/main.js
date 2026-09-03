@@ -9,7 +9,8 @@ import {
   getTelUrl,
   loginWithEmail,
   registerWithEmail,
-  resetPassword
+  resetPassword,
+  logoutUser
 } from "../services/auth.js";
 import { 
   createBooking
@@ -214,7 +215,25 @@ function updateAuthUI() {
   };
   const displayName = currentUserProfile?.name || currentUser.displayName || currentUser?.email?.split('@')[0] || 'User';
   const isLoggedIn = !!currentUser;
-  applyToBtn(loginBtn, isLoggedIn, displayName);
+  // Profile menu handling like other websites - show name/avatar when logged in
+  const profileMenu = document.getElementById('profile-menu');
+  const profileName = document.getElementById('profile-name');
+  const profileDropdownName = document.getElementById('profile-dropdown-name');
+  const profileDropdownEmail = document.getElementById('profile-dropdown-email');
+  if (profileMenu) {
+    if (isLoggedIn) {
+      profileMenu.style.display = 'flex';
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (profileName) profileName.textContent = displayName;
+      if (profileDropdownName) profileDropdownName.textContent = displayName;
+      if (profileDropdownEmail) profileDropdownEmail.textContent = currentUser.email || '';
+    } else {
+      profileMenu.style.display = 'none';
+      if (loginBtn) loginBtn.style.display = 'inline-flex';
+    }
+  } else {
+    applyToBtn(loginBtn, isLoggedIn, displayName);
+  }
   applyToBtn(mobileLoginBtn, isLoggedIn, displayName);
   // update onclick centrally to avoid duplicate handlers
   if (isLoggedIn) {
@@ -1547,6 +1566,29 @@ function setupEventListeners() {
   // Login button
   loginBtn?.addEventListener('click', () => openLoginModal('user-login'));
   mobileLoginBtn?.addEventListener('click', () => openLoginModal('user-login'));
+
+  // Profile dropdown like other websites - shows name after login
+  const profileBtn = document.getElementById('profile-btn');
+  const profileDropdown = document.getElementById('profile-dropdown');
+  profileBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = profileDropdown.getAttribute('aria-hidden') === 'false';
+    profileDropdown.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+    profileDropdown.style.display = isOpen ? 'none' : 'block';
+    profileBtn.setAttribute('aria-expanded', String(!isOpen));
+  });
+  document.addEventListener('click', (e) => {
+    if (profileDropdown && profileBtn && !profileDropdown.contains(e.target) && !profileBtn.contains(e.target)) {
+      profileDropdown.setAttribute('aria-hidden', 'true');
+      profileDropdown.style.display = 'none';
+      profileBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+  document.getElementById('logout-btn')?.addEventListener('click', async () => {
+    await logoutUser();
+    showNotification('Logged out successfully', 'info');
+    if (profileDropdown) { profileDropdown.setAttribute('aria-hidden','true'); profileDropdown.style.display='none'; }
+  });
   
   // Close modal buttons
   document.getElementById('login-modal-close')?.addEventListener('click', closeLoginModal);

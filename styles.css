@@ -1018,6 +1018,12 @@ img.loaded { animation: none; background: none; }
   background: transparent;
 }
 
+/* Profile menu - shows after login like other websites */
+.profile-menu { display: flex; align-items: center; }
+.profile-avatar { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.15); display: grid; place-items: center; font-size: 14px; }
+#profile-dropdown[aria-hidden="false"] { display: block !important; }
+.profile-dropdown-item:hover { background: var(--color-primary-bg) !important; color: var(--color-primary) !important; }
+
 .mobile-menu-btn.active .hamburger::before {
   transform: rotate(45deg) translate(5px, 5px);
 }
