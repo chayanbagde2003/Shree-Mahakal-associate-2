@@ -1661,13 +1661,37 @@ function setupEventListeners() {
     if (profileDropdown) { profileDropdown.setAttribute('aria-hidden','true'); profileDropdown.style.display='none'; }
     // No large notification - just return to Sign In state silently
   });
-  document.getElementById('profile-dashboard-btn')?.addEventListener('click', () => {
-    if (profileDropdown) { profileDropdown.setAttribute('aria-hidden','true'); profileDropdown.style.display='none'; }
-    showNotification('Dashboard coming soon', 'info');
-  });
   document.getElementById('profile-bookings-btn')?.addEventListener('click', () => {
     if (profileDropdown) { profileDropdown.setAttribute('aria-hidden','true'); profileDropdown.style.display='none'; }
-    openRequirementsModal();
+    // Show user booking details (from localStorage/Firestore) - like before, no extra page
+    const inquiries = JSON.parse(localStorage.getItem('smba_inquiries') || '[]');
+    const userInquiries = currentUser ? inquiries.filter(i => i.userId === currentUser.uid || i.userEmail === currentUser.email) : [];
+    if (userInquiries.length === 0) {
+      showNotification('No bookings yet. Create one via My Bookings.', 'info');
+      openRequirementsModal();
+      return;
+    }
+    // Simple bookings modal
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.setAttribute('aria-hidden', 'false');
+    modal.style.display = 'flex';
+    modal.innerHTML = `
+      <div class="modal-panel glass" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+        <button class="modal-close" onclick="this.closest('.modal').remove();document.body.style.overflow=''" style="position:absolute; top:0.5rem; right:0.5rem;">✕</button>
+        <h3 style="margin-bottom:1rem;">My Bookings (${userInquiries.length})</h3>
+        ${userInquiries.map(b => `
+          <div style="border:1px solid var(--color-border); border-radius: var(--radius-md); padding:1rem; margin-bottom:0.75rem; background: var(--color-bg-elevated);">
+            <strong>${b.planChoice || b.plan || 'Custom'} - ${b.projectType || ''}</strong><br>
+            <small style="color:var(--color-text-secondary);">${b.location || ''} • ${b.plotSize || ''} sq.ft • ${b.status || 'new'}</small><br>
+            <small style="color:var(--color-text-muted);">${new Date(b.createdAt).toLocaleString()}</small>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    modal.addEventListener('click', (e) => { if (e.target === modal) { modal.remove(); document.body.style.overflow=''; } });
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
   });
   
   // Close modal buttons
