@@ -18,8 +18,8 @@ private-key*.json
 .DS_Store
 Thumbs.db
 
-# Large media - use Git LFS or host externally (90MB hero frames)
-hero_60_frames_4k/
+# Large media - hero frames via LFS for GH Pages
+# hero_60_frames_4k/  # tracked via LFS
 # Misc
 *.log
 *.tmp
