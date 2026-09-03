@@ -955,7 +955,7 @@ img.loaded { animation: none; background: none; }
   gap: var(--space-3);
 }
 
-/* Mobile Menu Button - ensure fully visible on mobile */
+/* Mobile Menu Button - golden as requested */
 .mobile-menu-btn {
   display: none;
   width: 44px;
@@ -964,9 +964,10 @@ img.loaded { animation: none; background: none; }
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-md);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
+  background: linear-gradient(135deg, #c9a844, #d4b85a);
+  border: 1px solid rgba(201,168,68,0.5);
+  color: #0a0f14;
+  box-shadow: 0 2px 8px rgba(201,168,68,0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   margin-left: auto;
@@ -1006,6 +1007,12 @@ img.loaded { animation: none; background: none; }
 
 .hamburger::before { top: -7px; }
 .hamburger::after { bottom: -7px; }
+
+.mobile-menu-btn .hamburger,
+.mobile-menu-btn .hamburger::before,
+.mobile-menu-btn .hamburger::after {
+  background: #0a0f14;
+}
 
 .mobile-menu-btn.active .hamburger {
   background: transparent;
@@ -1395,10 +1402,16 @@ img.loaded { animation: none; background: none; }
 
 .hero-subtitle {
   font-size: var(--text-lg);
-  color: var(--color-text-secondary);
+  background: linear-gradient(90deg, #C0C0C0 0%, #A8A8A8 40%, #000000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Fallback for browsers without background-clip */
+  color: #C0C0C0;
   line-height: var(--leading-relaxed);
   max-width: 600px;
   margin-bottom: var(--space-8);
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.5));
 }
 
 .hero-actions {
