@@ -1402,12 +1402,18 @@ img.loaded { animation: none; background: none; }
 
 .hero-subtitle {
   font-size: var(--text-lg);
-  font-weight: var(--font-extrabold);
-  color: #000000;
+  font-weight: var(--font-medium);
+  color: #f1f5f9;
   line-height: var(--leading-relaxed);
   max-width: 600px;
   margin-bottom: var(--space-8);
-  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.5));
+  background: rgba(255,255,255,0.06);
+  border-left: 3px solid #c9a844;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .hero-actions {
