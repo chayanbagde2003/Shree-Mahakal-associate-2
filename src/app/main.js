@@ -25,17 +25,9 @@ import {
 } from "../utils/validation.js";
 import { BUSINESS_CONFIG } from "../config/business.js";
 
-// GH Pages base helper for runtime assets (branch + dist compatible)
-const withBase = (p) => {
-  let base = '/';
-  try { base = import.meta.env?.BASE_URL || base; } catch {}
-  if (!base || base.includes('undefined')) base = '/';
-  if (base === '/' && typeof location !== 'undefined' && location.pathname.includes('Shree-Mahakal-associate-2')) base = '/Shree-Mahakal-associate-2/';
-  if (!base.endsWith('/')) base += '/';
-  if (p.startsWith(base)) return p;
-  if (p.startsWith('/')) p = p.slice(1);
-  return `${base}${p}`;
-};
+// Global state
+let currentUser = null;
+let currentUserProfile = null;
 
 // Notification helper
 function showNotification(message, type = 'info') {
@@ -716,14 +708,14 @@ function openAllPlansModal() {
 
 // Cafe Gallery Images - all from assets/cafe-pics per user request
 const CAFE_GALLERY_IMAGES = [
-  withBase('assets/cafe-pics/360_F_1522187751_Mc0GzTPkSlHuzqa0BFGgYOeft7KJVYCD.jpg'),
-  withBase('assets/cafe-pics/360_F_1662286312_eI7l30O5LI43BJuKpi0hPlWqaY3meefX.jpg'),
-  withBase('assets/cafe-pics/A4196-10-Things-you-should-remember-before-designing-a-coffee-shop.webp'),
-  withBase('assets/cafe-pics/images (1).jpg'),
-  withBase('assets/cafe-pics/images (2).jpg'),
-  withBase('assets/cafe-pics/images (3).jpg'),
-  withBase('assets/cafe-pics/images (4).jpg'),
-  withBase('assets/cafe-pics/images.jpg')
+  'assets/cafe-pics/360_F_1522187751_Mc0GzTPkSlHuzqa0BFGgYOeft7KJVYCD.jpg',
+  'assets/cafe-pics/360_F_1662286312_eI7l30O5LI43BJuKpi0hPlWqaY3meefX.jpg',
+  'assets/cafe-pics/A4196-10-Things-you-should-remember-before-designing-a-coffee-shop.webp',
+  'assets/cafe-pics/images (1).jpg',
+  'assets/cafe-pics/images (2).jpg',
+  'assets/cafe-pics/images (3).jpg',
+  'assets/cafe-pics/images (4).jpg',
+  'assets/cafe-pics/images.jpg'
 ];
 
 console.log('Cafe Gallery Images:', CAFE_GALLERY_IMAGES);
@@ -946,12 +938,12 @@ function initCafeGalleryCarousel() {
 
 // Hotel Gallery Modal - all from assets/hotel-resort per user request
 const HOTEL_GALLERY_IMAGES = [
-  withBase('assets/hotel-resort/hotel-image-2.webp'),
-  withBase('assets/hotel-resort/sunyata-hotel.webp'),
-  withBase('assets/hotel-resort/images (1).jpg'),
-  withBase('assets/hotel-resort/images (2).jpg'),
-  withBase('assets/hotel-resort/images (5).jpg'),
-  withBase('assets/hotel-resort/images.jpg')
+  'assets/hotel-resort/hotel-image-2.webp',
+  'assets/hotel-resort/sunyata-hotel.webp',
+  'assets/hotel-resort/images (1).jpg',
+  'assets/hotel-resort/images (2).jpg',
+  'assets/hotel-resort/images (5).jpg',
+  'assets/hotel-resort/images.jpg'
 ];
 
 function openHotelGalleryModal() {
@@ -1097,13 +1089,13 @@ function initHotelGalleryBackdropClose() {
 
 // Residential Gallery Modal
 const RESIDENTIAL_GALLERY_IMAGES = [
-  withBase('images/kitchen-image-1.webp'),
-  withBase('assets/kitchen/kitchen-image-2.webp'),
-  withBase('assets/kitchen/g-shape-kitchen.webp'),
-  withBase('assets/kitchen/home-design.webp'),
-  withBase('assets/kitchen/kitchen-img-1779.webp'),
-  withBase('assets/kitchen/kitchen-168.webp'),
-  withBase('assets/kitchen/kitchen-17.webp'),
+  'images/kitchen-image-1.webp',
+  'assets/kitchen/kitchen-image-2.webp',
+  'assets/kitchen/g-shape-kitchen.webp',
+  'assets/kitchen/home-design.webp',
+  'assets/kitchen/kitchen-img-1779.webp',
+  'assets/kitchen/kitchen-168.webp',
+  'assets/kitchen/kitchen-17.webp',
 ];
 
 function openResidentialGalleryModal() {
